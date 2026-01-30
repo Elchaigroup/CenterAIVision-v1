@@ -6,7 +6,6 @@ import { PageHeader } from '@/components/layout/page-header'
 import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { Magnet } from '@/components/ui/magnet'
 import { GradientText } from '@/components/ui/gradient-text'
 import { cn, formatCurrency, calculateROI } from '@/lib/utils'
 
@@ -99,26 +98,22 @@ function ROICalculator() {
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
-                  <Magnet padding={40} magnetStrength={6}>
-                    <div className="p-4 bg-midnight-slate/50 rounded-lg border border-electric-azure/20 hover:border-electric-azure/40 transition-colors">
-                      <div className="text-sm text-cloud-mist/60 mb-1">Total ROI</div>
-                      <div className="text-xl font-semibold">
-                        <GradientText colors={['#2C93FF', '#60B5FF', '#2C93FF']} animationSpeed={4}>
-                          {results.totalROI.toFixed(1)}%
-                        </GradientText>
-                      </div>
+                  <div className="p-4 bg-midnight-slate/50 rounded-lg border border-electric-azure/20">
+                    <div className="text-sm text-cloud-mist/60 mb-1">Total ROI</div>
+                    <div className="text-xl font-semibold">
+                      <GradientText colors={['#2C93FF', '#60B5FF', '#2C93FF']} animationSpeed={4}>
+                        {results.totalROI.toFixed(1)}%
+                      </GradientText>
                     </div>
-                  </Magnet>
-                  <Magnet padding={40} magnetStrength={6}>
-                    <div className="p-4 bg-midnight-slate/50 rounded-lg border border-electric-azure/20 hover:border-electric-azure/40 transition-colors">
-                      <div className="text-sm text-cloud-mist/60 mb-1">Annual ROI</div>
-                      <div className="text-xl font-semibold">
-                        <GradientText colors={['#2C93FF', '#60B5FF', '#2C93FF']} animationSpeed={4}>
-                          {results.annualROI.toFixed(1)}%
-                        </GradientText>
-                      </div>
+                  </div>
+                  <div className="p-4 bg-midnight-slate/50 rounded-lg border border-electric-azure/20">
+                    <div className="text-sm text-cloud-mist/60 mb-1">Annual ROI</div>
+                    <div className="text-xl font-semibold">
+                      <GradientText colors={['#2C93FF', '#60B5FF', '#2C93FF']} animationSpeed={4}>
+                        {results.annualROI.toFixed(1)}%
+                      </GradientText>
                     </div>
-                  </Magnet>
+                  </div>
                 </div>
                 <div className="p-4 bg-midnight-slate/50 rounded-lg border border-electric-azure/20">
                   <div className="text-sm text-cloud-mist/60 mb-1">Break-even Period</div>
@@ -185,21 +180,18 @@ export default function CalculatorsPage() {
           <div className="border-b border-electric-azure/20 mb-8">
             <div className="flex flex-wrap gap-1">
               {tabs.map((tab) => (
-                <Magnet key={tab.id} padding={30} magnetStrength={4}>
-                  <motion.button
-                    onClick={() => setActiveTab(tab.id)}
-                    className={cn(
-                      'px-6 py-4 text-sm font-medium transition-colors border-b-2 -mb-px rounded-t-lg',
-                      activeTab === tab.id
-                        ? 'text-electric-azure border-electric-azure bg-electric-azure/5'
-                        : 'text-cloud-mist/60 border-transparent hover:text-cloud-mist hover:bg-electric-azure/5'
-                    )}
-                    whileHover={{ y: -2 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    {tab.label}
-                  </motion.button>
-                </Magnet>
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={cn(
+                    'px-6 py-4 text-sm font-medium transition-colors border-b-2 -mb-px',
+                    activeTab === tab.id
+                      ? 'text-electric-azure border-electric-azure'
+                      : 'text-cloud-mist/60 border-transparent hover:text-cloud-mist'
+                  )}
+                >
+                  {tab.label}
+                </button>
               ))}
             </div>
           </div>

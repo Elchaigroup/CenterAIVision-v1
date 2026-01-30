@@ -6,7 +6,6 @@ import Image from 'next/image'
 import { motion, AnimatePresence } from 'motion/react'
 import { navigationItems, NavItem } from '@/data/navigation'
 import { Button } from '@/components/ui/button'
-import { Magnet } from '@/components/ui/magnet'
 import { useAuth } from '@/lib/auth-context'
 
 interface DropdownProps {
@@ -75,36 +74,31 @@ function NavItemWithDropdown({ item }: NavItemWithDropdownProps) {
   if (item.dropdown) {
     return (
       <div ref={ref} className="relative">
-        <Magnet padding={50} magnetStrength={3}>
-          <motion.button
-            onClick={() => setIsOpen(!isOpen)}
-            className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-cloud-mist/80 hover:text-electric-azure transition-colors rounded-lg hover:bg-electric-azure/5"
-            whileTap={{ scale: 0.98 }}
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-cloud-mist/80 hover:text-electric-azure transition-colors rounded-lg hover:bg-electric-azure/5"
+        >
+          {item.label}
+          <motion.span
+            className="text-xs ml-0.5 text-electric-azure/60"
+            animate={{ rotate: isOpen ? 180 : 0 }}
+            transition={{ duration: 0.2 }}
           >
-            {item.label}
-            <motion.span
-              className="text-xs ml-0.5 text-electric-azure/60"
-              animate={{ rotate: isOpen ? 180 : 0 }}
-              transition={{ duration: 0.2 }}
-            >
-              ▾
-            </motion.span>
-          </motion.button>
-        </Magnet>
+            ▾
+          </motion.span>
+        </button>
         <Dropdown items={item.dropdown} isOpen={isOpen} onClose={() => setIsOpen(false)} />
       </div>
     )
   }
 
   return (
-    <Magnet padding={50} magnetStrength={3}>
-      <Link
-        href={item.href || '#'}
-        className="block px-4 py-2 text-sm font-medium text-cloud-mist/80 hover:text-electric-azure transition-colors rounded-lg hover:bg-electric-azure/5"
-      >
-        {item.label}
-      </Link>
-    </Magnet>
+    <Link
+      href={item.href || '#'}
+      className="block px-4 py-2 text-sm font-medium text-cloud-mist/80 hover:text-electric-azure transition-colors rounded-lg hover:bg-electric-azure/5"
+    >
+      {item.label}
+    </Link>
   )
 }
 
@@ -131,8 +125,8 @@ export function Navbar({ onSignInClick, onSignUpClick, btcPrice = 98350 }: Navba
     <motion.header
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
         scrolled
-          ? 'bg-midnight-slate/98 backdrop-blur-xl border-b border-electric-azure/10 shadow-lg shadow-midnight-slate/50'
-          : 'bg-midnight-slate/80 backdrop-blur-md border-b border-card-border/50'
+          ? 'bg-midnight-slate/90 backdrop-blur-xl border-b border-electric-azure/10 shadow-lg shadow-midnight-slate/50'
+          : 'bg-transparent'
       }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
@@ -142,25 +136,14 @@ export function Navbar({ onSignInClick, onSignUpClick, btcPrice = 98350 }: Navba
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <Magnet padding={60} magnetStrength={4}>
-              <motion.div
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="relative"
-              >
-                <Image
-                  src="/logo-light.png"
-                  alt="Center AI Vision"
-                  width={180}
-                  height={40}
-                  className="h-10 w-auto"
-                  priority
-                />
-                <motion.div
-                  className="absolute -inset-2 bg-electric-azure/10 rounded-lg opacity-0 hover:opacity-100 transition-opacity -z-10"
-                />
-              </motion.div>
-            </Magnet>
+            <Image
+              src="/logo-light.png"
+              alt="Center AI Vision"
+              width={180}
+              height={40}
+              className="h-10 w-auto"
+              priority
+            />
           </Link>
 
           {/* Desktop Navigation */}
@@ -173,22 +156,12 @@ export function Navbar({ onSignInClick, onSignUpClick, btcPrice = 98350 }: Navba
           {/* Right Side */}
           <div className="flex items-center gap-4">
             {/* BTC Price Pill */}
-            <Magnet padding={40} magnetStrength={4}>
-              <motion.div
-                className="hidden sm:flex items-center px-4 py-2 bg-gradient-to-r from-card-bg to-card-bg/80 border border-electric-azure/20 rounded-full text-sm backdrop-blur-sm"
-                whileHover={{
-                  scale: 1.02,
-                  borderColor: 'rgba(44, 147, 255, 0.4)',
-                  boxShadow: '0 0 20px rgba(44, 147, 255, 0.15)'
-                }}
-                transition={{ duration: 0.2 }}
-              >
-                <span className="text-electric-azure/80 mr-2 font-medium">BTC</span>
-                <span className="text-cloud-mist font-semibold">
-                  ${btcPrice.toLocaleString()}
-                </span>
-              </motion.div>
-            </Magnet>
+            <div className="hidden sm:flex items-center px-4 py-2 bg-card-bg/80 border border-electric-azure/20 rounded-full text-sm backdrop-blur-sm">
+              <span className="text-electric-azure/80 mr-2 font-medium">BTC</span>
+              <span className="text-cloud-mist font-semibold">
+                ${btcPrice.toLocaleString()}
+              </span>
+            </div>
 
             {isAuthenticated ? (
               <div className="flex items-center gap-4">
@@ -201,16 +174,12 @@ export function Navbar({ onSignInClick, onSignUpClick, btcPrice = 98350 }: Navba
               </div>
             ) : (
               <div className="flex items-center gap-3">
-                <Magnet padding={30} magnetStrength={4}>
-                  <Button variant="ghost" size="sm" onClick={onSignInClick} className="hidden sm:inline-flex">
-                    Sign In
-                  </Button>
-                </Magnet>
-                <Magnet padding={30} magnetStrength={4}>
-                  <Button variant="primary" size="sm" onClick={onSignUpClick}>
-                    Sign Up
-                  </Button>
-                </Magnet>
+                <Button variant="ghost" size="sm" onClick={onSignInClick} className="hidden sm:inline-flex">
+                  Sign In
+                </Button>
+                <Button variant="primary" size="sm" onClick={onSignUpClick}>
+                  Sign Up
+                </Button>
               </div>
             )}
 
