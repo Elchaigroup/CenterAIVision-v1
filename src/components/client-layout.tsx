@@ -2,6 +2,7 @@
 
 import { useState, ReactNode } from 'react'
 import { AuthProvider } from '@/lib/auth-context'
+import { MarketProvider } from '@/lib/market-context'
 import { Navbar } from '@/components/layout/navbar'
 import { Footer } from '@/components/layout/footer'
 import { GlobalToast } from '@/components/layout/toast'
@@ -28,25 +29,27 @@ export function ClientLayout({ children }: ClientLayoutProps) {
 
   return (
     <AuthProvider>
-      <div className="min-h-screen bg-midnight-slate flex flex-col">
-        <Navbar
-          onSignInClick={() => setShowSignIn(true)}
-          onSignUpClick={() => setShowSignUp(true)}
-        />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <GlobalToast />
-        <SignInModal
-          isOpen={showSignIn}
-          onClose={() => setShowSignIn(false)}
-          onSwitchToSignUp={handleSwitchToSignUp}
-        />
-        <SignUpModal
-          isOpen={showSignUp}
-          onClose={() => setShowSignUp(false)}
-          onSwitchToSignIn={handleSwitchToSignIn}
-        />
-      </div>
+      <MarketProvider>
+        <div className="min-h-screen bg-midnight-slate flex flex-col">
+          <Navbar
+            onSignInClick={() => setShowSignIn(true)}
+            onSignUpClick={() => setShowSignUp(true)}
+          />
+          <main className="flex-1">{children}</main>
+          <Footer />
+          <GlobalToast />
+          <SignInModal
+            isOpen={showSignIn}
+            onClose={() => setShowSignIn(false)}
+            onSwitchToSignUp={handleSwitchToSignUp}
+          />
+          <SignUpModal
+            isOpen={showSignUp}
+            onClose={() => setShowSignUp(false)}
+            onSwitchToSignIn={handleSwitchToSignIn}
+          />
+        </div>
+      </MarketProvider>
     </AuthProvider>
   )
 }

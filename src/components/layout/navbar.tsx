@@ -7,6 +7,8 @@ import { motion, AnimatePresence } from 'motion/react'
 import { navigationItems, NavItem } from '@/data/navigation'
 import { Button } from '@/components/ui/button'
 import { useAuth } from '@/lib/auth-context'
+import { useMarket } from '@/lib/market-context'
+import { cn } from '@/lib/utils'
 
 interface DropdownProps {
   items: NavItem[]
@@ -105,11 +107,11 @@ function NavItemWithDropdown({ item }: NavItemWithDropdownProps) {
 interface NavbarProps {
   onSignInClick: () => void
   onSignUpClick: () => void
-  btcPrice?: number
 }
 
-export function Navbar({ onSignInClick, onSignUpClick, btcPrice = 98350 }: NavbarProps) {
+export function Navbar({ onSignInClick, onSignUpClick }: NavbarProps) {
   const { isAuthenticated, user, signOut } = useAuth()
+  const { btc, eth, isLoading } = useMarket()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
@@ -125,7 +127,7 @@ export function Navbar({ onSignInClick, onSignUpClick, btcPrice = 98350 }: Navba
     <motion.header
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
         scrolled
-          ? 'bg-midnight-slate/90 backdrop-blur-xl border-b border-electric-azure/10 shadow-lg shadow-midnight-slate/50'
+          ? 'bg-midnight-slate/90 backdrop-blur-xl'
           : 'bg-transparent'
       }`}
       initial={{ y: -100 }}
@@ -155,12 +157,50 @@ export function Navbar({ onSignInClick, onSignUpClick, btcPrice = 98350 }: Navba
 
           {/* Right Side */}
           <div className="flex items-center gap-4">
-            {/* BTC Price Pill */}
-            <div className="hidden sm:flex items-center px-4 py-2 bg-card-bg/80 border border-electric-azure/20 rounded-full text-sm backdrop-blur-sm">
-              <span className="text-electric-azure/80 mr-2 font-medium">BTC</span>
-              <span className="text-cloud-mist font-semibold">
-                ${btcPrice.toLocaleString()}
-              </span>
+            {/* Live Crypto Prices */}
+            <div className="hidden sm:flex items-center gap-3">
+              {/* BTC Price */}
+              <div className="flex items-center px-3 py-1.5 bg-card-bg/80 rounded-full text-sm backdrop-blur-sm">
+                <span className="text-electric-azure/80 mr-2 font-medium">BTC</span>
+                {isLoading ? (
+                  <span className="text-cloud-mist/50 animate-pulse">...</span>
+                ) : btc ? (
+                  <>
+                    <span className="text-cloud-mist font-semibold">
+                      ${btc.regularMarketPrice.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+                    </span>
+                    <span className={cn(
+                      'ml-1.5 text-xs',
+                      btc.regularMarketChange >= 0 ? 'text-positive' : 'text-negative'
+                    )}>
+                      {btc.regularMarketChange >= 0 ? '+' : ''}{btc.regularMarketChangePercent.toFixed(1)}%
+                    </span>
+                  </>
+                ) : (
+                  <span className="text-cloud-mist font-semibold">$--</span>
+                )}
+              </div>
+              {/* ETH Price - Hidden on smaller screens */}
+              <div className="hidden lg:flex items-center px-3 py-1.5 bg-card-bg/80 rounded-full text-sm backdrop-blur-sm">
+                <span className="text-electric-azure/80 mr-2 font-medium">ETH</span>
+                {isLoading ? (
+                  <span className="text-cloud-mist/50 animate-pulse">...</span>
+                ) : eth ? (
+                  <>
+                    <span className="text-cloud-mist font-semibold">
+                      ${eth.regularMarketPrice.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+                    </span>
+                    <span className={cn(
+                      'ml-1.5 text-xs',
+                      eth.regularMarketChange >= 0 ? 'text-positive' : 'text-negative'
+                    )}>
+                      {eth.regularMarketChange >= 0 ? '+' : ''}{eth.regularMarketChangePercent.toFixed(1)}%
+                    </span>
+                  </>
+                ) : (
+                  <span className="text-cloud-mist font-semibold">$--</span>
+                )}
+              </div>
             </div>
 
             {isAuthenticated ? (
