@@ -96,7 +96,7 @@ export function Navbar({ onSignInClick, onSignUpClick, btcPrice = 98350 }: Navba
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <Image
-              src="/logo.png"
+              src="/logo-light.png"
               alt="Center AI Vision"
               width={180}
               height={40}

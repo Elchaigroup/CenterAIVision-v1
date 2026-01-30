@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { FadeIn, Reveal } from '@/components/ui/animations'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
+import { GradientBlinds } from '@/components/ui/gradient-blinds'
 import { KPIStrip } from '@/components/sections/kpi-strip'
 import { MiningCard } from '@/components/sections/mining-card'
 import { GPUComputeCard } from '@/components/sections/gpu-card'
@@ -14,8 +15,24 @@ export default function HomePage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative bg-hero-gradient overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-core-blue/10 to-transparent" />
+      <section className="relative min-h-[90vh] overflow-hidden">
+        {/* Gradient Blinds Background */}
+        <div className="absolute inset-0">
+          <GradientBlinds
+            gradientColors={['#1B232D', '#003296', '#2C93FF', '#003296', '#1B232D']}
+            angle={45}
+            noise={0.15}
+            blindCount={24}
+            blindMinWidth={40}
+            mouseDampening={0.1}
+            spotlightRadius={0.6}
+            spotlightSoftness={1.2}
+            spotlightOpacity={0.8}
+            mixBlendMode="normal"
+          />
+        </div>
+        {/* Overlay for better text readability */}
+        <div className="absolute inset-0 bg-midnight-slate/40" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 relative">
           <FadeIn>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-cloud-mist max-w-4xl leading-tight">
