@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { GradientBlinds } from '@/components/ui/gradient-blinds'
 import { KPIStrip } from '@/components/sections/kpi-strip'
-import { MarketTicker } from '@/components/sections/market-ticker'
+import { TradingViewTicker } from '@/components/sections/tradingview-ticker'
 import { MiningCard } from '@/components/sections/mining-card'
 import { GPUComputeCard } from '@/components/sections/gpu-card'
 import { miningPlans } from '@/data/mining-plans'
@@ -103,8 +103,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Live Market Ticker */}
-      <MarketTicker />
+      {/* Live Market Ticker - TradingView */}
+      <TradingViewTicker />
 
       {/* KPI Strip */}
       <KPIStrip />
