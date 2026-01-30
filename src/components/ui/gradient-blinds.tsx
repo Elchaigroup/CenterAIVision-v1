@@ -73,7 +73,6 @@ export function GradientBlinds({
     const container = containerRef.current
     if (!container) return
 
-    let gl: WebGLRenderingContext
     let canvas: HTMLCanvasElement
     let uniforms: Record<string, { value: number | number[] }>
     let ro: ResizeObserver
@@ -88,7 +87,7 @@ export function GradientBlinds({
         antialias: true
       })
       rendererRef.current = renderer
-      gl = renderer.gl
+      const gl = renderer.gl
       canvas = gl.canvas as HTMLCanvasElement
 
       canvas.style.width = '100%'
