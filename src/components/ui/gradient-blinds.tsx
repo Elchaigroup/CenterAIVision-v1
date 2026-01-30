@@ -305,8 +305,10 @@ void main() {
       // Store handler reference for cleanup
       stateRef.current.pointerHandler = onPointerMove
 
-      // Listen on window to capture mouse events even when other elements are on top
+      // Listen on window and document to capture mouse events even when other elements are on top
+      // Using both pointermove and mousemove for maximum compatibility
       window.addEventListener('pointermove', onPointerMove)
+      window.addEventListener('mousemove', onPointerMove as EventListener)
 
       const loop = (t: number) => {
         if (isDestroyed) return
@@ -346,6 +348,7 @@ void main() {
       if (ro) ro.disconnect()
       if (currentState.pointerHandler) {
         window.removeEventListener('pointermove', currentState.pointerHandler)
+        window.removeEventListener('mousemove', currentState.pointerHandler as EventListener)
       }
       if (canvas && canvas.parentElement === container) {
         container.removeChild(canvas)

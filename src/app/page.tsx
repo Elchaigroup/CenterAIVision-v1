@@ -21,13 +21,13 @@ export default function HomePage() {
           <GradientBlinds
             gradientColors={['#1B232D', '#003296', '#2C93FF', '#003296', '#1B232D']}
             angle={45}
-            noise={0.15}
-            blindCount={24}
-            blindMinWidth={40}
-            mouseDampening={0.1}
-            spotlightRadius={0.6}
-            spotlightSoftness={1.2}
-            spotlightOpacity={0.8}
+            noise={0.12}
+            blindCount={20}
+            blindMinWidth={50}
+            mouseDampening={0.08}
+            spotlightRadius={0.5}
+            spotlightSoftness={0.8}
+            spotlightOpacity={1.2}
             mixBlendMode="normal"
           />
         </div>
