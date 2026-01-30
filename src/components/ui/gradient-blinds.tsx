@@ -73,7 +73,6 @@ export function GradientBlinds({
     const container = containerRef.current
     if (!container) return
 
-    let renderer: { gl: WebGLRenderingContext; dpr?: number; setSize: (w: number, h: number) => void; render: (opts: { scene: unknown }) => void }
     let gl: WebGLRenderingContext
     let canvas: HTMLCanvasElement
     let uniforms: Record<string, { value: number | number[] }>
@@ -83,7 +82,7 @@ export function GradientBlinds({
       const OGL = await import('ogl')
       const { Renderer, Program, Mesh, Triangle } = OGL
 
-      renderer = new Renderer({
+      const renderer = new Renderer({
         dpr: dpr ?? (typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1),
         alpha: true,
         antialias: true
