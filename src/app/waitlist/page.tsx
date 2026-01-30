@@ -1,13 +1,13 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, Suspense } from 'react'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { FadeIn, Reveal } from '@/components/ui/animations'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 
-export default function WaitlistPage() {
+function WaitlistForm() {
   const searchParams = useSearchParams()
   const product = searchParams.get('product') || 'Hardware'
 
@@ -247,5 +247,27 @@ export default function WaitlistPage() {
         </div>
       </section>
     </>
+  )
+}
+
+function WaitlistLoading() {
+  return (
+    <section className="relative min-h-screen pt-32 pb-20 overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-core-blue/20 via-midnight-slate to-midnight-slate" />
+      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="text-center">
+          <div className="w-12 h-12 mx-auto mb-4 border-2 border-electric-azure/30 border-t-electric-azure rounded-full animate-spin" />
+          <p className="text-cloud-mist/60">Loading...</p>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+export default function WaitlistPage() {
+  return (
+    <Suspense fallback={<WaitlistLoading />}>
+      <WaitlistForm />
+    </Suspense>
   )
 }
