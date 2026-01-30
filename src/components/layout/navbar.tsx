@@ -139,7 +139,7 @@ export function Navbar({ onSignInClick, onSignUpClick }: NavbarProps) {
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <Image
-              src="/logo-light.png"
+              src="/centeraivisionLogo-light.png"
               alt="Center AI Vision"
               width={180}
               height={40}

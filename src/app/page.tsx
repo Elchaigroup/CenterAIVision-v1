@@ -61,10 +61,10 @@ export default function HomePage() {
             </div>
           </FadeIn>
 
-          {/* Feature Cards */}
+          {/* Feature Cards - Liquid Glass Effect */}
           <div className="mt-16 grid md:grid-cols-2 gap-6">
             <FadeIn delay={600}>
-              <Card className="border-electric-azure/30" tilt>
+              <Card variant="glass" tilt spotlight={false}>
                 <CardContent>
                   <h3 className="text-xl font-semibold text-cloud-mist mb-2">
                     Bitcoin Mining
@@ -82,7 +82,7 @@ export default function HomePage() {
               </Card>
             </FadeIn>
             <FadeIn delay={700}>
-              <Card className="border-electric-azure/30" tilt>
+              <Card variant="glass" tilt spotlight={false}>
                 <CardContent>
                   <h3 className="text-xl font-semibold text-cloud-mist mb-2">
                     AI GPU Compute

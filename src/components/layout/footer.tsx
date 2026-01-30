@@ -13,7 +13,7 @@ export function Footer() {
           <div className="lg:col-span-2">
             <Link href="/" className="inline-block mb-4">
               <Image
-                src="/logo-light.png"
+                src="/centeraivisionLogo-light.png"
                 alt="Center AI Vision"
                 width={180}
                 height={40}

@@ -13,6 +13,7 @@ interface CardProps {
   tilt?: boolean
   spotlight?: boolean
   spotlightColor?: string
+  variant?: 'default' | 'glass'
 }
 
 export function Card({
@@ -22,18 +23,30 @@ export function Card({
   glow = false,
   tilt = false,
   spotlight = true,
-  spotlightColor
+  spotlightColor,
+  variant = 'default'
 }: CardProps) {
+  const isGlass = variant === 'glass'
+
   const cardContent = (
     <div
       className={cn(
-        'bg-card-bg border border-card-border rounded-xl p-6 h-full',
+        'rounded-xl p-6 h-full relative overflow-hidden',
+        isGlass && 'liquid-glass glass-shimmer bg-white/[0.02] backdrop-blur-2xl border border-white/[0.1] shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.1)] transition-all duration-300 hover:bg-white/[0.04] hover:border-white/[0.15] hover:shadow-[0_16px_48px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.15)]',
+        !isGlass && 'bg-card-bg border border-card-border',
         glow && 'glow-effect',
-        hover && !tilt && 'card-hover',
+        hover && !tilt && !isGlass && 'card-hover',
         className
       )}
     >
-      {children}
+      {/* Inner glow effect for glass cards */}
+      {isGlass && (
+        <>
+          <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/[0.08] via-transparent to-transparent pointer-events-none" />
+          <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-electric-azure/[0.05] to-transparent pointer-events-none" />
+        </>
+      )}
+      <div className="relative z-10">{children}</div>
     </div>
   )
 
