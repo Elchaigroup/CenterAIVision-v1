@@ -60,33 +60,40 @@ export function GradientBlinds({
   mixBlendMode = 'lighten'
 }: GradientBlindsProps) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const rafRef = useRef<number | null>(null)
-  const programRef = useRef<unknown>(null)
-  const meshRef = useRef<unknown>(null)
-  const geometryRef = useRef<unknown>(null)
-  const rendererRef = useRef<unknown>(null)
-  const mouseTargetRef = useRef<[number, number]>([0, 0])
-  const lastTimeRef = useRef<number>(0)
-  const firstResizeRef = useRef<boolean>(true)
+  const stateRef = useRef<{
+    raf: number | null
+    mouseTarget: [number, number]
+    lastTime: number
+    firstResize: boolean
+  }>({
+    raf: null,
+    mouseTarget: [0, 0],
+    lastTime: 0,
+    firstResize: true
+  })
 
   useEffect(() => {
     const container = containerRef.current
     if (!container) return
 
-    let canvas: HTMLCanvasElement
-    let uniforms: Record<string, { value: number | number[] }>
-    let ro: ResizeObserver
+    let canvas: HTMLCanvasElement | null = null
+    let ro: ResizeObserver | null = null
+    let isDestroyed = false
 
     const init = async () => {
+      if (isDestroyed) return
+
       const OGL = await import('ogl')
       const { Renderer, Program, Mesh, Triangle } = OGL
+
+      if (isDestroyed) return
 
       const renderer = new Renderer({
         dpr: dpr ?? (typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1),
         alpha: true,
         antialias: true
       })
-      rendererRef.current = renderer
+
       const gl = renderer.gl
       canvas = gl.canvas as HTMLCanvasElement
 
@@ -219,10 +226,8 @@ void main() {
 `
 
       const { arr: colorArr, count: colorCount } = prepStops(gradientColors)
-      uniforms = {
-        iResolution: {
-          value: [gl.drawingBufferWidth, gl.drawingBufferHeight, 1]
-        },
+      const uniforms = {
+        iResolution: { value: [gl.drawingBufferWidth, gl.drawingBufferHeight, 1] },
         iMouse: { value: [0, 0] },
         iTime: { value: 0 },
         uAngle: { value: (angle * Math.PI) / 180 },
@@ -250,14 +255,12 @@ void main() {
         fragment,
         uniforms
       })
-      programRef.current = program
 
       const geometry = new Triangle(gl)
-      geometryRef.current = geometry
       const mesh = new Mesh(gl, { geometry, program })
-      meshRef.current = mesh
 
       const resize = () => {
+        if (isDestroyed) return
         const rect = container.getBoundingClientRect()
         renderer.setSize(rect.width, rect.height)
         uniforms.iResolution.value = [gl.drawingBufferWidth, gl.drawingBufferHeight, 1]
@@ -270,12 +273,12 @@ void main() {
           uniforms.uBlindCount.value = Math.max(1, blindCount)
         }
 
-        if (firstResizeRef.current) {
-          firstResizeRef.current = false
+        if (stateRef.current.firstResize) {
+          stateRef.current.firstResize = false
           const cx = gl.drawingBufferWidth / 2
           const cy = gl.drawingBufferHeight / 2
           uniforms.iMouse.value = [cx, cy]
-          mouseTargetRef.current = [cx, cy]
+          stateRef.current.mouseTarget = [cx, cy]
         }
       }
 
@@ -284,11 +287,12 @@ void main() {
       ro.observe(container)
 
       const onPointerMove = (e: PointerEvent) => {
+        if (!canvas) return
         const rect = canvas.getBoundingClientRect()
         const scale = renderer.dpr || 1
         const x = (e.clientX - rect.left) * scale
         const y = (rect.height - (e.clientY - rect.top)) * scale
-        mouseTargetRef.current = [x, y]
+        stateRef.current.mouseTarget = [x, y]
         if (mouseDampening <= 0) {
           uniforms.iMouse.value = [x, y]
         }
@@ -296,45 +300,43 @@ void main() {
       canvas.addEventListener('pointermove', onPointerMove)
 
       const loop = (t: number) => {
-        rafRef.current = requestAnimationFrame(loop)
+        if (isDestroyed) return
+        stateRef.current.raf = requestAnimationFrame(loop)
         uniforms.iTime.value = t * 0.001
         if (mouseDampening > 0) {
-          if (!lastTimeRef.current) lastTimeRef.current = t
-          const dt = (t - lastTimeRef.current) / 1000
-          lastTimeRef.current = t
+          if (!stateRef.current.lastTime) stateRef.current.lastTime = t
+          const dt = (t - stateRef.current.lastTime) / 1000
+          stateRef.current.lastTime = t
           const tau = Math.max(1e-4, mouseDampening)
           let factor = 1 - Math.exp(-dt / tau)
           if (factor > 1) factor = 1
-          const target = mouseTargetRef.current
+          const target = stateRef.current.mouseTarget
           const cur = uniforms.iMouse.value
           cur[0] += (target[0] - cur[0]) * factor
           cur[1] += (target[1] - cur[1]) * factor
         } else {
-          lastTimeRef.current = t
+          stateRef.current.lastTime = t
         }
-        if (!paused && programRef.current && meshRef.current) {
+        if (!paused) {
           try {
-            renderer.render({ scene: meshRef.current })
+            renderer.render({ scene: mesh })
           } catch (e) {
             console.error(e)
           }
         }
       }
-      rafRef.current = requestAnimationFrame(loop)
+      stateRef.current.raf = requestAnimationFrame(loop)
     }
 
     init()
 
     return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current)
+      isDestroyed = true
+      if (stateRef.current.raf) cancelAnimationFrame(stateRef.current.raf)
       if (ro) ro.disconnect()
       if (canvas && canvas.parentElement === container) {
         container.removeChild(canvas)
       }
-      programRef.current = null
-      geometryRef.current = null
-      meshRef.current = null
-      rendererRef.current = null
     }
   }, [
     dpr,
