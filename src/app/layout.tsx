@@ -5,6 +5,9 @@ import './globals.css'
 export const metadata: Metadata = {
   title: 'Center AI Vision | Bitcoin Mining & AI GPU Platform',
   description: 'Professional Bitcoin mining and AI compute infrastructure. Enterprise-grade technology for digital assets and artificial intelligence applications.',
+  icons: {
+    icon: '/favicon.ico',
+  },
 }
 
 export default function RootLayout({
