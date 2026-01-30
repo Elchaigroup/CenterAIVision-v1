@@ -61,14 +61,10 @@ export function GradientBlinds({
 }: GradientBlindsProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const rafRef = useRef<number | null>(null)
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const programRef = useRef<any>(null)
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const meshRef = useRef<any>(null)
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const geometryRef = useRef<any>(null)
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const rendererRef = useRef<any>(null)
+  const programRef = useRef<unknown>(null)
+  const meshRef = useRef<unknown>(null)
+  const geometryRef = useRef<unknown>(null)
+  const rendererRef = useRef<unknown>(null)
   const mouseTargetRef = useRef<[number, number]>([0, 0])
   const lastTimeRef = useRef<number>(0)
   const firstResizeRef = useRef<boolean>(true)
@@ -77,10 +73,10 @@ export function GradientBlinds({
     const container = containerRef.current
     if (!container) return
 
-    let renderer: any
+    let renderer: { gl: WebGLRenderingContext; dpr?: number; setSize: (w: number, h: number) => void; render: (opts: { scene: unknown }) => void }
     let gl: WebGLRenderingContext
     let canvas: HTMLCanvasElement
-    let uniforms: any
+    let uniforms: Record<string, { value: number | number[] }>
     let ro: ResizeObserver
 
     const init = async () => {
@@ -365,7 +361,7 @@ void main() {
       className={`relative w-full h-full overflow-hidden ${className}`}
       style={{
         ...(mixBlendMode && {
-          mixBlendMode: mixBlendMode as any
+          mixBlendMode: mixBlendMode as React.CSSProperties['mixBlendMode']
         })
       }}
     />
