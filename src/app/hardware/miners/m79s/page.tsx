@@ -108,7 +108,7 @@ export default function M79SPage() {
                 </p>
 
                 <div className="flex flex-wrap gap-4">
-                  <Link href="/hardware/miners">
+                  <Link href="/waitlist?product=Whatsminer M79S">
                     <Button variant="primary" size="lg">
                       Buy Now
                     </Button>

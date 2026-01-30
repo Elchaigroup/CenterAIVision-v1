@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { motion } from 'motion/react'
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -70,9 +71,11 @@ export function ASICCard({ miner, index = 0 }: ASICCardProps) {
           </div>
         </CardContent>
         <CardFooter>
-          <Button variant="primary" className="w-full">
-            Buy Now
-          </Button>
+          <Link href={`/hardware/miners/${miner.id}`} className="w-full">
+            <Button variant="primary" className="w-full">
+              Buy Now
+            </Button>
+          </Link>
         </CardFooter>
       </Card>
     </motion.div>

@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { motion } from 'motion/react'
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -146,9 +147,11 @@ export function GPUHardwareCard({ gpu, index = 0 }: GPUHardwareCardProps) {
           </div>
         </CardContent>
         <CardFooter>
-          <Button variant="primary" className="w-full">
-            Invest Now
-          </Button>
+          <Link href={`/hardware/gpus/${gpu.id.replace('-hw', '')}`} className="w-full">
+            <Button variant="primary" className="w-full">
+              Invest Now
+            </Button>
+          </Link>
         </CardFooter>
       </Card>
     </motion.div>

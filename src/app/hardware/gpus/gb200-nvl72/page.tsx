@@ -108,7 +108,7 @@ export default function GB200NVL72Page() {
                 </p>
 
                 <div className="flex flex-wrap gap-4">
-                  <Link href="/hardware/gpus">
+                  <Link href="/waitlist?product=NVIDIA GB200 NVL72">
                     <Button variant="primary" size="lg">
                       Buy Now
                     </Button>

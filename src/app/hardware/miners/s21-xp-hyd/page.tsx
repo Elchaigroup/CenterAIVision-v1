@@ -109,7 +109,7 @@ export default function S21XPHydPage() {
                 </p>
 
                 <div className="flex flex-wrap gap-4">
-                  <Link href="/hardware/miners">
+                  <Link href="/waitlist?product=Antminer S21 XP Hyd">
                     <Button variant="primary" size="lg">
                       Buy Now
                     </Button>

@@ -110,7 +110,7 @@ export default function S23Page() {
                 </p>
 
                 <div className="flex flex-wrap gap-4">
-                  <Link href="/hardware/miners">
+                  <Link href="/waitlist?product=Antminer S23">
                     <Button variant="primary" size="lg">
                       Buy Now
                     </Button>

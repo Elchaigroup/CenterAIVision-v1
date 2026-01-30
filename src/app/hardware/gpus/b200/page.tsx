@@ -7,28 +7,30 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 
 const specifications = [
-  { label: 'NVLink Bandwidth', value: '130 TB/s' },
-  { label: 'Fast Memory', value: '37 TB' },
-  { label: 'GPU Memory', value: '20 TB' },
-  { label: 'GPU Memory Bandwidth', value: '576 TB/s' },
-  { label: 'CPU Memory', value: '17 TB LPDDR5X' },
-  { label: 'CPU Memory Bandwidth', value: '14 TB/s' },
-  { label: 'CPU Cores', value: '2,592 Arm Neoverse V2' },
-  { label: 'FP4 Tensor Core', value: '1,440 PFLOPS' },
-  { label: 'FP8/FP6 Tensor Core', value: '720 PFLOPS' },
+  { label: 'GPU Architecture', value: 'NVIDIA Blackwell' },
+  { label: 'GPU Memory', value: '192 GB HBM3e' },
+  { label: 'GPU Memory Bandwidth', value: '8 TB/s' },
+  { label: 'FP4 Tensor Core', value: '18 PFLOPS' },
+  { label: 'FP8 Tensor Core', value: '9 PFLOPS' },
+  { label: 'FP16 Tensor Core', value: '4.5 PFLOPS' },
+  { label: 'TF32 Tensor Core', value: '2.25 PFLOPS' },
+  { label: 'NVLink', value: '1.8 TB/s' },
+  { label: 'PCIe', value: 'Gen5 x16' },
+  { label: 'Max TDP', value: '1000W' },
+  { label: 'Form Factor', value: 'SXM' },
 ]
 
 const performanceMetrics = [
-  { value: '50x', label: 'AI Factory Output', description: 'vs. Hopper-based platforms' },
-  { value: '10x', label: 'User Responsiveness', description: 'TPS per user improvement' },
-  { value: '5x', label: 'Power Efficiency', description: 'Throughput per megawatt' },
-  { value: '30x', label: 'Video Generation', description: 'Real-time acceleration' },
+  { value: '192', label: 'GB HBM3e', description: 'GPU memory' },
+  { value: '18', label: 'PFLOPS FP4', description: 'Tensor performance' },
+  { value: '8', label: 'TB/s', description: 'Memory bandwidth' },
+  { value: '1.8', label: 'TB/s NVLink', description: 'GPU interconnect' },
 ]
 
 const keyFeatures = [
   {
-    title: '72 Blackwell Ultra GPUs',
-    description: 'Combined with 36 Arm-based NVIDIA Grace CPUs in a single unified platform for unprecedented compute density.',
+    title: 'Blackwell Architecture',
+    description: 'The latest NVIDIA GPU architecture delivers breakthrough performance for AI training and inference workloads.',
     icon: (
       <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
@@ -36,8 +38,8 @@ const keyFeatures = [
     ),
   },
   {
-    title: 'Liquid-Cooled Architecture',
-    description: 'Fully liquid-cooled rack-scale design enables maximum performance density while maintaining optimal operating temperatures.',
+    title: '192 GB HBM3e Memory',
+    description: 'Massive GPU memory with 8 TB/s bandwidth enables handling of the largest AI models and datasets.',
     icon: (
       <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
@@ -45,17 +47,17 @@ const keyFeatures = [
     ),
   },
   {
-    title: '800 Gb/s Networking',
-    description: 'NVIDIA ConnectX-8 SuperNIC delivers 800 Gb/s connectivity per GPU for seamless multi-node scaling.',
+    title: '18 PFLOPS FP4',
+    description: 'New FP4 precision support delivers unprecedented AI inference performance for production deployments.',
     icon: (
       <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8.288 15.038a5.25 5.25 0 017.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 011.06 0z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
       </svg>
     ),
   },
   {
-    title: '5th Gen NVLink',
-    description: 'Fifth-generation NVIDIA NVLink provides 130 TB/s of GPU-to-GPU bandwidth for massive model training.',
+    title: 'High-Speed NVLink',
+    description: '1.8 TB/s NVLink connectivity enables seamless multi-GPU scaling for distributed AI workloads.',
     icon: (
       <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
@@ -64,52 +66,49 @@ const keyFeatures = [
   },
 ]
 
-export default function GB300NVL72Page() {
+export default function B200Page() {
   return (
     <>
-      {/* Hero Section with Product Image */}
+      {/* Hero Section */}
       <section className="relative pt-28 pb-16 overflow-hidden">
-        {/* Background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-core-blue/30 via-midnight-slate to-midnight-slate" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-electric-azure/20 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-green-600/20 via-midnight-slate to-midnight-slate" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-green-500/10 via-transparent to-transparent" />
 
-        {/* Animated grid pattern */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0" style={{
-            backgroundImage: `linear-gradient(rgba(44, 147, 255, 0.3) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(44, 147, 255, 0.3) 1px, transparent 1px)`,
+            backgroundImage: `linear-gradient(rgba(34, 197, 94, 0.3) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(34, 197, 94, 0.3) 1px, transparent 1px)`,
             backgroundSize: '50px 50px'
           }} />
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Product Info */}
             <FadeIn>
               <div>
                 <div className="flex items-center gap-3 mb-4">
                   <span className="px-3 py-1 text-xs font-semibold bg-green-500/20 text-green-400 rounded-full border border-green-500/30">
                     Available Now
                   </span>
-                  <span className="px-3 py-1 text-xs font-semibold bg-electric-azure/20 text-electric-azure rounded-full border border-electric-azure/30">
-                    Blackwell Ultra Architecture
+                  <span className="px-3 py-1 text-xs font-semibold bg-emerald-500/20 text-emerald-400 rounded-full border border-emerald-500/30">
+                    Best Value
                   </span>
                 </div>
 
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-cloud-mist leading-tight mb-4">
                   NVIDIA
-                  <span className="block bg-gradient-to-r from-electric-azure via-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                    GB300 NVL72
+                  <span className="block bg-gradient-to-r from-green-400 via-emerald-500 to-teal-400 bg-clip-text text-transparent">
+                    B200 GPU
                   </span>
                 </h1>
 
                 <p className="text-xl text-cloud-mist/70 mb-8 leading-relaxed">
-                  Built for the age of AI reasoning. A rack-scale system combining 72 Blackwell Ultra GPUs
-                  with 36 Grace CPUs, delivering unprecedented performance for the most demanding AI workloads.
+                  The world&apos;s most powerful single GPU for AI. 192 GB HBM3e memory with
+                  18 PFLOPS of FP4 performance - ideal for AI training and inference workloads.
                 </p>
 
                 <div className="flex flex-wrap gap-4">
-                  <Link href="/waitlist?product=NVIDIA GB300 NVL72">
+                  <Link href="/waitlist?product=NVIDIA B200">
                     <Button variant="primary" size="lg">
                       Buy Now
                     </Button>
@@ -123,19 +122,16 @@ export default function GB300NVL72Page() {
               </div>
             </FadeIn>
 
-            {/* Product Image */}
             <FadeIn delay={200}>
               <div className="relative">
-                <div className="absolute -inset-4 bg-gradient-to-r from-electric-azure/30 to-core-blue/30 rounded-3xl blur-2xl opacity-50" />
-                <div className="relative bg-gradient-to-br from-card-bg to-card-bg/50 rounded-2xl border border-electric-azure/20 overflow-hidden">
-                  {/* Glow effect */}
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-1/2 bg-electric-azure/20 blur-3xl" />
+                <div className="absolute -inset-4 bg-gradient-to-r from-green-500/30 to-emerald-500/30 rounded-3xl blur-2xl opacity-50" />
+                <div className="relative bg-gradient-to-br from-card-bg to-card-bg/50 rounded-2xl border border-green-500/20 overflow-hidden">
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-1/2 bg-green-500/20 blur-3xl" />
 
                   <div className="relative aspect-[4/3] w-full">
-                    {/* Official Product Image */}
                     <Image
-                      src="https://www.ingrasys.com/upload/fac_b/product_main__25G17nKwLs.png"
-                      alt="NVIDIA GB300 NVL72 Server Rack"
+                      src="https://www.pny.com/productimages/6E8C9BA9-7167-48A0-BE6D-B16C00914FE0/images/TCSB200-NVIDIA-B200-GPU-2U-3qtr.png"
+                      alt="NVIDIA B200 GPU"
                       fill
                       className="object-contain p-4"
                       unoptimized
@@ -143,7 +139,7 @@ export default function GB300NVL72Page() {
                   </div>
 
                   <div className="p-4 text-center border-t border-white/5">
-                    <p className="text-sm text-cloud-mist/60">72 GPUs | 36 CPUs | Liquid Cooled</p>
+                    <p className="text-sm text-cloud-mist/60">192 GB | 18 PFLOPS | Blackwell</p>
                   </div>
                 </div>
               </div>
@@ -153,13 +149,13 @@ export default function GB300NVL72Page() {
       </section>
 
       {/* Performance Metrics */}
-      <section className="py-12 border-y border-electric-azure/10 bg-card-bg/30">
+      <section className="py-12 border-y border-green-500/10 bg-card-bg/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {performanceMetrics.map((metric, index) => (
               <FadeIn key={metric.label} delay={index * 100}>
                 <div className="text-center">
-                  <div className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-electric-azure to-cyan-400 bg-clip-text text-transparent">
+                  <div className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
                     {metric.value}
                   </div>
                   <div className="mt-2 text-sm font-semibold text-cloud-mist">{metric.label}</div>
@@ -171,22 +167,21 @@ export default function GB300NVL72Page() {
         </div>
       </section>
 
-      {/* AI Vision Section */}
+      {/* Features Section */}
       <section className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-16">
-              <span className="inline-block px-4 py-1.5 mb-4 text-sm font-medium text-electric-azure bg-electric-azure/10 rounded-full border border-electric-azure/20">
+              <span className="inline-block px-4 py-1.5 mb-4 text-sm font-medium text-green-400 bg-green-500/10 rounded-full border border-green-500/20">
                 Center AI Vision
               </span>
               <h2 className="text-3xl md:text-4xl font-bold text-cloud-mist mb-4">
-                The Future of AI Infrastructure
+                Enterprise AI Performance
               </h2>
               <p className="text-cloud-mist/60 max-w-3xl mx-auto text-lg">
-                The NVIDIA GB300 NVL72 represents the pinnacle of AI computing technology.
-                Built on the revolutionary Blackwell Ultra architecture, this system delivers
-                unprecedented performance for large language models, AI reasoning, and real-time
-                video generation workloads.
+                The NVIDIA B200 GPU delivers exceptional performance for AI workloads
+                at an accessible price point, making it the ideal choice for building
+                custom AI infrastructure.
               </p>
             </div>
           </Reveal>
@@ -196,7 +191,7 @@ export default function GB300NVL72Page() {
               <FadeIn key={feature.title} delay={index * 100}>
                 <Card variant="glass" className="h-full" spotlight={false}>
                   <CardContent className="flex gap-4">
-                    <div className="p-3 rounded-xl bg-gradient-to-br from-electric-azure/20 to-core-blue/20 text-electric-azure h-fit">
+                    <div className="p-3 rounded-xl bg-gradient-to-br from-green-500/20 to-emerald-500/20 text-green-400 h-fit">
                       {feature.icon}
                     </div>
                     <div>
@@ -220,7 +215,7 @@ export default function GB300NVL72Page() {
                 Technical Specifications
               </h2>
               <p className="text-cloud-mist/60 max-w-2xl mx-auto">
-                Industry-leading specifications designed for the most demanding AI workloads.
+                Complete specifications for the NVIDIA B200 GPU.
               </p>
             </div>
           </Reveal>
@@ -244,7 +239,6 @@ export default function GB300NVL72Page() {
           </FadeIn>
         </div>
       </section>
-
     </>
   )
 }

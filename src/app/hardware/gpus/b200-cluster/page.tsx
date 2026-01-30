@@ -110,7 +110,7 @@ export default function B200ClusterPage() {
                 </p>
 
                 <div className="flex flex-wrap gap-4">
-                  <Link href="/hardware/gpus">
+                  <Link href="/waitlist?product=NVIDIA B200 8x Cluster">
                     <Button variant="primary" size="lg">
                       Buy Now
                     </Button>
