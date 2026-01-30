@@ -12,7 +12,7 @@ interface PageHeaderProps {
 
 export function PageHeader({ title, subtitle, children }: PageHeaderProps) {
   return (
-    <div className="bg-hero-gradient border-b border-electric-azure/10 relative overflow-hidden">
+    <div className="bg-hero-gradient border-b border-electric-azure/10 relative overflow-hidden pt-16">
       <div className="absolute inset-0 bg-gradient-to-b from-electric-azure/5 to-transparent pointer-events-none" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 relative">
         <motion.div

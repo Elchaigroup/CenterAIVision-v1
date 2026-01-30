@@ -15,7 +15,7 @@ export default function HomePage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] overflow-hidden">
+      <section className="relative min-h-screen overflow-hidden">
         {/* Gradient Blinds Background */}
         <div className="absolute inset-0">
           <GradientBlinds
@@ -33,7 +33,7 @@ export default function HomePage() {
         </div>
         {/* Overlay for better text readability - pointer-events-none allows mouse to pass through to gradient */}
         <div className="absolute inset-0 bg-midnight-slate/40 pointer-events-none" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24 md:pt-40 md:pb-32 relative">
           <FadeIn>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-cloud-mist max-w-4xl leading-tight">
               Bitcoin Mining & AI GPU Platform
