@@ -65,11 +65,13 @@ export function GradientBlinds({
     mouseTarget: [number, number]
     lastTime: number
     firstResize: boolean
+    pointerHandler: ((e: PointerEvent) => void) | null
   }>({
     raf: null,
     mouseTarget: [0, 0],
     lastTime: 0,
-    firstResize: true
+    firstResize: true,
+    pointerHandler: null
   })
 
   useEffect(() => {
@@ -286,10 +288,12 @@ void main() {
       ro = new ResizeObserver(resize)
       ro.observe(container)
 
+      // Create pointer move handler and store reference for cleanup
       const onPointerMove = (e: PointerEvent) => {
         if (!canvas) return
         const rect = canvas.getBoundingClientRect()
         const scale = renderer.dpr || 1
+        // Calculate position relative to canvas even if event is on another element
         const x = (e.clientX - rect.left) * scale
         const y = (rect.height - (e.clientY - rect.top)) * scale
         stateRef.current.mouseTarget = [x, y]
@@ -297,7 +301,12 @@ void main() {
           uniforms.iMouse.value = [x, y]
         }
       }
-      canvas.addEventListener('pointermove', onPointerMove)
+
+      // Store handler reference for cleanup
+      stateRef.current.pointerHandler = onPointerMove
+
+      // Listen on window to capture mouse events even when other elements are on top
+      window.addEventListener('pointermove', onPointerMove)
 
       const loop = (t: number) => {
         if (isDestroyed) return
@@ -332,8 +341,12 @@ void main() {
 
     return () => {
       isDestroyed = true
-      if (stateRef.current.raf) cancelAnimationFrame(stateRef.current.raf)
+      const currentState = stateRef.current
+      if (currentState.raf) cancelAnimationFrame(currentState.raf)
       if (ro) ro.disconnect()
+      if (currentState.pointerHandler) {
+        window.removeEventListener('pointermove', currentState.pointerHandler)
+      }
       if (canvas && canvas.parentElement === container) {
         container.removeChild(canvas)
       }

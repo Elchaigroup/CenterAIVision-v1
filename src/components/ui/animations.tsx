@@ -1,17 +1,47 @@
 'use client'
 
 import { useEffect, useRef, useState, ReactNode } from 'react'
+import { motion, useInView, useAnimation, Variants } from 'motion/react'
 
 interface FadeInProps {
   children: ReactNode
   delay?: number
   duration?: number
   className?: string
+  direction?: 'up' | 'down' | 'left' | 'right' | 'none'
 }
 
-export function FadeIn({ children, delay = 0, duration = 500, className = '' }: FadeInProps) {
+const fadeInVariants: Record<string, Variants> = {
+  up: {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 }
+  },
+  down: {
+    hidden: { opacity: 0, y: -20 },
+    visible: { opacity: 1, y: 0 }
+  },
+  left: {
+    hidden: { opacity: 0, x: 20 },
+    visible: { opacity: 1, x: 0 }
+  },
+  right: {
+    hidden: { opacity: 0, x: -20 },
+    visible: { opacity: 1, x: 0 }
+  },
+  none: {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 }
+  }
+}
+
+export function FadeIn({
+  children,
+  delay = 0,
+  duration = 0.5,
+  className = '',
+  direction = 'up'
+}: FadeInProps) {
   const [isVisible, setIsVisible] = useState(false)
-  const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), delay)
@@ -19,17 +49,18 @@ export function FadeIn({ children, delay = 0, duration = 500, className = '' }: 
   }, [delay])
 
   return (
-    <div
-      ref={ref}
+    <motion.div
       className={className}
-      style={{
-        opacity: isVisible ? 1 : 0,
-        transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
-        transition: `opacity ${duration}ms ease-out, transform ${duration}ms ease-out`,
+      initial="hidden"
+      animate={isVisible ? 'visible' : 'hidden'}
+      variants={fadeInVariants[direction]}
+      transition={{
+        duration,
+        ease: [0.25, 0.4, 0.25, 1]
       }}
     >
       {children}
-    </div>
+    </motion.div>
   )
 }
 
@@ -37,42 +68,38 @@ interface RevealProps {
   children: ReactNode
   className?: string
   threshold?: number
+  delay?: number
 }
 
-export function Reveal({ children, className = '', threshold = 0.1 }: RevealProps) {
-  const [isVisible, setIsVisible] = useState(false)
+export function Reveal({ children, className = '', threshold = 0.1, delay = 0 }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null)
+  const isInView = useInView(ref, { once: true, amount: threshold })
+  const controls = useAnimation()
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-          observer.unobserve(entry.target)
-        }
-      },
-      { threshold }
-    )
-
-    if (ref.current) {
-      observer.observe(ref.current)
+    if (isInView) {
+      controls.start('visible')
     }
-
-    return () => observer.disconnect()
-  }, [threshold])
+  }, [isInView, controls])
 
   return (
-    <div
+    <motion.div
       ref={ref}
       className={className}
-      style={{
-        opacity: isVisible ? 1 : 0,
-        transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
-        transition: 'opacity 0.6s ease-out, transform 0.6s ease-out',
+      initial="hidden"
+      animate={controls}
+      variants={{
+        hidden: { opacity: 0, y: 30 },
+        visible: { opacity: 1, y: 0 }
+      }}
+      transition={{
+        duration: 0.6,
+        delay,
+        ease: [0.25, 0.4, 0.25, 1]
       }}
     >
       {children}
-    </div>
+    </motion.div>
   )
 }
 
@@ -158,14 +185,15 @@ interface CardLiftProps {
 
 export function CardLift({ children, className = '' }: CardLiftProps) {
   return (
-    <div
-      className={`card-hover ${className}`}
-      style={{
-        transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+    <motion.div
+      className={className}
+      whileHover={{
+        y: -4,
+        transition: { duration: 0.3, ease: 'easeOut' }
       }}
     >
       {children}
-    </div>
+    </motion.div>
   )
 }
 
@@ -180,20 +208,17 @@ export function HoverGlow({
   className = '',
   glowColor = 'rgba(44, 147, 255, 0.3)',
 }: HoverGlowProps) {
-  const [isHovered, setIsHovered] = useState(false)
-
   return (
-    <div
+    <motion.div
       className={className}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      style={{
-        boxShadow: isHovered ? `0 0 40px ${glowColor}` : 'none',
-        transition: 'box-shadow 0.3s ease',
+      whileHover={{
+        boxShadow: `0 0 40px ${glowColor}`,
+        transition: { duration: 0.3 }
       }}
+      initial={{ boxShadow: 'none' }}
     >
       {children}
-    </div>
+    </motion.div>
   )
 }
 
@@ -209,7 +234,7 @@ export function SlideIn({
   children,
   direction = 'up',
   delay = 0,
-  duration = 300,
+  duration = 0.3,
   className = '',
 }: SlideInProps) {
   const [isVisible, setIsVisible] = useState(false)
@@ -219,33 +244,38 @@ export function SlideIn({
     return () => clearTimeout(timer)
   }, [delay])
 
-  const getTransform = () => {
-    if (isVisible) return 'translate(0, 0)'
-    switch (direction) {
-      case 'up':
-        return 'translateY(20px)'
-      case 'down':
-        return 'translateY(-20px)'
-      case 'left':
-        return 'translateX(20px)'
-      case 'right':
-        return 'translateX(-20px)'
-      default:
-        return 'translateY(20px)'
+  const variants: Record<string, Variants> = {
+    up: {
+      hidden: { opacity: 0, y: 20 },
+      visible: { opacity: 1, y: 0 }
+    },
+    down: {
+      hidden: { opacity: 0, y: -20 },
+      visible: { opacity: 1, y: 0 }
+    },
+    left: {
+      hidden: { opacity: 0, x: 20 },
+      visible: { opacity: 1, x: 0 }
+    },
+    right: {
+      hidden: { opacity: 0, x: -20 },
+      visible: { opacity: 1, x: 0 }
     }
   }
 
   return (
-    <div
+    <motion.div
       className={className}
-      style={{
-        opacity: isVisible ? 1 : 0,
-        transform: getTransform(),
-        transition: `opacity ${duration}ms ease-out, transform ${duration}ms ease-out`,
+      initial="hidden"
+      animate={isVisible ? 'visible' : 'hidden'}
+      variants={variants[direction]}
+      transition={{
+        duration,
+        ease: [0.25, 0.4, 0.25, 1]
       }}
     >
       {children}
-    </div>
+    </motion.div>
   )
 }
 
@@ -255,14 +285,54 @@ interface StaggerChildrenProps {
   className?: string
 }
 
-export function StaggerChildren({ children, staggerDelay = 100, className = '' }: StaggerChildrenProps) {
+export function StaggerChildren({ children, staggerDelay = 0.1, className = '' }: StaggerChildrenProps) {
   return (
-    <div className={className}>
+    <motion.div
+      className={className}
+      initial="hidden"
+      animate="visible"
+      variants={{
+        visible: {
+          transition: {
+            staggerChildren: staggerDelay
+          }
+        }
+      }}
+    >
       {children.map((child, index) => (
-        <FadeIn key={index} delay={index * staggerDelay}>
+        <motion.div
+          key={index}
+          variants={{
+            hidden: { opacity: 0, y: 20 },
+            visible: { opacity: 1, y: 0 }
+          }}
+        >
           {child}
-        </FadeIn>
+        </motion.div>
       ))}
-    </div>
+    </motion.div>
+  )
+}
+
+interface ScaleOnHoverProps {
+  children: ReactNode
+  className?: string
+  scale?: number
+}
+
+export function ScaleOnHover({ children, className = '', scale = 1.05 }: ScaleOnHoverProps) {
+  return (
+    <motion.div
+      className={className}
+      whileHover={{ scale }}
+      whileTap={{ scale: 0.98 }}
+      transition={{
+        type: 'spring',
+        stiffness: 400,
+        damping: 17
+      }}
+    >
+      {children}
+    </motion.div>
   )
 }

@@ -158,3 +158,113 @@ a {
 .glow-effect:hover {
   box-shadow: 0 0 40px rgba(44, 147, 255, 0.4);
 }
+
+/* Spotlight Card Effect */
+.spotlight-card {
+  position: relative;
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.spotlight-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    var(--spotlight-color, rgba(44, 147, 255, 0.15)),
+    transparent 40%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.spotlight-card:hover::before,
+.spotlight-card:focus-within::before {
+  opacity: 1;
+}
+
+.spotlight-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Tilt Card Effect */
+.tilt-card {
+  will-change: transform;
+  transform-style: preserve-3d;
+}
+
+/* Dock Component */
+.dock-outer {
+  margin: 0 0.5rem;
+  display: flex;
+  max-width: 100%;
+  align-items: center;
+}
+
+.dock-panel {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  width: fit-content;
+  gap: 0.75rem;
+  border-radius: 1rem;
+  background-color: rgba(27, 35, 45, 0.95);
+  border: 1px solid rgba(44, 147, 255, 0.2);
+  padding: 0 0.5rem 0.5rem;
+  backdrop-filter: blur(12px);
+}
+
+.dock-item {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background-color: rgba(27, 35, 45, 0.8);
+  border: 1px solid rgba(44, 147, 255, 0.15);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.dock-item:hover {
+  border-color: var(--electric-azure);
+  background-color: rgba(44, 147, 255, 0.1);
+}
+
+.dock-item:focus-visible {
+  border-color: var(--electric-azure);
+  box-shadow: 0 0 0 2px rgba(44, 147, 255, 0.3);
+}
+
+.dock-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: var(--cloud-mist);
+}
+
+.dock-label {
+  position: absolute;
+  top: -2rem;
+  left: 50%;
+  width: max-content;
+  white-space: nowrap;
+  border-radius: 0.375rem;
+  border: 1px solid rgba(44, 147, 255, 0.2);
+  background-color: rgba(27, 35, 45, 0.95);
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  color: var(--cloud-mist);
+  backdrop-filter: blur(8px);
+}

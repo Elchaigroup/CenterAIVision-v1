@@ -31,8 +31,8 @@ export default function HomePage() {
             mixBlendMode="normal"
           />
         </div>
-        {/* Overlay for better text readability */}
-        <div className="absolute inset-0 bg-midnight-slate/40" />
+        {/* Overlay for better text readability - pointer-events-none allows mouse to pass through to gradient */}
+        <div className="absolute inset-0 bg-midnight-slate/40 pointer-events-none" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 relative">
           <FadeIn>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-cloud-mist max-w-4xl leading-tight">
@@ -63,7 +63,7 @@ export default function HomePage() {
           {/* Feature Cards */}
           <div className="mt-16 grid md:grid-cols-2 gap-6">
             <FadeIn delay={600}>
-              <Card className="border-electric-azure/30">
+              <Card className="border-electric-azure/30" tilt>
                 <CardContent>
                   <h3 className="text-xl font-semibold text-cloud-mist mb-2">
                     Bitcoin Mining
@@ -81,7 +81,7 @@ export default function HomePage() {
               </Card>
             </FadeIn>
             <FadeIn delay={700}>
-              <Card className="border-electric-azure/30">
+              <Card className="border-electric-azure/30" tilt>
                 <CardContent>
                   <h3 className="text-xl font-semibold text-cloud-mist mb-2">
                     AI GPU Compute

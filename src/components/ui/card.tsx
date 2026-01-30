@@ -2,21 +2,34 @@
 
 import { ReactNode } from 'react'
 import { cn } from '@/lib/utils'
-import { CardLift } from './animations'
+import { SpotlightCard } from './spotlight-card'
+import { TiltCard } from './tilt-card'
 
 interface CardProps {
   children: ReactNode
   className?: string
   hover?: boolean
   glow?: boolean
+  tilt?: boolean
+  spotlight?: boolean
+  spotlightColor?: string
 }
 
-export function Card({ children, className, hover = true, glow = false }: CardProps) {
-  const content = (
+export function Card({
+  children,
+  className,
+  hover = true,
+  glow = false,
+  tilt = false,
+  spotlight = true,
+  spotlightColor
+}: CardProps) {
+  const cardContent = (
     <div
       className={cn(
-        'bg-card-bg border border-card-border rounded-xl p-6',
+        'bg-card-bg border border-card-border rounded-xl p-6 h-full',
         glow && 'glow-effect',
+        hover && !tilt && 'card-hover',
         className
       )}
     >
@@ -24,11 +37,31 @@ export function Card({ children, className, hover = true, glow = false }: CardPr
     </div>
   )
 
-  if (hover) {
-    return <CardLift className="h-full">{content}</CardLift>
+  // Apply tilt effect if enabled
+  if (tilt) {
+    return (
+      <TiltCard className="h-full" rotateAmplitude={8} scaleOnHover={1.02}>
+        {spotlight ? (
+          <SpotlightCard className="h-full" spotlightColor={spotlightColor}>
+            {cardContent}
+          </SpotlightCard>
+        ) : (
+          cardContent
+        )}
+      </TiltCard>
+    )
   }
 
-  return content
+  // Apply spotlight effect if enabled
+  if (spotlight) {
+    return (
+      <SpotlightCard className="h-full" spotlightColor={spotlightColor}>
+        {cardContent}
+      </SpotlightCard>
+    )
+  }
+
+  return cardContent
 }
 
 interface CardHeaderProps {
