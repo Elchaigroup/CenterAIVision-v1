@@ -1,20 +1,12 @@
 'use client'
 
-// Yahoo Finance API types
+// Market data types
 export interface QuoteData {
   symbol: string
   shortName: string
   regularMarketPrice: number
   regularMarketChange: number
   regularMarketChangePercent: number
-  regularMarketPreviousClose: number
-  regularMarketOpen: number
-  regularMarketDayHigh: number
-  regularMarketDayLow: number
-  regularMarketVolume: number
-  marketCap?: number
-  fiftyTwoWeekHigh?: number
-  fiftyTwoWeekLow?: number
 }
 
 export interface MarketData {
@@ -28,81 +20,30 @@ export interface MarketData {
   error: string | null
 }
 
-// Symbols to track
-const SYMBOLS = {
-  BTC: 'BTC-USD',
-  ETH: 'ETH-USD',
-  STOCK: 'MARA',  // Marathon Digital as proxy for mining stocks (CAIV is fictional)
-  SP500: '^GSPC',
-  NASDAQ: '^IXIC',
-}
-
-// Fetch quote data from Yahoo Finance
-async function fetchQuote(symbol: string): Promise<QuoteData | null> {
+// Fetch all market data from our API route
+export async function fetchMarketData(): Promise<Omit<MarketData, 'isLoading'>> {
   try {
-    const response = await fetch(
-      `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${symbol}`,
-      {
-        headers: {
-          'User-Agent': 'Mozilla/5.0',
-        },
-        next: { revalidate: 60 }, // Cache for 60 seconds
-      }
-    )
+    const response = await fetch('/api/market', {
+      next: { revalidate: 60 },
+    })
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch ${symbol}`)
+      throw new Error('Failed to fetch market data')
     }
 
     const data = await response.json()
-    const quote = data.quoteResponse?.result?.[0]
-
-    if (!quote) {
-      return null
-    }
 
     return {
-      symbol: quote.symbol,
-      shortName: quote.shortName || quote.symbol,
-      regularMarketPrice: quote.regularMarketPrice || 0,
-      regularMarketChange: quote.regularMarketChange || 0,
-      regularMarketChangePercent: quote.regularMarketChangePercent || 0,
-      regularMarketPreviousClose: quote.regularMarketPreviousClose || 0,
-      regularMarketOpen: quote.regularMarketOpen || 0,
-      regularMarketDayHigh: quote.regularMarketDayHigh || 0,
-      regularMarketDayLow: quote.regularMarketDayLow || 0,
-      regularMarketVolume: quote.regularMarketVolume || 0,
-      marketCap: quote.marketCap,
-      fiftyTwoWeekHigh: quote.fiftyTwoWeekHigh,
-      fiftyTwoWeekLow: quote.fiftyTwoWeekLow,
+      btc: data.btc,
+      eth: data.eth,
+      stock: data.stock,
+      sp500: data.sp500,
+      nasdaq: data.nasdaq,
+      lastUpdated: data.lastUpdated ? new Date(data.lastUpdated) : new Date(),
+      error: data.error || null,
     }
   } catch (error) {
-    console.error(`Error fetching ${symbol}:`, error)
-    return null
-  }
-}
-
-// Fetch all market data
-export async function fetchMarketData(): Promise<Omit<MarketData, 'isLoading'>> {
-  try {
-    const [btc, eth, stock, sp500, nasdaq] = await Promise.all([
-      fetchQuote(SYMBOLS.BTC),
-      fetchQuote(SYMBOLS.ETH),
-      fetchQuote(SYMBOLS.STOCK),
-      fetchQuote(SYMBOLS.SP500),
-      fetchQuote(SYMBOLS.NASDAQ),
-    ])
-
-    return {
-      btc,
-      eth,
-      stock,
-      sp500,
-      nasdaq,
-      lastUpdated: new Date(),
-      error: null,
-    }
-  } catch (error) {
+    console.error('Error fetching market data:', error)
     return {
       btc: null,
       eth: null,
