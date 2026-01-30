@@ -5,7 +5,6 @@ import { AuthProvider } from '@/lib/auth-context'
 import { MarketProvider } from '@/lib/market-context'
 import { Navbar } from '@/components/layout/navbar'
 import { Footer } from '@/components/layout/footer'
-import { GlobalToast } from '@/components/layout/toast'
 import { SignInModal } from '@/components/auth/sign-in-modal'
 import { SignUpModal } from '@/components/auth/sign-up-modal'
 
@@ -37,7 +36,6 @@ export function ClientLayout({ children }: ClientLayoutProps) {
           />
           <main className="flex-1">{children}</main>
           <Footer />
-          <GlobalToast />
           <SignInModal
             isOpen={showSignIn}
             onClose={() => setShowSignIn(false)}

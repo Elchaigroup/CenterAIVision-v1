@@ -28,6 +28,10 @@ export const navigationItems: NavItem[] = [
     ],
   },
   {
+    label: 'Resources',
+    href: '/resources',
+  },
+  {
     label: 'About',
     href: '/about',
   },
@@ -41,10 +45,10 @@ export const footerLinks = {
     { label: 'Hashrate', href: '/hardware/hashrate' },
   ],
   resources: [
+    { label: 'Resources & Media', href: '/resources' },
     { label: 'Investment Calculators', href: '/calculators' },
     { label: 'GPU Hardware', href: '/hardware/gpus' },
-    { label: 'Documentation', href: '#' },
-    { label: 'Support', href: '#' },
+    { label: 'Support', href: '/resources' },
   ],
   investors: [
     { label: 'Investor Dashboard', href: '/investors/dashboard' },
