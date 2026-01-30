@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { motion, AnimatePresence } from 'motion/react'
 import { navigationItems, NavItem } from '@/data/navigation'
 import { Button } from '@/components/ui/button'
+import { Magnet } from '@/components/ui/magnet'
 import { useAuth } from '@/lib/auth-context'
 
 interface DropdownProps {
@@ -23,8 +24,9 @@ function Dropdown({ items, isOpen, onClose }: DropdownProps) {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: -8, scale: 0.96 }}
           transition={{ duration: 0.2, ease: [0.25, 0.4, 0.25, 1] }}
-          className="absolute top-full left-0 mt-2 w-56 bg-card-bg/95 backdrop-blur-md border border-card-border rounded-lg shadow-xl py-2 z-50"
+          className="absolute top-full left-0 mt-2 w-56 bg-card-bg/95 backdrop-blur-xl border border-electric-azure/20 rounded-xl shadow-2xl shadow-electric-azure/10 py-2 z-50 overflow-hidden"
         >
+          <div className="absolute inset-0 bg-gradient-to-b from-electric-azure/5 to-transparent pointer-events-none" />
           {items.map((item, index) => (
             <motion.div
               key={item.label}
@@ -35,9 +37,13 @@ function Dropdown({ items, isOpen, onClose }: DropdownProps) {
               <Link
                 href={item.href || '#'}
                 onClick={onClose}
-                className="block px-4 py-2.5 text-sm text-cloud-mist/80 hover:text-electric-azure hover:bg-midnight-slate/50 transition-colors"
+                className="relative block px-4 py-2.5 text-sm text-cloud-mist/80 hover:text-electric-azure transition-all duration-200 group"
               >
-                {item.label}
+                <span className="relative z-10">{item.label}</span>
+                <motion.div
+                  className="absolute inset-0 bg-electric-azure/10 opacity-0 group-hover:opacity-100 transition-opacity"
+                  layoutId="dropdown-hover"
+                />
               </Link>
             </motion.div>
           ))}
@@ -69,35 +75,36 @@ function NavItemWithDropdown({ item }: NavItemWithDropdownProps) {
   if (item.dropdown) {
     return (
       <div ref={ref} className="relative">
-        <motion.button
-          onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center gap-1 px-3 py-2 text-sm text-cloud-mist/80 hover:text-electric-azure transition-colors"
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-        >
-          {item.label}
-          <motion.span
-            className="text-xs ml-0.5"
-            animate={{ rotate: isOpen ? 180 : 0 }}
-            transition={{ duration: 0.2 }}
+        <Magnet padding={50} magnetStrength={3}>
+          <motion.button
+            onClick={() => setIsOpen(!isOpen)}
+            className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-cloud-mist/80 hover:text-electric-azure transition-colors rounded-lg hover:bg-electric-azure/5"
+            whileTap={{ scale: 0.98 }}
           >
-            ▾
-          </motion.span>
-        </motion.button>
+            {item.label}
+            <motion.span
+              className="text-xs ml-0.5 text-electric-azure/60"
+              animate={{ rotate: isOpen ? 180 : 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              ▾
+            </motion.span>
+          </motion.button>
+        </Magnet>
         <Dropdown items={item.dropdown} isOpen={isOpen} onClose={() => setIsOpen(false)} />
       </div>
     )
   }
 
   return (
-    <Link
-      href={item.href || '#'}
-      className="px-3 py-2 text-sm text-cloud-mist/80 hover:text-electric-azure transition-colors"
-    >
-      <motion.span whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+    <Magnet padding={50} magnetStrength={3}>
+      <Link
+        href={item.href || '#'}
+        className="block px-4 py-2 text-sm font-medium text-cloud-mist/80 hover:text-electric-azure transition-colors rounded-lg hover:bg-electric-azure/5"
+      >
         {item.label}
-      </motion.span>
-    </Link>
+      </Link>
+    </Magnet>
   )
 }
 
@@ -110,23 +117,50 @@ interface NavbarProps {
 export function Navbar({ onSignInClick, onSignUpClick, btcPrice = 98350 }: NavbarProps) {
   const { isAuthenticated, user, signOut } = useAuth()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-40 bg-midnight-slate/95 backdrop-blur-md border-b border-card-border">
+    <motion.header
+      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+        scrolled
+          ? 'bg-midnight-slate/98 backdrop-blur-xl border-b border-electric-azure/10 shadow-lg shadow-midnight-slate/50'
+          : 'bg-midnight-slate/80 backdrop-blur-md border-b border-card-border/50'
+      }`}
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5, ease: [0.25, 0.4, 0.25, 1] }}
+    >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-              <Image
-                src="/logo-light.png"
-                alt="Center AI Vision"
-                width={180}
-                height={40}
-                className="h-10 w-auto"
-                priority
-              />
-            </motion.div>
+            <Magnet padding={60} magnetStrength={4}>
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="relative"
+              >
+                <Image
+                  src="/logo-light.png"
+                  alt="Center AI Vision"
+                  width={180}
+                  height={40}
+                  className="h-10 w-auto"
+                  priority
+                />
+                <motion.div
+                  className="absolute -inset-2 bg-electric-azure/10 rounded-lg opacity-0 hover:opacity-100 transition-opacity -z-10"
+                />
+              </motion.div>
+            </Magnet>
           </Link>
 
           {/* Desktop Navigation */}
@@ -139,16 +173,22 @@ export function Navbar({ onSignInClick, onSignUpClick, btcPrice = 98350 }: Navba
           {/* Right Side */}
           <div className="flex items-center gap-4">
             {/* BTC Price Pill */}
-            <motion.div
-              className="hidden sm:flex items-center px-3 py-1.5 bg-card-bg border border-card-border rounded-full text-sm"
-              whileHover={{ scale: 1.02, borderColor: 'rgba(44, 147, 255, 0.5)' }}
-              transition={{ duration: 0.2 }}
-            >
-              <span className="text-cloud-mist/60 mr-2">BTC</span>
-              <span className="text-cloud-mist font-medium">
-                ${btcPrice.toLocaleString()}
-              </span>
-            </motion.div>
+            <Magnet padding={40} magnetStrength={4}>
+              <motion.div
+                className="hidden sm:flex items-center px-4 py-2 bg-gradient-to-r from-card-bg to-card-bg/80 border border-electric-azure/20 rounded-full text-sm backdrop-blur-sm"
+                whileHover={{
+                  scale: 1.02,
+                  borderColor: 'rgba(44, 147, 255, 0.4)',
+                  boxShadow: '0 0 20px rgba(44, 147, 255, 0.15)'
+                }}
+                transition={{ duration: 0.2 }}
+              >
+                <span className="text-electric-azure/80 mr-2 font-medium">BTC</span>
+                <span className="text-cloud-mist font-semibold">
+                  ${btcPrice.toLocaleString()}
+                </span>
+              </motion.div>
+            </Magnet>
 
             {isAuthenticated ? (
               <div className="flex items-center gap-4">
@@ -161,41 +201,50 @@ export function Navbar({ onSignInClick, onSignUpClick, btcPrice = 98350 }: Navba
               </div>
             ) : (
               <div className="flex items-center gap-3">
-                <Button variant="ghost" size="sm" onClick={onSignInClick} className="hidden sm:inline-flex">
-                  Sign In
-                </Button>
-                <Button variant="primary" size="sm" onClick={onSignUpClick}>
-                  Sign Up
-                </Button>
+                <Magnet padding={30} magnetStrength={4}>
+                  <Button variant="ghost" size="sm" onClick={onSignInClick} className="hidden sm:inline-flex">
+                    Sign In
+                  </Button>
+                </Magnet>
+                <Magnet padding={30} magnetStrength={4}>
+                  <Button variant="primary" size="sm" onClick={onSignUpClick}>
+                    Sign Up
+                  </Button>
+                </Magnet>
               </div>
             )}
 
             {/* Mobile Menu Button */}
             <motion.button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 text-cloud-mist"
+              className="lg:hidden p-2 text-cloud-mist rounded-lg hover:bg-electric-azure/10 transition-colors"
               aria-label="Toggle menu"
               whileTap={{ scale: 0.95 }}
             >
               <div className="w-5 h-4 flex flex-col justify-between">
                 <motion.span
-                  className="h-0.5 bg-current origin-left"
+                  className="h-0.5 bg-current origin-left rounded-full"
                   animate={{
                     rotate: isMobileMenuOpen ? 45 : 0,
-                    y: isMobileMenuOpen ? -1 : 0
+                    y: isMobileMenuOpen ? -1 : 0,
+                    width: isMobileMenuOpen ? '141%' : '100%'
                   }}
                   transition={{ duration: 0.2 }}
                 />
                 <motion.span
-                  className="h-0.5 bg-current"
-                  animate={{ opacity: isMobileMenuOpen ? 0 : 1 }}
+                  className="h-0.5 bg-current rounded-full"
+                  animate={{
+                    opacity: isMobileMenuOpen ? 0 : 1,
+                    x: isMobileMenuOpen ? 10 : 0
+                  }}
                   transition={{ duration: 0.2 }}
                 />
                 <motion.span
-                  className="h-0.5 bg-current origin-left"
+                  className="h-0.5 bg-current origin-left rounded-full"
                   animate={{
                     rotate: isMobileMenuOpen ? -45 : 0,
-                    y: isMobileMenuOpen ? 1 : 0
+                    y: isMobileMenuOpen ? 1 : 0,
+                    width: isMobileMenuOpen ? '141%' : '100%'
                   }}
                   transition={{ duration: 0.2 }}
                 />
@@ -212,20 +261,19 @@ export function Navbar({ onSignInClick, onSignUpClick, btcPrice = 98350 }: Navba
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3, ease: [0.25, 0.4, 0.25, 1] }}
-              className="lg:hidden overflow-hidden border-t border-card-border"
+              className="lg:hidden overflow-hidden border-t border-electric-azure/10"
             >
-              <div className="py-4">
+              <div className="py-4 space-y-1">
                 {navigationItems.map((item, index) => (
                   <motion.div
                     key={item.label}
-                    className="py-2"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.05, duration: 0.2 }}
                   >
                     {item.dropdown ? (
-                      <>
-                        <div className="px-3 py-2 text-sm font-medium text-cloud-mist">
+                      <div className="py-2">
+                        <div className="px-4 py-2 text-sm font-semibold text-electric-azure/80">
                           {item.label}
                         </div>
                         {item.dropdown.map((subItem) => (
@@ -233,17 +281,17 @@ export function Navbar({ onSignInClick, onSignUpClick, btcPrice = 98350 }: Navba
                             key={subItem.label}
                             href={subItem.href || '#'}
                             onClick={() => setIsMobileMenuOpen(false)}
-                            className="block px-6 py-2 text-sm text-cloud-mist/70 hover:text-electric-azure"
+                            className="block px-8 py-2.5 text-sm text-cloud-mist/70 hover:text-electric-azure hover:bg-electric-azure/5 rounded-lg mx-2 transition-colors"
                           >
                             {subItem.label}
                           </Link>
                         ))}
-                      </>
+                      </div>
                     ) : (
                       <Link
                         href={item.href || '#'}
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className="block px-3 py-2 text-sm text-cloud-mist/80 hover:text-electric-azure"
+                        className="block px-4 py-2.5 text-sm font-medium text-cloud-mist/80 hover:text-electric-azure hover:bg-electric-azure/5 rounded-lg mx-2 transition-colors"
                       >
                         {item.label}
                       </Link>
@@ -255,6 +303,6 @@ export function Navbar({ onSignInClick, onSignUpClick, btcPrice = 98350 }: Navba
           )}
         </AnimatePresence>
       </nav>
-    </header>
+    </motion.header>
   )
 }

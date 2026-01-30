@@ -37,13 +37,13 @@ export default function BitcoinMiningPage() {
           </Reveal>
           <div className="grid md:grid-cols-3 gap-8">
             {miningSteps.map((step, index) => (
-              <FadeIn key={step.step} delay={index * 150}>
-                <FeatureCard
-                  step={step.step}
-                  title={step.title}
-                  description={step.description}
-                />
-              </FadeIn>
+              <FeatureCard
+                key={step.step}
+                step={step.step}
+                title={step.title}
+                description={step.description}
+                index={index}
+              />
             ))}
           </div>
         </div>
@@ -62,9 +62,7 @@ export default function BitcoinMiningPage() {
           </Reveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {miningPlans.map((plan, index) => (
-              <FadeIn key={plan.id} delay={index * 100}>
-                <MiningCard plan={plan} />
-              </FadeIn>
+              <MiningCard key={plan.id} plan={plan} index={index} />
             ))}
           </div>
         </div>
@@ -83,18 +81,12 @@ export default function BitcoinMiningPage() {
           </Reveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {miningFeatures.map((feature, index) => (
-              <FadeIn key={feature.title} delay={index * 100}>
-                <Card hover={false} className="h-full">
-                  <CardContent>
-                    <h3 className="text-lg font-semibold text-cloud-mist mb-2">
-                      {feature.title}
-                    </h3>
-                    <p className="text-sm text-cloud-mist/70">
-                      {feature.description}
-                    </p>
-                  </CardContent>
-                </Card>
-              </FadeIn>
+              <FeatureCard
+                key={feature.title}
+                title={feature.title}
+                description={feature.description}
+                index={index}
+              />
             ))}
           </div>
         </div>

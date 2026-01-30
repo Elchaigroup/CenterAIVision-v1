@@ -125,9 +125,7 @@ export default function HomePage() {
           </Reveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {miningPlans.map((plan, index) => (
-              <FadeIn key={plan.id} delay={index * 100}>
-                <MiningCard plan={plan} />
-              </FadeIn>
+              <MiningCard key={plan.id} plan={plan} index={index} />
             ))}
           </div>
         </div>
@@ -153,9 +151,7 @@ export default function HomePage() {
           </Reveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {gpuComputeProducts.map((gpu, index) => (
-              <FadeIn key={gpu.id} delay={index * 100}>
-                <GPUComputeCard gpu={gpu} />
-              </FadeIn>
+              <GPUComputeCard key={gpu.id} gpu={gpu} index={index} />
             ))}
           </div>
         </div>

@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { FadeIn, Reveal } from '@/components/ui/animations'
 import { PageHeader } from '@/components/layout/page-header'
 import { ASICCard } from '@/components/sections/asic-card'
-import { Card, CardContent } from '@/components/ui/card'
+import { FeatureCard } from '@/components/sections/feature-card'
 import { Button } from '@/components/ui/button'
 import { asicMiners, asicInclusions } from '@/data/gpu-products'
 import { cn } from '@/lib/utils'
@@ -60,9 +60,7 @@ export default function ASICMinersPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredMiners.map((miner, index) => (
-              <FadeIn key={miner.id} delay={index * 100}>
-                <ASICCard miner={miner} />
-              </FadeIn>
+              <ASICCard key={miner.id} miner={miner} index={index} />
             ))}
           </div>
         </div>
@@ -102,18 +100,12 @@ export default function ASICMinersPage() {
           </Reveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {asicInclusions.map((item, index) => (
-              <FadeIn key={item.title} delay={index * 100}>
-                <Card hover={false} className="h-full">
-                  <CardContent>
-                    <h3 className="text-lg font-semibold text-cloud-mist mb-2">
-                      {item.title}
-                    </h3>
-                    <p className="text-sm text-cloud-mist/70">
-                      {item.description}
-                    </p>
-                  </CardContent>
-                </Card>
-              </FadeIn>
+              <FeatureCard
+                key={item.title}
+                title={item.title}
+                description={item.description}
+                index={index}
+              />
             ))}
           </div>
         </div>

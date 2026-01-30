@@ -1,10 +1,10 @@
 'use client'
 
 import Link from 'next/link'
-import { FadeIn, Reveal } from '@/components/ui/animations'
+import { Reveal } from '@/components/ui/animations'
 import { PageHeader } from '@/components/layout/page-header'
 import { HashrateCard } from '@/components/sections/hashrate-card'
-import { Card, CardContent } from '@/components/ui/card'
+import { FeatureCard } from '@/components/sections/feature-card'
 import { Button } from '@/components/ui/button'
 import { hashratePlans, hashrateInclusions } from '@/data/hashrate-plans'
 
@@ -29,9 +29,7 @@ export default function HashratePage() {
           </Reveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {hashratePlans.map((plan, index) => (
-              <FadeIn key={plan.id} delay={index * 100}>
-                <HashrateCard plan={plan} />
-              </FadeIn>
+              <HashrateCard key={plan.id} plan={plan} index={index} />
             ))}
           </div>
         </div>
@@ -71,18 +69,12 @@ export default function HashratePage() {
           </Reveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {hashrateInclusions.map((item, index) => (
-              <FadeIn key={item.title} delay={index * 100}>
-                <Card hover={false} className="h-full">
-                  <CardContent>
-                    <h3 className="text-lg font-semibold text-cloud-mist mb-2">
-                      {item.title}
-                    </h3>
-                    <p className="text-sm text-cloud-mist/70">
-                      {item.description}
-                    </p>
-                  </CardContent>
-                </Card>
-              </FadeIn>
+              <FeatureCard
+                key={item.title}
+                title={item.title}
+                description={item.description}
+                index={index}
+              />
             ))}
           </div>
         </div>

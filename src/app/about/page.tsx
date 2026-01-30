@@ -1,8 +1,12 @@
 'use client'
 
-import { FadeIn, Reveal, CounterUp } from '@/components/ui/animations'
+import { motion } from 'motion/react'
+import { Reveal, CounterUp } from '@/components/ui/animations'
 import { PageHeader } from '@/components/layout/page-header'
 import { Card, CardContent } from '@/components/ui/card'
+import { FeatureCard } from '@/components/sections/feature-card'
+import { GradientText } from '@/components/ui/gradient-text'
+import { Magnet } from '@/components/ui/magnet'
 
 const stats = [
   { value: 36, suffix: ' EH/s', label: 'Mining Hashrate' },
@@ -48,22 +52,31 @@ export default function AboutPage() {
       />
 
       {/* Stats Section */}
-      <section className="py-12 bg-card-bg/50 border-b border-card-border">
+      <section className="py-12 bg-card-bg/50 border-b border-electric-azure/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
-              <FadeIn key={stat.label} delay={index * 100}>
-                <div className="text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-cloud-mist mb-1">
-                    <CounterUp
-                      end={stat.value}
-                      duration={2000}
-                      suffix={stat.suffix}
-                    />
+              <Magnet key={stat.label} padding={60} magnetStrength={5}>
+                <motion.div
+                  className="text-center p-4 rounded-xl hover:bg-electric-azure/5 transition-colors cursor-default"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  whileHover={{ scale: 1.05 }}
+                >
+                  <div className="text-3xl md:text-4xl font-bold mb-1">
+                    <GradientText colors={['#2C93FF', '#60B5FF', '#2C93FF']} animationSpeed={4}>
+                      <CounterUp
+                        end={stat.value}
+                        duration={2000}
+                        suffix={stat.suffix}
+                      />
+                    </GradientText>
                   </div>
                   <div className="text-sm text-cloud-mist/60">{stat.label}</div>
-                </div>
-              </FadeIn>
+                </motion.div>
+              </Magnet>
             ))}
           </div>
         </div>
@@ -124,18 +137,12 @@ export default function AboutPage() {
           </Reveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {values.map((value, index) => (
-              <FadeIn key={value.title} delay={index * 100}>
-                <Card hover={false} className="h-full">
-                  <CardContent>
-                    <h3 className="text-xl font-semibold text-cloud-mist mb-3">
-                      {value.title}
-                    </h3>
-                    <p className="text-sm text-cloud-mist/70 leading-relaxed">
-                      {value.description}
-                    </p>
-                  </CardContent>
-                </Card>
-              </FadeIn>
+              <FeatureCard
+                key={value.title}
+                title={value.title}
+                description={value.description}
+                index={index}
+              />
             ))}
           </div>
         </div>
@@ -154,24 +161,36 @@ export default function AboutPage() {
           </Reveal>
           <div className="max-w-3xl mx-auto">
             {milestones.map((milestone, index) => (
-              <FadeIn key={milestone.year} delay={index * 100}>
-                <div className="flex gap-6 mb-8 last:mb-0">
-                  <div className="w-20 shrink-0">
-                    <div className="text-2xl font-bold text-electric-azure">
-                      {milestone.year}
-                    </div>
-                  </div>
-                  <div className="flex-1 pb-8 border-l-2 border-card-border pl-6 relative">
-                    <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-electric-azure/30 border-2 border-electric-azure" />
-                    <h3 className="text-lg font-semibold text-cloud-mist mb-1">
-                      {milestone.title}
-                    </h3>
-                    <p className="text-sm text-cloud-mist/70">
-                      {milestone.description}
-                    </p>
-                  </div>
+              <motion.div
+                key={milestone.year}
+                className="flex gap-6 mb-8 last:mb-0"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <div className="w-20 shrink-0">
+                  <GradientText
+                    colors={['#2C93FF', '#60B5FF', '#2C93FF']}
+                    animationSpeed={4}
+                    className="text-2xl font-bold"
+                  >
+                    {milestone.year}
+                  </GradientText>
                 </div>
-              </FadeIn>
+                <div className="flex-1 pb-8 border-l-2 border-electric-azure/30 pl-6 relative">
+                  <motion.div
+                    className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-electric-azure/30 border-2 border-electric-azure"
+                    whileHover={{ scale: 1.3, backgroundColor: 'rgba(44, 147, 255, 0.5)' }}
+                  />
+                  <h3 className="text-lg font-semibold text-cloud-mist mb-1">
+                    {milestone.title}
+                  </h3>
+                  <p className="text-sm text-cloud-mist/70">
+                    {milestone.description}
+                  </p>
+                </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -209,21 +228,31 @@ export default function AboutPage() {
                 capacity: 'Expansion planned for 2027',
               },
             ].map((region, index) => (
-              <FadeIn key={region.region} delay={index * 150}>
-                <Card hover={false} className="text-center">
+              <motion.div
+                key={region.region}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.15 }}
+              >
+                <Card tilt className="text-center h-full">
                   <CardContent>
                     <h3 className="text-xl font-semibold text-cloud-mist mb-2">
                       {region.region}
                     </h3>
-                    <div className="text-electric-azure font-medium mb-1">
+                    <GradientText
+                      colors={['#2C93FF', '#60B5FF', '#2C93FF']}
+                      animationSpeed={4}
+                      className="font-medium block mb-1"
+                    >
                       {region.locations}
-                    </div>
+                    </GradientText>
                     <div className="text-sm text-cloud-mist/60">
                       {region.capacity}
                     </div>
                   </CardContent>
                 </Card>
-              </FadeIn>
+              </motion.div>
             ))}
           </div>
         </div>

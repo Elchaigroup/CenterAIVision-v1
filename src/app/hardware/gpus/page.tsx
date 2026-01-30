@@ -1,8 +1,9 @@
 'use client'
 
-import { FadeIn, Reveal } from '@/components/ui/animations'
+import { Reveal } from '@/components/ui/animations'
 import { PageHeader } from '@/components/layout/page-header'
 import { GPUHardwareCard } from '@/components/sections/gpu-card'
+import { FeatureCard } from '@/components/sections/feature-card'
 import { Card } from '@/components/ui/card'
 import { gpuHardwareProducts } from '@/data/gpu-products'
 import { formatCurrency } from '@/lib/utils'
@@ -29,9 +30,7 @@ export default function GPUHardwarePage() {
           </Reveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {gpuHardwareProducts.map((gpu, index) => (
-              <FadeIn key={gpu.id} delay={index * 100}>
-                <GPUHardwareCard gpu={gpu} />
-              </FadeIn>
+              <GPUHardwareCard key={gpu.id} gpu={gpu} index={index} />
             ))}
           </div>
         </div>
@@ -132,18 +131,12 @@ export default function GPUHardwarePage() {
                 description: 'We handle all hardware maintenance, cooling, and operational logistics. You simply collect returns.',
               },
             ].map((benefit, index) => (
-              <FadeIn key={benefit.title} delay={index * 150}>
-                <Card hover={false} className="h-full">
-                  <div className="p-6">
-                    <h3 className="text-xl font-semibold text-cloud-mist mb-3">
-                      {benefit.title}
-                    </h3>
-                    <p className="text-cloud-mist/70 leading-relaxed">
-                      {benefit.description}
-                    </p>
-                  </div>
-                </Card>
-              </FadeIn>
+              <FeatureCard
+                key={benefit.title}
+                title={benefit.title}
+                description={benefit.description}
+                index={index}
+              />
             ))}
           </div>
         </div>

@@ -3,7 +3,7 @@
 import { FadeIn, Reveal } from '@/components/ui/animations'
 import { PageHeader } from '@/components/layout/page-header'
 import { GPUComputeCard } from '@/components/sections/gpu-card'
-import { Card, CardContent } from '@/components/ui/card'
+import { FeatureCard } from '@/components/sections/feature-card'
 import { gpuComputeProducts, gpuFeatures } from '@/data/gpu-products'
 
 export default function GPUComputePage() {
@@ -36,9 +36,7 @@ export default function GPUComputePage() {
           </Reveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {gpuComputeProducts.map((gpu, index) => (
-              <FadeIn key={gpu.id} delay={index * 100}>
-                <GPUComputeCard gpu={gpu} />
-              </FadeIn>
+              <GPUComputeCard key={gpu.id} gpu={gpu} index={index} />
             ))}
           </div>
         </div>
@@ -57,18 +55,12 @@ export default function GPUComputePage() {
           </Reveal>
           <div className="grid md:grid-cols-3 gap-8">
             {gpuFeatures.map((feature, index) => (
-              <FadeIn key={feature.title} delay={index * 150}>
-                <Card hover={false} className="h-full">
-                  <CardContent>
-                    <h3 className="text-xl font-semibold text-cloud-mist mb-3">
-                      {feature.title}
-                    </h3>
-                    <p className="text-cloud-mist/70 leading-relaxed">
-                      {feature.description}
-                    </p>
-                  </CardContent>
-                </Card>
-              </FadeIn>
+              <FeatureCard
+                key={feature.title}
+                title={feature.title}
+                description={feature.description}
+                index={index}
+              />
             ))}
           </div>
         </div>
@@ -104,18 +96,12 @@ export default function GPUComputePage() {
                 description: 'Run complex simulations and computational research workloads.',
               },
             ].map((useCase, index) => (
-              <FadeIn key={useCase.title} delay={index * 100}>
-                <Card hover={false} className="h-full">
-                  <CardContent>
-                    <h3 className="text-lg font-semibold text-cloud-mist mb-2">
-                      {useCase.title}
-                    </h3>
-                    <p className="text-sm text-cloud-mist/70">
-                      {useCase.description}
-                    </p>
-                  </CardContent>
-                </Card>
-              </FadeIn>
+              <FeatureCard
+                key={useCase.title}
+                title={useCase.title}
+                description={useCase.description}
+                index={index}
+              />
             ))}
           </div>
         </div>
