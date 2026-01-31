@@ -258,6 +258,25 @@ a {
   }
 }
 
+/* Hyperspeed light trail animation */
+@keyframes hyperspeed-trail {
+  0% {
+    width: 0;
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  100% {
+    width: 150vw;
+    opacity: 0;
+  }
+}
+
+.animate-hyperspeed-trail {
+  animation: hyperspeed-trail 3s linear infinite;
+}
+
 .glass-shimmer {
   position: relative;
   overflow: hidden;

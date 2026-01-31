@@ -1,194 +1,61 @@
 'use client'
 
-import { useState, Suspense, useEffect, useRef } from 'react'
+import { useState, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 
-function HyperspeedCanvas() {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
+// Light trail component
+function LightTrail({ angle, delay, color }: { angle: number; delay: number; color: string }) {
+  return (
+    <div
+      className="absolute h-[3px] animate-hyperspeed-trail"
+      style={{
+        left: '50%',
+        top: '40%',
+        background: `linear-gradient(90deg, transparent 0%, ${color}40 20%, ${color} 100%)`,
+        transformOrigin: 'left center',
+        transform: `rotate(${angle}deg)`,
+        animationDelay: `${delay}s`,
+        boxShadow: `0 0 20px ${color}, 0 0 40px ${color}50`,
+      }}
+    />
+  )
+}
 
-  useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
+// Hyperspeed background with CSS animations
+function HyperspeedBackground() {
+  const colors = ['#2C93FF', '#06b6d4', '#8b5cf6', '#a855f7', '#60B5FF', '#ec4899']
 
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
-
-    let animationId: number
-
-    interface Trail {
-      x: number
-      y: number
-      vx: number
-      vy: number
-      color: string
-      width: number
-      history: { x: number; y: number }[]
-    }
-
-    let trails: Trail[] = []
-
-    const colors = [
-      '#2C93FF', // electric-azure
-      '#60B5FF', // light blue
-      '#06b6d4', // cyan
-      '#8b5cf6', // purple
-      '#a855f7', // violet
-      '#ec4899', // pink
-    ]
-
-    function resize() {
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
-      ctx.fillStyle = '#0a0f1c'
-      ctx.fillRect(0, 0, canvas.width, canvas.height)
-      initTrails()
-    }
-
-    function initTrails() {
-      trails = []
-      for (let i = 0; i < 30; i++) {
-        createTrail()
-      }
-    }
-
-    function createTrail() {
-      const centerX = canvas.width / 2
-      const centerY = canvas.height * 0.4
-      const angle = Math.random() * Math.PI * 2
-      const speed = 3 + Math.random() * 4
-
-      trails.push({
-        x: centerX + (Math.random() - 0.5) * 50,
-        y: centerY + (Math.random() - 0.5) * 50,
-        vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed * 0.5 + speed * 0.8,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        width: 2 + Math.random() * 3,
-        history: [],
-      })
-    }
-
-    function animate() {
-      // Semi-transparent overlay for trail effect
-      ctx.fillStyle = 'rgba(10, 15, 28, 0.08)'
-      ctx.fillRect(0, 0, canvas.width, canvas.height)
-
-      trails.forEach((trail, index) => {
-        // Store history for trail
-        trail.history.push({ x: trail.x, y: trail.y })
-        if (trail.history.length > 50) {
-          trail.history.shift()
-        }
-
-        // Update position - spread out as they move
-        trail.x += trail.vx
-        trail.y += trail.vy
-
-        // Accelerate and spread
-        trail.vx *= 1.02
-        trail.vy *= 1.015
-
-        // Draw trail with gradient
-        if (trail.history.length > 2) {
-          ctx.beginPath()
-          ctx.moveTo(trail.history[0].x, trail.history[0].y)
-
-          for (let i = 1; i < trail.history.length; i++) {
-            ctx.lineTo(trail.history[i].x, trail.history[i].y)
-          }
-          ctx.lineTo(trail.x, trail.y)
-
-          // Create gradient
-          const gradient = ctx.createLinearGradient(
-            trail.history[0].x,
-            trail.history[0].y,
-            trail.x,
-            trail.y
-          )
-          gradient.addColorStop(0, 'transparent')
-          gradient.addColorStop(0.5, trail.color + '80')
-          gradient.addColorStop(1, trail.color)
-
-          ctx.strokeStyle = gradient
-          ctx.lineWidth = trail.width
-          ctx.lineCap = 'round'
-          ctx.lineJoin = 'round'
-          ctx.stroke()
-
-          // Glow effect
-          ctx.shadowBlur = 15
-          ctx.shadowColor = trail.color
-          ctx.lineWidth = trail.width * 0.5
-          ctx.stroke()
-          ctx.shadowBlur = 0
-        }
-
-        // Draw bright head
-        ctx.beginPath()
-        ctx.arc(trail.x, trail.y, trail.width * 1.5, 0, Math.PI * 2)
-        ctx.fillStyle = '#ffffff'
-        ctx.shadowBlur = 20
-        ctx.shadowColor = trail.color
-        ctx.fill()
-        ctx.shadowBlur = 0
-
-        // Reset if off screen
-        if (
-          trail.x < -100 ||
-          trail.x > canvas.width + 100 ||
-          trail.y > canvas.height + 100
-        ) {
-          const centerX = canvas.width / 2
-          const centerY = canvas.height * 0.4
-          const angle = Math.random() * Math.PI * 2
-          const speed = 3 + Math.random() * 4
-
-          trails[index] = {
-            x: centerX + (Math.random() - 0.5) * 50,
-            y: centerY + (Math.random() - 0.5) * 50,
-            vx: Math.cos(angle) * speed,
-            vy: Math.sin(angle) * speed * 0.5 + speed * 0.8,
-            color: colors[Math.floor(Math.random() * colors.length)],
-            width: 2 + Math.random() * 3,
-            history: [],
-          }
-        }
-      })
-
-      // Center glow
-      const gradient = ctx.createRadialGradient(
-        canvas.width / 2,
-        canvas.height * 0.4,
-        0,
-        canvas.width / 2,
-        canvas.height * 0.4,
-        300
-      )
-      gradient.addColorStop(0, 'rgba(44, 147, 255, 0.1)')
-      gradient.addColorStop(0.5, 'rgba(139, 92, 246, 0.05)')
-      gradient.addColorStop(1, 'transparent')
-      ctx.fillStyle = gradient
-      ctx.fillRect(0, 0, canvas.width, canvas.height)
-
-      animationId = requestAnimationFrame(animate)
-    }
-
-    resize()
-    window.addEventListener('resize', resize)
-    animate()
-
-    return () => {
-      window.removeEventListener('resize', resize)
-      cancelAnimationFrame(animationId)
-    }
-  }, [])
+  // Generate 24 trails spread around 360 degrees
+  const trails = Array.from({ length: 24 }, (_, i) => ({
+    angle: (i * 15) - 180 + (Math.random() * 8 - 4),
+    delay: i * 0.12,
+    color: colors[i % colors.length],
+  }))
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 w-full h-full"
-    />
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* Light trails */}
+      {trails.map((trail, i) => (
+        <LightTrail key={i} {...trail} />
+      ))}
+
+      {/* Center glow */}
+      <div
+        className="absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full opacity-60"
+        style={{
+          background: 'radial-gradient(circle, rgba(44,147,255,0.2) 0%, rgba(139,92,246,0.1) 30%, transparent 60%)',
+        }}
+      />
+
+      {/* Additional outer glow */}
+      <div
+        className="absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full"
+        style={{
+          background: 'radial-gradient(circle, rgba(44,147,255,0.3) 0%, transparent 70%)',
+        }}
+      />
+    </div>
   )
 }
 
@@ -208,8 +75,8 @@ function WaitlistForm() {
 
   if (submitted) {
     return (
-      <div className="relative min-h-screen bg-[#0a0f1c]">
-        <HyperspeedCanvas />
+      <div className="relative min-h-screen bg-[#0a0f1c] overflow-hidden">
+        <HyperspeedBackground />
         <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4">
           <div className="text-center max-w-xl">
             <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-green-500/20 flex items-center justify-center backdrop-blur-sm">
@@ -225,7 +92,7 @@ function WaitlistForm() {
             </p>
             <Link
               href="/"
-              className="inline-block px-6 py-3 bg-white text-midnight-slate font-medium rounded-xl hover:bg-white/90 transition-colors"
+              className="inline-block px-6 py-3 bg-white text-[#0a0f1c] font-medium rounded-xl hover:bg-white/90 transition-colors"
             >
               Back to Home
             </Link>
@@ -236,13 +103,13 @@ function WaitlistForm() {
   }
 
   return (
-    <div className="relative min-h-screen bg-[#0a0f1c]">
-      <HyperspeedCanvas />
+    <div className="relative min-h-screen bg-[#0a0f1c] overflow-hidden">
+      <HyperspeedBackground />
 
       <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4">
         <div className="text-center max-w-2xl w-full">
           {product && (
-            <span className="inline-block px-4 py-1.5 mb-6 text-sm font-medium text-electric-azure bg-electric-azure/10 rounded-full border border-electric-azure/20 backdrop-blur-sm">
+            <span className="inline-block px-4 py-1.5 mb-6 text-sm font-medium text-[#2C93FF] bg-[#2C93FF]/10 rounded-full border border-[#2C93FF]/20 backdrop-blur-sm">
               {product}
             </span>
           )}
@@ -262,11 +129,11 @@ function WaitlistForm() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Email address..."
               required
-              className="flex-1 px-5 py-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:border-electric-azure/50 transition-colors"
+              className="flex-1 px-5 py-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:border-[#2C93FF]/50 transition-colors"
             />
             <button
               type="submit"
-              className="px-8 py-4 bg-white text-midnight-slate font-semibold rounded-xl hover:bg-white/90 transition-colors whitespace-nowrap"
+              className="px-8 py-4 bg-white text-[#0a0f1c] font-semibold rounded-xl hover:bg-white/90 transition-colors whitespace-nowrap"
             >
               Notify me
             </button>
