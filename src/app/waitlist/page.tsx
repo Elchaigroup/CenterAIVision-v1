@@ -1,9 +1,196 @@
 'use client'
 
-import { useState, Suspense } from 'react'
+import { useState, Suspense, useEffect, useRef } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import { Hyperspeed } from '@/components/ui/hyperspeed'
+
+function HyperspeedCanvas() {
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
+
+    let animationId: number
+
+    interface Trail {
+      x: number
+      y: number
+      vx: number
+      vy: number
+      color: string
+      width: number
+      history: { x: number; y: number }[]
+    }
+
+    let trails: Trail[] = []
+
+    const colors = [
+      '#2C93FF', // electric-azure
+      '#60B5FF', // light blue
+      '#06b6d4', // cyan
+      '#8b5cf6', // purple
+      '#a855f7', // violet
+      '#ec4899', // pink
+    ]
+
+    function resize() {
+      canvas.width = window.innerWidth
+      canvas.height = window.innerHeight
+      ctx.fillStyle = '#0a0f1c'
+      ctx.fillRect(0, 0, canvas.width, canvas.height)
+      initTrails()
+    }
+
+    function initTrails() {
+      trails = []
+      for (let i = 0; i < 30; i++) {
+        createTrail()
+      }
+    }
+
+    function createTrail() {
+      const centerX = canvas.width / 2
+      const centerY = canvas.height * 0.4
+      const angle = Math.random() * Math.PI * 2
+      const speed = 3 + Math.random() * 4
+
+      trails.push({
+        x: centerX + (Math.random() - 0.5) * 50,
+        y: centerY + (Math.random() - 0.5) * 50,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed * 0.5 + speed * 0.8,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        width: 2 + Math.random() * 3,
+        history: [],
+      })
+    }
+
+    function animate() {
+      // Semi-transparent overlay for trail effect
+      ctx.fillStyle = 'rgba(10, 15, 28, 0.08)'
+      ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+      trails.forEach((trail, index) => {
+        // Store history for trail
+        trail.history.push({ x: trail.x, y: trail.y })
+        if (trail.history.length > 50) {
+          trail.history.shift()
+        }
+
+        // Update position - spread out as they move
+        trail.x += trail.vx
+        trail.y += trail.vy
+
+        // Accelerate and spread
+        trail.vx *= 1.02
+        trail.vy *= 1.015
+
+        // Draw trail with gradient
+        if (trail.history.length > 2) {
+          ctx.beginPath()
+          ctx.moveTo(trail.history[0].x, trail.history[0].y)
+
+          for (let i = 1; i < trail.history.length; i++) {
+            ctx.lineTo(trail.history[i].x, trail.history[i].y)
+          }
+          ctx.lineTo(trail.x, trail.y)
+
+          // Create gradient
+          const gradient = ctx.createLinearGradient(
+            trail.history[0].x,
+            trail.history[0].y,
+            trail.x,
+            trail.y
+          )
+          gradient.addColorStop(0, 'transparent')
+          gradient.addColorStop(0.5, trail.color + '80')
+          gradient.addColorStop(1, trail.color)
+
+          ctx.strokeStyle = gradient
+          ctx.lineWidth = trail.width
+          ctx.lineCap = 'round'
+          ctx.lineJoin = 'round'
+          ctx.stroke()
+
+          // Glow effect
+          ctx.shadowBlur = 15
+          ctx.shadowColor = trail.color
+          ctx.lineWidth = trail.width * 0.5
+          ctx.stroke()
+          ctx.shadowBlur = 0
+        }
+
+        // Draw bright head
+        ctx.beginPath()
+        ctx.arc(trail.x, trail.y, trail.width * 1.5, 0, Math.PI * 2)
+        ctx.fillStyle = '#ffffff'
+        ctx.shadowBlur = 20
+        ctx.shadowColor = trail.color
+        ctx.fill()
+        ctx.shadowBlur = 0
+
+        // Reset if off screen
+        if (
+          trail.x < -100 ||
+          trail.x > canvas.width + 100 ||
+          trail.y > canvas.height + 100
+        ) {
+          const centerX = canvas.width / 2
+          const centerY = canvas.height * 0.4
+          const angle = Math.random() * Math.PI * 2
+          const speed = 3 + Math.random() * 4
+
+          trails[index] = {
+            x: centerX + (Math.random() - 0.5) * 50,
+            y: centerY + (Math.random() - 0.5) * 50,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed * 0.5 + speed * 0.8,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            width: 2 + Math.random() * 3,
+            history: [],
+          }
+        }
+      })
+
+      // Center glow
+      const gradient = ctx.createRadialGradient(
+        canvas.width / 2,
+        canvas.height * 0.4,
+        0,
+        canvas.width / 2,
+        canvas.height * 0.4,
+        300
+      )
+      gradient.addColorStop(0, 'rgba(44, 147, 255, 0.1)')
+      gradient.addColorStop(0.5, 'rgba(139, 92, 246, 0.05)')
+      gradient.addColorStop(1, 'transparent')
+      ctx.fillStyle = gradient
+      ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+      animationId = requestAnimationFrame(animate)
+    }
+
+    resize()
+    window.addEventListener('resize', resize)
+    animate()
+
+    return () => {
+      window.removeEventListener('resize', resize)
+      cancelAnimationFrame(animationId)
+    }
+  }, [])
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="absolute inset-0 w-full h-full"
+    />
+  )
+}
 
 function WaitlistForm() {
   const searchParams = useSearchParams()
@@ -21,24 +208,21 @@ function WaitlistForm() {
 
   if (submitted) {
     return (
-      <>
-        <Hyperspeed />
-        <div className="min-h-screen flex flex-col items-center justify-center px-4 relative z-10">
+      <div className="relative min-h-screen bg-[#0a0f1c]">
+        <HyperspeedCanvas />
+        <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4">
           <div className="text-center max-w-xl">
             <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-green-500/20 flex items-center justify-center backdrop-blur-sm">
               <svg className="w-8 h-8 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-
             <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
               You&apos;re on the list!
             </h1>
-
             <p className="text-white/70 mb-8">
               We&apos;ll notify you when {product ? product : 'we launch'}. Stay tuned for updates on next-gen AI compute and mining infrastructure.
             </p>
-
             <Link
               href="/"
               className="inline-block px-6 py-3 bg-white text-midnight-slate font-medium rounded-xl hover:bg-white/90 transition-colors"
@@ -47,34 +231,30 @@ function WaitlistForm() {
             </Link>
           </div>
         </div>
-      </>
+      </div>
     )
   }
 
   return (
-    <>
-      <Hyperspeed />
+    <div className="relative min-h-screen bg-[#0a0f1c]">
+      <HyperspeedCanvas />
 
-      <div className="min-h-screen flex flex-col items-center justify-center px-4 relative z-10">
+      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4">
         <div className="text-center max-w-2xl w-full">
-          {/* Product badge if specified */}
           {product && (
             <span className="inline-block px-4 py-1.5 mb-6 text-sm font-medium text-electric-azure bg-electric-azure/10 rounded-full border border-electric-azure/20 backdrop-blur-sm">
               {product}
             </span>
           )}
 
-          {/* Headline */}
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
             Get notified when<br />we&apos;re launching
           </h1>
 
-          {/* Subtitle */}
           <p className="text-lg md:text-xl text-white/70 mb-10 max-w-lg mx-auto">
             Be first in line for enterprise-grade AI compute and Bitcoin mining infrastructure
           </p>
 
-          {/* Email form */}
           <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto mb-16">
             <input
               type="email"
@@ -92,9 +272,8 @@ function WaitlistForm() {
             </button>
           </form>
 
-          {/* Social icons */}
           <div className="flex items-center justify-center gap-6">
-            <a href="#" className="text-white/60 hover:text-white transition-colors" aria-label="X (Twitter)">
+            <a href="#" className="text-white/60 hover:text-white transition-colors" aria-label="X">
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
               </svg>
@@ -122,7 +301,7 @@ function WaitlistForm() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 
