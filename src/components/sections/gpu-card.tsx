@@ -35,27 +35,30 @@ export function GPUComputeCard({ gpu, index = 0 }: GPUComputeCardProps) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
+      className="h-full"
     >
       <Card tilt className="h-full flex flex-col">
-        <CardHeader>
+        <CardHeader className="min-h-[56px]">
           <div className="flex items-start justify-between gap-2">
-            <CardTitle className="text-lg">
+            <CardTitle className="text-lg line-clamp-2">
               <ShinyText text={gpu.name} speed={3} className="font-semibold" />
             </CardTitle>
-            {gpu.badge && (
-              <Badge variant={getBadgeVariant(gpu.badge)}>
+            {gpu.badge ? (
+              <Badge variant={getBadgeVariant(gpu.badge)} className="shrink-0">
                 {gpu.badge}
               </Badge>
+            ) : (
+              <div className="w-16 shrink-0" />
             )}
           </div>
         </CardHeader>
-        <CardContent className="flex-1">
-          <div className="space-y-1 text-sm text-cloud-mist/70 mb-6">
+        <CardContent className="flex-1 flex flex-col">
+          <div className="space-y-1 text-sm text-cloud-mist/70 mb-6 min-h-[60px]">
             {gpu.specs.memory && <div>{gpu.specs.memory}</div>}
             {gpu.specs.performance && <div>{gpu.specs.performance}</div>}
             {gpu.specs.gpuCount && <div>{gpu.specs.gpuCount}</div>}
           </div>
-          <div className="space-y-2">
+          <div className="space-y-2 mt-auto">
             <div className="flex justify-between items-center">
               <span className="text-cloud-mist/60 text-sm">Hourly</span>
               <span className="text-xl font-semibold">
@@ -107,27 +110,30 @@ export function GPUHardwareCard({ gpu, index = 0 }: GPUHardwareCardProps) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
+      className="h-full"
     >
       <Card tilt className="h-full flex flex-col">
-        <CardHeader>
+        <CardHeader className="min-h-[56px]">
           <div className="flex items-start justify-between gap-2">
-            <CardTitle className="text-lg">
+            <CardTitle className="text-lg line-clamp-2">
               <ShinyText text={gpu.name} speed={3} className="font-semibold" />
             </CardTitle>
-            {gpu.badge && (
-              <Badge variant={getBadgeVariant(gpu.badge)}>
+            {gpu.badge ? (
+              <Badge variant={getBadgeVariant(gpu.badge)} className="shrink-0">
                 {gpu.badge}
               </Badge>
+            ) : (
+              <div className="w-16 shrink-0" />
             )}
           </div>
         </CardHeader>
-        <CardContent className="flex-1">
+        <CardContent className="flex-1 flex flex-col">
           <div className="text-3xl font-bold mb-4">
             <GradientText colors={['#2C93FF', '#60B5FF', '#2C93FF']} animationSpeed={4}>
               {formatCurrency(gpu.price, { compact: true })}
             </GradientText>
           </div>
-          <div className="space-y-2 text-sm">
+          <div className="space-y-2 text-sm mt-auto">
             <div className="flex justify-between">
               <span className="text-cloud-mist/60">Monthly Profit</span>
               <span className="text-positive font-medium">

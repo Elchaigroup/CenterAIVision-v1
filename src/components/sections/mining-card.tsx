@@ -23,28 +23,31 @@ export function MiningCard({ plan, index = 0 }: MiningCardProps) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
+      className="h-full"
     >
       <Card tilt className="h-full flex flex-col">
-        <CardHeader>
+        <CardHeader className="min-h-[72px]">
           <div className="flex items-start justify-between gap-2">
-            <CardTitle>{plan.name}</CardTitle>
-            {plan.badge && (
-              <Badge variant={plan.badge === 'POPULAR' ? 'success' : 'default'}>
+            <CardTitle className="line-clamp-2">{plan.name}</CardTitle>
+            {plan.badge ? (
+              <Badge variant={plan.badge === 'POPULAR' ? 'success' : 'default'} className="shrink-0">
                 {plan.badge}
               </Badge>
+            ) : (
+              <div className="w-16 shrink-0" />
             )}
           </div>
           <div className="text-sm text-cloud-mist/60 mt-2">
             {plan.duration} | {plan.hashrate}
           </div>
         </CardHeader>
-        <CardContent className="flex-1">
+        <CardContent className="flex-1 flex flex-col">
           <div className="text-3xl font-bold mb-4">
             <GradientText colors={['#2C93FF', '#60B5FF', '#2C93FF']} animationSpeed={4}>
               {formatCurrency(plan.price)}
             </GradientText>
           </div>
-          <div className="space-y-2 text-sm">
+          <div className="space-y-2 text-sm mt-auto">
             <div className="flex justify-between">
               <span className="text-cloud-mist/60">Expected Return</span>
               <span className="text-cloud-mist">{plan.expectedBTC}</span>
