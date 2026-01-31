@@ -3,61 +3,7 @@
 import { useState, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-
-// Light trail component
-function LightTrail({ angle, delay, color }: { angle: number; delay: number; color: string }) {
-  return (
-    <div
-      className="absolute h-[3px] animate-hyperspeed-trail"
-      style={{
-        left: '50%',
-        top: '40%',
-        background: `linear-gradient(90deg, transparent 0%, ${color}40 20%, ${color} 100%)`,
-        transformOrigin: 'left center',
-        transform: `rotate(${angle}deg)`,
-        animationDelay: `${delay}s`,
-        boxShadow: `0 0 20px ${color}, 0 0 40px ${color}50`,
-      }}
-    />
-  )
-}
-
-// Hyperspeed background with CSS animations
-function HyperspeedBackground() {
-  const colors = ['#2C93FF', '#06b6d4', '#8b5cf6', '#a855f7', '#60B5FF', '#ec4899']
-
-  // Generate 24 trails spread around 360 degrees
-  const trails = Array.from({ length: 24 }, (_, i) => ({
-    angle: (i * 15) - 180 + (Math.random() * 8 - 4),
-    delay: i * 0.12,
-    color: colors[i % colors.length],
-  }))
-
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* Light trails */}
-      {trails.map((trail, i) => (
-        <LightTrail key={i} {...trail} />
-      ))}
-
-      {/* Center glow */}
-      <div
-        className="absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full opacity-60"
-        style={{
-          background: 'radial-gradient(circle, rgba(44,147,255,0.2) 0%, rgba(139,92,246,0.1) 30%, transparent 60%)',
-        }}
-      />
-
-      {/* Additional outer glow */}
-      <div
-        className="absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full"
-        style={{
-          background: 'radial-gradient(circle, rgba(44,147,255,0.3) 0%, transparent 70%)',
-        }}
-      />
-    </div>
-  )
-}
+import { Hyperspeed } from '@/components/ui/hyperspeed'
 
 function WaitlistForm() {
   const searchParams = useSearchParams()
@@ -75,8 +21,8 @@ function WaitlistForm() {
 
   if (submitted) {
     return (
-      <div className="relative min-h-screen bg-[#0a0f1c] overflow-hidden">
-        <HyperspeedBackground />
+      <div className="relative min-h-screen overflow-hidden">
+        <Hyperspeed />
         <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4">
           <div className="text-center max-w-xl">
             <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-green-500/20 flex items-center justify-center backdrop-blur-sm">
@@ -103,8 +49,8 @@ function WaitlistForm() {
   }
 
   return (
-    <div className="relative min-h-screen bg-[#0a0f1c] overflow-hidden">
-      <HyperspeedBackground />
+    <div className="relative min-h-screen overflow-hidden">
+      <Hyperspeed />
 
       <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4">
         <div className="text-center max-w-2xl w-full">
