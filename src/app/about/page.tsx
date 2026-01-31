@@ -1,11 +1,9 @@
 'use client'
 
 import { motion } from 'motion/react'
-import Image from 'next/image'
-import { Reveal } from '@/components/ui/animations'
-import { PageHeader } from '@/components/layout/page-header'
+import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-import { GradientText } from '@/components/ui/gradient-text'
+import { TeamCarousel } from '@/components/ui/team-carousel'
 import {
   Server,
   RefreshCw,
@@ -13,60 +11,106 @@ import {
   Shield,
   Landmark,
   FileCheck,
-  AlertTriangle
+  Download,
+  ExternalLink,
+  AlertTriangle,
+  ArrowRight,
+  CheckCircle2
 } from 'lucide-react'
 
-const pillars = [
+// Animation variants for scroll reveal
+const fadeInUp = {
+  hidden: { opacity: 0, y: 12 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }
+  }
+}
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1, delayChildren: 0.1 }
+  }
+}
+
+// Data
+const coreOperations = [
   {
     icon: Server,
-    title: 'Deploy and operate world-class AI compute',
-    description: 'We plan staged deployments of up to approximately 238,030 accelerator units across H200-class and next-generation platforms, including NVIDIA Blackwell and approved alternatives, subject to power delivery, supply availability, and export licensing.',
-    details: 'We target Tier III design standards (or equivalent), high-density liquid cooling, and an availability target aligned with Tier III benchmarks (commonly cited as 99.982%), with uptime defined contractually per customer SLA.',
+    title: 'Deploy World-Class AI Compute',
+    bullets: [
+      'Up to 238,030 accelerator units (H200 & Blackwell)',
+      'Tier III design standards with 99.982% availability target',
+      'High-density liquid cooling infrastructure'
+    ],
+    keyPoint: 'Q2 2026 staged deployment',
+    anchor: 'governance'
   },
   {
     icon: RefreshCw,
-    title: 'Execute a disciplined build-and-refresh technology roadmap',
-    description: 'We start with proven H200-class platforms, add next-generation architectures such as Blackwell, and keep flexibility via approved alternatives where they make economic and technical sense.',
-    details: 'We plan a 3-year hardware refresh cycle to stay competitive on performance and efficiency.',
+    title: 'Disciplined Technology Roadmap',
+    bullets: [
+      'Start with proven H200-class platforms',
+      'Add Blackwell and approved alternatives',
+      '3-year hardware refresh cycle'
+    ],
+    keyPoint: 'Performance & efficiency focus',
+    anchor: 'fund-flow'
   },
   {
     icon: Globe,
-    title: 'Scale globally using local operating entities',
-    description: 'We can establish local SPVs by jurisdiction to support regulatory alignment and local contracting, including EU readiness for GDPR and EU AI Act staged obligations (through August 2026 where applicable).',
-    details: '',
-  },
+    title: 'Global Operating Entities',
+    bullets: [
+      'Local SPVs by jurisdiction as required',
+      'EU readiness for GDPR and AI Act',
+      'Regulatory alignment and local contracting'
+    ],
+    keyPoint: 'Multi-jurisdiction support',
+    anchor: 'compliance'
+  }
 ]
 
-const governance = [
+const governanceData = [
   {
+    id: 'governance',
     icon: Shield,
     title: 'Governance Boundaries',
     items: [
-      'Center AI Vision runs operations: we execute the program, hold assets and contracts, and generate operating cashflow.',
-      'We do not issue investor equity, maintain shareholder registers, or admit investors.',
-      'The Universe Eye controls issuance, transfers, and investor governance at HoldCo level, and maintains the statutory register and a mirrored digital registry for audit trail purposes.',
-    ],
+      'Center AI Vision executes the program, holds assets and contracts, generates operating cashflow',
+      'We do not issue investor equity, maintain shareholder registers, or admit investors',
+      'The Universe Eye controls issuance, transfers, and investor governance at HoldCo level'
+    ]
   },
   {
+    id: 'fund-flow',
     icon: Landmark,
     title: 'Fund Flow Discipline',
     items: [
-      'Investors initiate fiat wire transfers to a regulated escrow structure.',
-      'Escrow releases funds only after milestone verification (for example: executed purchase orders or site readiness).',
-      'Center AI Vision receives verified releases to run operations and pays vendors/OEMs for hardware assets.',
-      'Movements are tracked for transparency via the digital registry maintained by The Universe Eye (audit trail use).',
-    ],
+      'Capital deployment follows milestone-based escrow approach',
+      'Escrow releases only after milestone verification',
+      'Movements tracked via digital registry for audit trail'
+    ]
   },
   {
+    id: 'compliance',
     icon: FileCheck,
     title: 'Compliance Principles',
     items: [
-      'We apply "bank-grade" onboarding and fiat-only rails for the overall structure.',
-      'SWIFT bank wire only — no crypto payments.',
-      'We support governance controls such as board approvals and transfer restrictions at HoldCo level.',
-      'We focus on operational execution and reporting.',
-    ],
-  },
+      '"Bank-grade" onboarding and fiat-only rails',
+      'SWIFT bank wire only — no crypto payments',
+      'Board approvals and transfer restrictions at HoldCo level'
+    ]
+  }
+]
+
+const fundFlowSteps = [
+  { step: 1, label: 'Investor fiat wire to escrow' },
+  { step: 2, label: 'Milestone verification' },
+  { step: 3, label: 'Release to operating SPV' },
+  { step: 4, label: 'Audit trail in registry' }
 ]
 
 const team = [
@@ -74,282 +118,383 @@ const team = [
     name: 'Stefano Curzio',
     role: 'CEO',
     responsibility: 'Owns overall execution, delivery, and operating performance.',
-    image: '/members/StefanoCurzio.webp',
+    image: '/members/StefanoCurzio.webp'
   },
   {
     name: 'Sukhchain Singh',
     role: 'CTO',
     responsibility: 'Owns platform architecture, infrastructure engineering, and security-by-design.',
-    image: '/members/Sukhchain_Singh1.webp',
+    image: '/members/Sukhchain_Singh1.webp'
   },
   {
     name: 'Giorgia Cristina',
     role: 'Financial Analyst',
     responsibility: 'Owns financial modeling support, budget discipline, and operating reporting.',
-    image: '/members/GIORGIA-CRISTINA.webp',
+    image: '/members/GIORGIA-CRISTINA.webp'
   },
   {
     name: 'Charles David',
     role: 'Head of AI',
     responsibility: 'Owns AI workload strategy, customer requirements translation, and performance benchmarking.',
-    image: '/members/Charles-David-David.webp',
+    image: '/members/Charles-David-David.webp'
   },
   {
     name: 'Jasna Ali',
     role: 'IT Project Manager',
     responsibility: 'Owns delivery planning, vendor coordination, timelines, and execution governance.',
-    image: '/members/JASNA.webp',
+    image: '/members/JASNA.webp'
   },
   {
     name: 'Diana Guevarra',
-    role: 'Business Manager (UAE)',
+    role: 'Business Manager',
     responsibility: 'Owns UAE business operations support, partnerships, and local execution coordination.',
     image: '/members/DIANA.webp',
+    tag: 'UAE' as const
   },
   {
     name: 'Angela Cordella',
-    role: 'Business Manager (EU)',
+    role: 'Business Manager',
     responsibility: 'Owns EU business operations support, partnerships, and local compliance coordination.',
     image: '/members/ANGELA.webp',
-  },
+    tag: 'EU' as const
+  }
 ]
 
-export default function AboutPage() {
+// Section wrapper component for consistent spacing
+function Section({
+  children,
+  className = '',
+  id
+}: {
+  children: React.ReactNode
+  className?: string
+  id?: string
+}) {
   return (
-    <>
-      <PageHeader
-        title="About Center AI Vision"
-        subtitle="The operating SPV executing the Global AI Compute Infrastructure Program"
-      />
+    <section
+      id={id}
+      className={`py-16 md:py-22 ${className}`}
+    >
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+        {children}
+      </div>
+    </section>
+  )
+}
 
-      {/* Hero Introduction */}
-      <section className="py-16 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-electric-azure/5 to-transparent" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <Reveal>
-            <div className="max-w-4xl mx-auto text-center">
-              <p className="text-lg md:text-xl text-cloud-mist/80 leading-relaxed mb-8">
-                Center AI Vision is the operating special purpose vehicle (SPV) that executes and runs
-                the <span className="text-electric-azure font-medium">Global AI Compute Infrastructure Program</span>.
-                We hold the operating assets and contracts, generate revenues from deployed compute, and
-                deliver the program through staged deployments starting from Q2 2026.
-              </p>
-              <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-card-bg border border-electric-azure/20">
-                <div className="w-2 h-2 rounded-full bg-electric-azure animate-pulse" />
-                <span className="text-cloud-mist/70 text-sm">
-                  We work alongside <span className="text-cloud-mist font-medium">The Universe Eye</span>,
-                  which acts as the HoldCo, issuer, governance layer, and registry owner.
-                </span>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+// Section header component
+function SectionHeader({
+  eyebrow,
+  title,
+  subtitle
+}: {
+  eyebrow: string
+  title: string
+  subtitle?: string
+}) {
+  return (
+    <motion.div
+      className="text-center mb-12 md:mb-16"
+      variants={fadeInUp}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-50px" }}
+    >
+      <span className="inline-block px-3 py-1 mb-4 text-xs font-semibold uppercase tracking-widest text-electric-azure bg-electric-azure/10 rounded-full border border-electric-azure/20">
+        {eyebrow}
+      </span>
+      <h2 className="text-3xl md:text-4xl lg:text-[42px] font-bold text-cloud-mist leading-tight">
+        {title}
+      </h2>
+      {subtitle && (
+        <p className="mt-4 text-base md:text-lg text-cloud-mist/60 max-w-2xl mx-auto">
+          {subtitle}
+        </p>
+      )}
+    </motion.div>
+  )
+}
 
-      {/* What We Do - 3 Pillars */}
-      <section className="py-20 bg-card-bg/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Reveal>
-            <div className="text-center mb-16">
-              <GradientText
-                colors={['#2C93FF', '#60B5FF', '#2C93FF']}
-                animationSpeed={4}
-                className="text-sm font-semibold uppercase tracking-wider mb-3 block"
+export default function AboutPage() {
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }
+
+  return (
+    <div className="relative">
+      {/* Animated Background */}
+      <div className="fixed inset-0 -z-10 overflow-hidden">
+        {/* Radial gradients */}
+        <div className="absolute top-0 left-1/4 w-[800px] h-[800px] bg-electric-azure/[0.03] rounded-full blur-[120px] animate-pulse" style={{ animationDuration: '8s' }} />
+        <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-core-blue/[0.05] rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '12s', animationDelay: '2s' }} />
+        {/* Noise overlay */}
+        <div className="absolute inset-0 opacity-[0.015]" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+          backgroundRepeat: 'repeat'
+        }} />
+      </div>
+
+      {/* Hero Section */}
+      <Section className="pt-24 md:pt-32 pb-12 md:pb-16">
+        <motion.div
+          className="max-w-4xl mx-auto"
+          initial="hidden"
+          animate="visible"
+          variants={staggerContainer}
+        >
+          {/* Badge */}
+          <motion.div variants={fadeInUp} className="flex justify-center mb-6">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-electric-azure bg-electric-azure/10 rounded-full border border-electric-azure/20">
+              <span className="w-1.5 h-1.5 rounded-full bg-electric-azure animate-pulse" />
+              Operating SPV
+            </span>
+          </motion.div>
+
+          {/* Title */}
+          <motion.h1
+            variants={fadeInUp}
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-center text-cloud-mist leading-[1.1] mb-4"
+          >
+            About Center AI Vision
+          </motion.h1>
+
+          {/* Subtitle */}
+          <motion.p
+            variants={fadeInUp}
+            className="text-lg md:text-xl text-center text-cloud-mist/70 mb-8"
+          >
+            Executing the Global AI Compute Infrastructure Program
+          </motion.p>
+
+          {/* Intro paragraph */}
+          <motion.p
+            variants={fadeInUp}
+            className="text-base md:text-lg text-center text-cloud-mist/60 leading-relaxed max-w-3xl mx-auto mb-10"
+          >
+            Center AI Vision is the operating special purpose vehicle (SPV) that executes and runs
+            the Global AI Compute Infrastructure Program. We hold the operating assets and contracts,
+            generate revenues from deployed compute, and deliver the program through staged
+            deployments starting from Q2 2026. We work alongside{' '}
+            <span className="text-cloud-mist font-medium">The Universe Eye</span>, which acts as the
+            HoldCo, issuer, governance layer, and registry owner.
+          </motion.p>
+
+          {/* CTA Buttons */}
+          <motion.div
+            variants={fadeInUp}
+            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          >
+            <Button variant="primary" size="lg" className="min-w-[220px]">
+              <Download className="w-4 h-4 mr-2" />
+              Download Program Overview
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              className="min-w-[220px]"
+              onClick={() => scrollToSection('governance')}
+            >
+              <ExternalLink className="w-4 h-4 mr-2" />
+              View Governance Framework
+            </Button>
+          </motion.div>
+        </motion.div>
+      </Section>
+
+      {/* Core Operations Section */}
+      <Section className="bg-gradient-to-b from-card-bg/30 to-transparent">
+        <SectionHeader
+          eyebrow="What We Do"
+          title="Core Operations"
+        />
+
+        <motion.div
+          className="grid md:grid-cols-3 gap-6 lg:gap-8"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+        >
+          {coreOperations.map((item, index) => (
+            <motion.div key={item.title} variants={fadeInUp}>
+              <Card
+                className="h-full group transition-all duration-300 hover:-translate-y-1 hover:border-electric-azure/40 hover:shadow-lg hover:shadow-electric-azure/5"
+                hover={false}
               >
-                What We Do
-              </GradientText>
-              <h2 className="text-3xl md:text-4xl font-bold text-cloud-mist">
-                Our Core Operations
-              </h2>
-            </div>
-          </Reveal>
-
-          <div className="grid lg:grid-cols-3 gap-8">
-            {pillars.map((pillar, index) => (
-              <motion.div
-                key={pillar.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.15 }}
-              >
-                <Card className="h-full group hover:border-electric-azure/40 transition-all duration-300">
-                  <CardContent className="p-8">
-                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-electric-azure/20 to-electric-azure/5 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                      <pillar.icon className="w-7 h-7 text-electric-azure" />
-                    </div>
-                    <div className="flex items-center gap-2 mb-4">
-                      <span className="text-2xl font-bold text-electric-azure/40">{index + 1}</span>
-                      <div className="h-px flex-1 bg-gradient-to-r from-electric-azure/20 to-transparent" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-cloud-mist mb-4 leading-tight">
-                      {pillar.title}
-                    </h3>
-                    <p className="text-cloud-mist/70 text-sm leading-relaxed mb-4">
-                      {pillar.description}
-                    </p>
-                    {pillar.details && (
-                      <p className="text-cloud-mist/50 text-sm leading-relaxed border-t border-card-border pt-4">
-                        {pillar.details}
-                      </p>
-                    )}
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* How We Operate */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Reveal>
-            <div className="text-center mb-16">
-              <GradientText
-                colors={['#2C93FF', '#60B5FF', '#2C93FF']}
-                animationSpeed={4}
-                className="text-sm font-semibold uppercase tracking-wider mb-3 block"
-              >
-                How We Operate
-              </GradientText>
-              <h2 className="text-3xl md:text-4xl font-bold text-cloud-mist">
-                Governance & Compliance Framework
-              </h2>
-            </div>
-          </Reveal>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {governance.map((section, index) => (
-              <motion.div
-                key={section.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="relative"
-              >
-                <div className="sticky top-24">
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="w-10 h-10 rounded-xl bg-electric-azure/10 flex items-center justify-center">
-                      <section.icon className="w-5 h-5 text-electric-azure" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-cloud-mist">
-                      {section.title}
-                    </h3>
+                <CardContent className="p-6 lg:p-8 flex flex-col h-full">
+                  {/* Icon */}
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-electric-azure/20 to-electric-azure/5 flex items-center justify-center mb-5 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-electric-azure/20">
+                    <item.icon className="w-6 h-6 text-electric-azure transition-all duration-300 group-hover:scale-110" />
                   </div>
-                  <ul className="space-y-4">
-                    {section.items.map((item, itemIndex) => (
-                      <motion.li
-                        key={itemIndex}
-                        initial={{ opacity: 0, x: -10 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.3, delay: index * 0.1 + itemIndex * 0.05 }}
-                        className="flex gap-3"
-                      >
-                        <div className="w-1.5 h-1.5 rounded-full bg-electric-azure mt-2 shrink-0" />
-                        <p className="text-sm text-cloud-mist/70 leading-relaxed">
-                          {item}
-                        </p>
-                      </motion.li>
+
+                  {/* Title */}
+                  <h3 className="text-lg font-semibold text-cloud-mist mb-4 leading-tight">
+                    {item.title}
+                  </h3>
+
+                  {/* Bullets */}
+                  <ul className="space-y-2.5 mb-6 flex-grow">
+                    {item.bullets.map((bullet, i) => (
+                      <li key={i} className="flex gap-2.5 text-sm text-cloud-mist/70">
+                        <CheckCircle2 className="w-4 h-4 text-electric-azure/60 shrink-0 mt-0.5" />
+                        <span>{bullet}</span>
+                      </li>
                     ))}
                   </ul>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Important Note */}
-      <section className="py-12">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Reveal>
-            <div className="relative rounded-2xl bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/20 p-8">
-              <div className="flex gap-4">
-                <div className="shrink-0">
-                  <div className="w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center">
-                    <AlertTriangle className="w-5 h-5 text-amber-500" />
+                  {/* Key Point Pill */}
+                  <div className="mt-auto pt-4 border-t border-card-border">
+                    <span className="inline-block px-3 py-1.5 text-xs font-medium text-electric-azure bg-electric-azure/10 rounded-full">
+                      {item.keyPoint}
+                    </span>
                   </div>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-cloud-mist mb-2">
-                    Important Note on Projections
-                  </h3>
-                  <p className="text-cloud-mist/70 text-sm leading-relaxed">
-                    Any financial metrics, return targets, and model outputs are illustrative and not guarantees.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
 
-      {/* Leadership Team */}
-      <section className="py-20 bg-gradient-to-b from-card-bg/50 to-transparent">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Reveal>
-            <div className="text-center mb-16">
-              <GradientText
-                colors={['#2C93FF', '#60B5FF', '#2C93FF']}
-                animationSpeed={4}
-                className="text-sm font-semibold uppercase tracking-wider mb-3 block"
-              >
-                Our Team
-              </GradientText>
-              <h2 className="text-3xl md:text-4xl font-bold text-cloud-mist mb-4">
-                Leadership & Team
-              </h2>
-              <p className="text-cloud-mist/60 max-w-2xl mx-auto">
-                The people driving operational excellence and program delivery
+                  {/* Learn More Link */}
+                  <button
+                    onClick={() => scrollToSection(item.anchor)}
+                    className="mt-4 inline-flex items-center gap-1.5 text-sm text-cloud-mist/50 hover:text-electric-azure transition-colors focus:outline-none focus:text-electric-azure group/link"
+                  >
+                    Learn more
+                    <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/link:translate-x-0.5" />
+                  </button>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))}
+        </motion.div>
+      </Section>
+
+      {/* Governance & Compliance Section */}
+      <Section id="governance-section">
+        <SectionHeader
+          eyebrow="How We Operate"
+          title="Governance & Compliance"
+        />
+
+        {/* Three Columns */}
+        <motion.div
+          className="grid md:grid-cols-3 gap-8 lg:gap-12 mb-16"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+        >
+          {governanceData.map((section) => (
+            <motion.div
+              key={section.id}
+              id={section.id}
+              variants={fadeInUp}
+              className="scroll-mt-24"
+            >
+              <div className="flex items-center gap-3 mb-5">
+                <div className="w-10 h-10 rounded-lg bg-electric-azure/10 flex items-center justify-center">
+                  <section.icon className="w-5 h-5 text-electric-azure" />
+                </div>
+                <h3 className="text-lg font-semibold text-cloud-mist">
+                  {section.title}
+                </h3>
+              </div>
+              <ul className="space-y-3">
+                {section.items.map((item, index) => (
+                  <li key={index} className="flex gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-electric-azure/60 mt-2 shrink-0" />
+                    <p className="text-sm text-cloud-mist/70 leading-relaxed">
+                      {item}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* Fund Flow Stepper */}
+        <motion.div
+          className="relative"
+          variants={fadeInUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+        >
+          <div className="text-center mb-8">
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-cloud-mist/50 mb-2">
+              Fund Flow Process
+            </h4>
+          </div>
+          <div className="relative max-w-4xl mx-auto">
+            {/* Connection line */}
+            <div className="hidden md:block absolute top-6 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-electric-azure/30 to-transparent" />
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+              {fundFlowSteps.map((item, index) => (
+                <motion.div
+                  key={item.step}
+                  className="relative text-center"
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-card-bg border-2 border-electric-azure/40 flex items-center justify-center relative z-10">
+                    <span className="text-lg font-bold text-electric-azure">
+                      {item.step}
+                    </span>
+                  </div>
+                  <p className="text-sm text-cloud-mist/70">
+                    {item.label}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+      </Section>
+
+      {/* Important Note Section */}
+      <Section className="py-8 md:py-12">
+        <motion.div
+          className="max-w-4xl mx-auto"
+          variants={fadeInUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+        >
+          <div className="flex items-start gap-4 p-5 rounded-xl bg-amber-500/5 border border-amber-500/20">
+            <div className="w-9 h-9 rounded-lg bg-amber-500/10 flex items-center justify-center shrink-0">
+              <AlertTriangle className="w-5 h-5 text-amber-500" />
+            </div>
+            <div>
+              <h4 className="text-sm font-semibold text-cloud-mist mb-1">
+                Important Note on Projections
+              </h4>
+              <p className="text-sm text-cloud-mist/60 leading-relaxed">
+                Any financial metrics, return targets, and model outputs are illustrative and not guarantees.
               </p>
             </div>
-          </Reveal>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {team.map((member, index) => (
-              <motion.div
-                key={member.name}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.08 }}
-              >
-                <Card className="group overflow-hidden hover:border-electric-azure/40 transition-all duration-300">
-                  <div className="aspect-[4/5] relative overflow-hidden bg-gradient-to-br from-electric-azure/10 to-core-blue/10">
-                    <Image
-                      src={member.image}
-                      alt={member.name}
-                      fill
-                      className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-night-ink via-transparent to-transparent" />
-                  </div>
-                  <CardContent className="p-5 relative -mt-16 z-10">
-                    <div className="bg-card-bg/95 backdrop-blur-sm rounded-xl p-4 border border-card-border">
-                      <h3 className="font-semibold text-cloud-mist mb-1">
-                        {member.name}
-                      </h3>
-                      <GradientText
-                        colors={['#2C93FF', '#60B5FF', '#2C93FF']}
-                        animationSpeed={4}
-                        className="text-sm font-medium block mb-2"
-                      >
-                        {member.role}
-                      </GradientText>
-                      <p className="text-xs text-cloud-mist/60 leading-relaxed">
-                        {member.responsibility}
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
           </div>
-        </div>
-      </section>
-    </>
+        </motion.div>
+      </Section>
+
+      {/* Leadership & Team Section */}
+      <Section className="bg-gradient-to-b from-card-bg/30 to-transparent overflow-hidden">
+        <SectionHeader
+          eyebrow="Our Team"
+          title="Leadership & Team"
+          subtitle="The people driving operational excellence and program delivery"
+        />
+
+        <motion.div
+          variants={fadeInUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+        >
+          <TeamCarousel members={team} />
+        </motion.div>
+      </Section>
+    </div>
   )
 }
