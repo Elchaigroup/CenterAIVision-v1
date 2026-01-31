@@ -8,7 +8,6 @@ import { GPUHardwareCard } from '@/components/sections/gpu-card'
 import { FeatureCard } from '@/components/sections/feature-card'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { GradientText } from '@/components/ui/gradient-text'
 import { gpuHardwareProducts } from '@/data/gpu-products'
 import { formatCurrency } from '@/lib/utils'
 import { cn } from '@/lib/utils'
@@ -27,56 +26,40 @@ export default function GPUHardwarePage() {
           priority
         />
         {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-midnight-slate/70 via-midnight-slate/40 to-midnight-slate" />
+        <div className="absolute inset-0 bg-gradient-to-b from-midnight-slate/80 via-midnight-slate/50 to-midnight-slate" />
 
-        {/* Content Container */}
-        <div className="relative h-full flex flex-col">
-          {/* Top Section - Page Title */}
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 md:pt-40">
-            <motion.div
+        {/* Content Container - All Centered */}
+        <div className="relative h-full flex items-center justify-center">
+          <div className="text-center px-4 max-w-4xl mx-auto">
+            {/* Main Title */}
+            <motion.h1
+              className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 tracking-tight"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: [0.25, 0.4, 0.25, 1] }}
+            >
+              Buy AI GPU Hardware
+            </motion.h1>
+
+            {/* Subtitle */}
+            <motion.p
+              className="text-xl md:text-2xl text-cloud-mist/90 mb-8 max-w-2xl mx-auto"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: [0.25, 0.4, 0.25, 1] }}
+              transition={{ duration: 0.7, delay: 0.15, ease: [0.25, 0.4, 0.25, 1] }}
             >
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">
-                <GradientText
-                  colors={['#E8EDF3', '#2C93FF', '#E8EDF3']}
-                  animationSpeed={6}
-                >
-                  Buy AI GPU Hardware
-                </GradientText>
-              </h1>
-              <motion.p
-                className="text-lg md:text-xl text-cloud-mist/70 max-w-2xl"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2, ease: [0.25, 0.4, 0.25, 1] }}
-              >
-                Invest in enterprise NVIDIA GPU infrastructure with managed hosting, guaranteed uptime, and monthly profit distributions.
-              </motion.p>
-            </motion.div>
-          </div>
+              Enterprise GPU Investments
+            </motion.p>
 
-          {/* Center Section - Enterprise GPU Investments */}
-          <div className="flex-1 flex items-center justify-center">
-            <div className="text-center px-4">
-              <motion.h2
-                className="text-2xl md:text-4xl font-bold text-cloud-mist mb-4"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4, ease: [0.25, 0.4, 0.25, 1] }}
-              >
-                Enterprise GPU Investments
-              </motion.h2>
-              <motion.p
-                className="text-cloud-mist/80 text-lg max-w-2xl"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.5, ease: [0.25, 0.4, 0.25, 1] }}
-              >
-                Own the hardware, earn the returns. Full management included.
-              </motion.p>
-            </div>
+            {/* Description */}
+            <motion.p
+              className="text-lg text-cloud-mist/70 max-w-xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.3, ease: [0.25, 0.4, 0.25, 1] }}
+            >
+              Own the hardware, earn the returns. Managed hosting, guaranteed uptime, and monthly profit distributions included.
+            </motion.p>
           </div>
         </div>
       </section>

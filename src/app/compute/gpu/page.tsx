@@ -1,8 +1,8 @@
 'use client'
 
 import Image from 'next/image'
+import { motion } from 'motion/react'
 import { FadeIn, Reveal } from '@/components/ui/animations'
-import { PageHeader } from '@/components/layout/page-header'
 import { GPUComputeCard } from '@/components/sections/gpu-card'
 import { FeatureCard } from '@/components/sections/feature-card'
 import { gpuComputeProducts, gpuFeatures } from '@/data/gpu-products'
@@ -10,26 +10,51 @@ import { gpuComputeProducts, gpuFeatures } from '@/data/gpu-products'
 export default function GPUComputePage() {
   return (
     <>
-      <PageHeader
-        title="AI GPU Cloud Compute"
-        subtitle="On-demand access to next-generation NVIDIA GPUs for AI training, inference, and high-performance computing."
-      />
-
-      {/* Hero Image Section */}
-      <section className="relative h-64 md:h-80 overflow-hidden">
+      {/* Full Hero Section with Background Image */}
+      <section className="relative min-h-[85vh] overflow-hidden">
+        {/* Background Image */}
         <Image
           src="/images/0448.webp"
           alt="AI Command Center"
           fill
           className="object-cover"
+          priority
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-midnight-slate via-midnight-slate/60 to-midnight-slate" />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center">
-            <p className="text-cloud-mist text-lg md:text-xl font-medium">
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-midnight-slate/80 via-midnight-slate/50 to-midnight-slate" />
+
+        {/* Content Container - All Centered */}
+        <div className="relative h-full flex items-center justify-center">
+          <div className="text-center px-4 max-w-4xl mx-auto">
+            {/* Main Title */}
+            <motion.h1
+              className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 tracking-tight"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: [0.25, 0.4, 0.25, 1] }}
+            >
+              AI GPU Cloud Compute
+            </motion.h1>
+
+            {/* Subtitle */}
+            <motion.p
+              className="text-xl md:text-2xl text-cloud-mist/90 mb-8 max-w-2xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.15, ease: [0.25, 0.4, 0.25, 1] }}
+            >
               Next-Generation NVIDIA GPU Infrastructure
-            </p>
-            <p className="text-positive mt-2 font-medium">Industry-Leading Availability & Performance</p>
+            </motion.p>
+
+            {/* Description */}
+            <motion.p
+              className="text-lg text-cloud-mist/70 max-w-xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.3, ease: [0.25, 0.4, 0.25, 1] }}
+            >
+              On-demand access to enterprise GPUs for AI training, inference, and high-performance computing.
+            </motion.p>
           </div>
         </div>
       </section>
