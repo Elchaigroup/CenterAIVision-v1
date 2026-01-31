@@ -213,10 +213,11 @@ export function Navbar({ onSignInClick, onSignUpClick }: NavbarProps) {
                 </Button>
               </div>
             ) : (
-              <Link href="/waitlist">
-                <Button variant="primary" size="sm">
-                  Join the Waitlist
-                </Button>
+              <Link
+                href="/waitlist"
+                className="relative inline-flex items-center px-6 py-2.5 text-sm font-semibold text-white rounded-full bg-gradient-to-r from-[#2C93FF] via-[#003296] to-[#2C93FF] bg-[length:200%_100%] hover:bg-[position:100%_0] transition-all duration-500 shadow-lg shadow-electric-azure/25 hover:shadow-electric-azure/40 hover:scale-105"
+              >
+                Join the Waitlist
               </Link>
             )}
 
