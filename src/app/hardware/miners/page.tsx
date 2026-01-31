@@ -44,7 +44,7 @@ export default function ASICMinersPage() {
 
         {/* Content Container - All Centered */}
         <div className="relative h-full flex items-center justify-center">
-          <div className="text-center px-4 max-w-4xl mx-auto mt-48">
+          <div className="text-center px-4 max-w-4xl mx-auto mt-64">
             {/* Main Title */}
             <motion.h1
               className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 tracking-tight"
