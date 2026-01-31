@@ -27,9 +27,9 @@ export function MiningCard({ plan, index = 0 }: MiningCardProps) {
       className="h-full"
     >
       <Card tilt className="h-full flex flex-col">
-        <CardHeader className="min-h-[72px]">
-          <div className="flex items-start justify-between gap-2">
-            <CardTitle className="line-clamp-2">{plan.name}</CardTitle>
+        <CardHeader className="min-h-[100px]">
+          <div className="flex items-center justify-between gap-2">
+            <CardTitle className="text-lg leading-tight">{plan.name}</CardTitle>
             {plan.badge ? (
               <Badge variant={plan.badge === 'POPULAR' ? 'success' : 'default'} className="shrink-0">
                 {plan.badge}
@@ -38,26 +38,26 @@ export function MiningCard({ plan, index = 0 }: MiningCardProps) {
               <div className="w-16 shrink-0" />
             )}
           </div>
-          <div className="text-sm text-cloud-mist/60 mt-2">
+          <div className="text-sm text-electric-azure mt-2">
             {plan.duration} | {plan.hashrate}
           </div>
         </CardHeader>
         <CardContent className="flex-1 flex flex-col">
-          <div className="text-3xl font-bold mb-4">
+          <div className="text-3xl font-bold mb-6">
             <GradientText colors={['#2C93FF', '#60B5FF', '#2C93FF']} animationSpeed={4}>
               {formatCurrency(plan.price)}
             </GradientText>
           </div>
-          <div className="space-y-2 text-sm mt-auto">
-            <div className="flex justify-between">
+          <div className="space-y-3 text-sm mt-auto">
+            <div className="flex justify-between items-center">
               <span className="text-cloud-mist/60">Expected Return</span>
-              <span className="text-cloud-mist">{plan.expectedBTC}</span>
+              <span className="text-cloud-mist font-medium">{plan.expectedBTC}</span>
             </div>
-            <div className="flex justify-between">
+            <div className="flex justify-between items-center">
               <span className="text-cloud-mist/60">Estimated Value</span>
-              <span className="text-cloud-mist">{plan.expectedUSD}</span>
+              <span className="text-cloud-mist font-medium">{plan.expectedUSD}</span>
             </div>
-            <div className="flex justify-between items-center pt-2 border-t border-card-border mt-2">
+            <div className="flex justify-between items-center pt-3 border-t border-card-border mt-3">
               <span className="text-cloud-mist/60">ROI</span>
               <span className={cn(
                 'font-semibold',
@@ -68,7 +68,7 @@ export function MiningCard({ plan, index = 0 }: MiningCardProps) {
             </div>
           </div>
         </CardContent>
-        <CardFooter>
+        <CardFooter className="pt-4">
           <Link href="/waitlist" className="w-full">
             <Button variant="primary" className="w-full">
               Buy Now

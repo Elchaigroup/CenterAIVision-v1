@@ -35,42 +35,43 @@ export function ASICCard({ miner, index = 0 }: ASICCardProps) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
+      className="h-full"
     >
       <Card tilt className="h-full flex flex-col">
-        <CardHeader>
-          <div className="flex items-start justify-between gap-2">
-            <CardTitle className="text-lg">
+        <CardHeader className="min-h-[72px]">
+          <div className="flex items-center justify-between gap-2">
+            <CardTitle className="text-lg leading-tight">
               <ShinyText text={miner.name} speed={3} className="font-semibold" />
             </CardTitle>
             {miner.badge && (
-              <Badge variant={getBadgeVariant(miner.badge)}>
+              <Badge variant={getBadgeVariant(miner.badge)} className="shrink-0">
                 {miner.badge}
               </Badge>
             )}
           </div>
         </CardHeader>
-        <CardContent className="flex-1">
-          <div className="text-3xl font-bold mb-4">
+        <CardContent className="flex-1 flex flex-col">
+          <div className="text-3xl font-bold mb-6">
             <GradientText colors={['#2C93FF', '#60B5FF', '#2C93FF']} animationSpeed={4}>
               {formatCurrency(miner.price)}
             </GradientText>
           </div>
-          <div className="space-y-2 text-sm">
-            <div className="flex justify-between">
+          <div className="space-y-3 text-sm mt-auto">
+            <div className="flex justify-between items-center">
               <span className="text-cloud-mist/60">Hashrate</span>
               <span className="text-electric-azure font-medium">{miner.hashrate}</span>
             </div>
-            <div className="flex justify-between">
+            <div className="flex justify-between items-center">
               <span className="text-cloud-mist/60">Power</span>
               <span className="text-cloud-mist">{miner.power}</span>
             </div>
-            <div className="flex justify-between">
+            <div className="flex justify-between items-center">
               <span className="text-cloud-mist/60">Efficiency</span>
               <span className="text-cloud-mist">{miner.efficiency}</span>
             </div>
           </div>
         </CardContent>
-        <CardFooter>
+        <CardFooter className="pt-4">
           <Link href={`/hardware/miners/${miner.id}`} className="w-full">
             <Button variant="primary" className="w-full">
               Buy Now

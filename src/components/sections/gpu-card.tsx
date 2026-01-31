@@ -38,9 +38,9 @@ export function GPUComputeCard({ gpu, index = 0 }: GPUComputeCardProps) {
       className="h-full"
     >
       <Card tilt className="h-full flex flex-col">
-        <CardHeader className="min-h-[56px]">
-          <div className="flex items-start justify-between gap-2">
-            <CardTitle className="text-lg line-clamp-2">
+        <CardHeader className="min-h-[72px]">
+          <div className="flex items-center justify-between gap-2">
+            <CardTitle className="text-lg leading-tight">
               <ShinyText text={gpu.name} speed={3} className="font-semibold" />
             </CardTitle>
             {gpu.badge ? (
@@ -53,12 +53,12 @@ export function GPUComputeCard({ gpu, index = 0 }: GPUComputeCardProps) {
           </div>
         </CardHeader>
         <CardContent className="flex-1 flex flex-col">
-          <div className="space-y-1 text-sm text-cloud-mist/70 mb-6 min-h-[60px]">
+          <div className="space-y-1 text-sm text-cloud-mist/70 mb-6 min-h-[72px]">
             {gpu.specs.memory && <div>{gpu.specs.memory}</div>}
             {gpu.specs.performance && <div>{gpu.specs.performance}</div>}
             {gpu.specs.gpuCount && <div>{gpu.specs.gpuCount}</div>}
           </div>
-          <div className="space-y-2 mt-auto">
+          <div className="space-y-3 mt-auto">
             <div className="flex justify-between items-center">
               <span className="text-cloud-mist/60 text-sm">Hourly</span>
               <span className="text-xl font-semibold">
@@ -69,13 +69,13 @@ export function GPUComputeCard({ gpu, index = 0 }: GPUComputeCardProps) {
             </div>
             <div className="flex justify-between items-center">
               <span className="text-cloud-mist/60 text-sm">Monthly</span>
-              <span className="text-lg text-cloud-mist/80">
+              <span className="text-lg text-cloud-mist/80 font-medium">
                 {formatCurrency(gpu.monthlyPrice, { compact: true })}/mo
               </span>
             </div>
           </div>
         </CardContent>
-        <CardFooter>
+        <CardFooter className="pt-4">
           <Link href="/waitlist" className="w-full">
             <Button variant="primary" className="w-full">
               Deploy Now
@@ -115,9 +115,9 @@ export function GPUHardwareCard({ gpu, index = 0 }: GPUHardwareCardProps) {
       className="h-full"
     >
       <Card tilt className="h-full flex flex-col">
-        <CardHeader className="min-h-[56px]">
-          <div className="flex items-start justify-between gap-2">
-            <CardTitle className="text-lg line-clamp-2">
+        <CardHeader className="min-h-[72px]">
+          <div className="flex items-center justify-between gap-2">
+            <CardTitle className="text-lg leading-tight">
               <ShinyText text={gpu.name} speed={3} className="font-semibold" />
             </CardTitle>
             {gpu.badge ? (
@@ -130,23 +130,23 @@ export function GPUHardwareCard({ gpu, index = 0 }: GPUHardwareCardProps) {
           </div>
         </CardHeader>
         <CardContent className="flex-1 flex flex-col">
-          <div className="text-3xl font-bold mb-4">
+          <div className="text-3xl font-bold mb-6">
             <GradientText colors={['#2C93FF', '#60B5FF', '#2C93FF']} animationSpeed={4}>
               {formatCurrency(gpu.price, { compact: true })}
             </GradientText>
           </div>
-          <div className="space-y-2 text-sm mt-auto">
-            <div className="flex justify-between">
+          <div className="space-y-3 text-sm mt-auto">
+            <div className="flex justify-between items-center">
               <span className="text-cloud-mist/60">Monthly Profit</span>
               <span className="text-positive font-medium">
                 {formatCurrency(gpu.monthlyProfit, { compact: true })}
               </span>
             </div>
-            <div className="flex justify-between">
+            <div className="flex justify-between items-center">
               <span className="text-cloud-mist/60">ROI Timeline</span>
-              <span className="text-cloud-mist">{gpu.roiMonths} months</span>
+              <span className="text-cloud-mist font-medium">{gpu.roiMonths} months</span>
             </div>
-            <div className="flex justify-between items-center pt-2 border-t border-card-border mt-2">
+            <div className="flex justify-between items-center pt-3 border-t border-card-border mt-3">
               <span className="text-cloud-mist/60">Annual ROI</span>
               <span className="text-positive font-semibold">
                 {gpu.annualROI}%
@@ -154,7 +154,7 @@ export function GPUHardwareCard({ gpu, index = 0 }: GPUHardwareCardProps) {
             </div>
           </div>
         </CardContent>
-        <CardFooter>
+        <CardFooter className="pt-4">
           <Link href={`/hardware/gpus/${gpu.id.replace('-hw', '')}`} className="w-full">
             <Button variant="primary" className="w-full">
               Invest Now

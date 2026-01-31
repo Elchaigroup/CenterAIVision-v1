@@ -31,39 +31,40 @@ export function HashrateCard({ plan, index = 0 }: HashrateCardProps) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
+      className="h-full"
     >
       <Card tilt className="h-full flex flex-col">
-        <CardHeader>
-          <div className="flex items-start justify-between gap-2">
-            <CardTitle className="text-lg">{plan.name}</CardTitle>
+        <CardHeader className="min-h-[100px]">
+          <div className="flex items-center justify-between gap-2">
+            <CardTitle className="text-lg leading-tight">{plan.name}</CardTitle>
             {plan.badge && (
-              <Badge variant={getBadgeVariant(plan.badge)}>
+              <Badge variant={getBadgeVariant(plan.badge)} className="shrink-0">
                 {plan.badge}
               </Badge>
             )}
           </div>
-          <div className="text-sm text-electric-azure/60 mt-2">
+          <div className="text-sm text-electric-azure mt-2">
             {plan.hashrate} | {plan.duration}
           </div>
         </CardHeader>
-        <CardContent className="flex-1">
-          <div className="text-3xl font-bold mb-4">
+        <CardContent className="flex-1 flex flex-col">
+          <div className="text-3xl font-bold mb-6">
             <GradientText colors={['#2C93FF', '#60B5FF', '#2C93FF']} animationSpeed={4}>
               {formatCurrency(plan.price)}
             </GradientText>
           </div>
-          <div className="space-y-2 text-sm">
-            <div className="flex justify-between">
+          <div className="space-y-3 text-sm mt-auto">
+            <div className="flex justify-between items-center">
               <span className="text-cloud-mist/60">Daily Earnings</span>
-              <span className="text-positive">{plan.expectedDaily}</span>
+              <span className="text-positive font-medium">{plan.expectedDaily}</span>
             </div>
-            <div className="flex justify-between">
+            <div className="flex justify-between items-center">
               <span className="text-cloud-mist/60">Monthly Earnings</span>
               <span className="text-positive font-medium">{plan.expectedMonthly}</span>
             </div>
           </div>
         </CardContent>
-        <CardFooter>
+        <CardFooter className="pt-4">
           <Button variant="primary" className="w-full">
             Buy Hashrate
           </Button>
