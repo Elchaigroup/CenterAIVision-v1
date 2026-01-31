@@ -3,7 +3,6 @@
 import { useState, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import { Hyperspeed } from '@/components/ui/hyperspeed'
 
 function WaitlistForm() {
   const searchParams = useSearchParams()
@@ -21,8 +20,8 @@ function WaitlistForm() {
 
   if (submitted) {
     return (
-      <div className="relative min-h-screen overflow-hidden">
-        <Hyperspeed />
+      <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#0a0f1c] via-[#003296] to-[#1B232D]">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#2C93FF]/20 via-transparent to-transparent" />
         <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4">
           <div className="text-center max-w-xl">
             <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-green-500/20 flex items-center justify-center backdrop-blur-sm">
@@ -49,8 +48,8 @@ function WaitlistForm() {
   }
 
   return (
-    <div className="relative min-h-screen overflow-hidden">
-      <Hyperspeed />
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#0a0f1c] via-[#003296] to-[#1B232D]">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#2C93FF]/20 via-transparent to-transparent" />
 
       <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4">
         <div className="text-center max-w-2xl w-full">
