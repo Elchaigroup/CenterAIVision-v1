@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect, useCallback } from 'react'
 import { motion, useAnimationControls, useMotionValue } from 'motion/react'
 import Image from 'next/image'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Linkedin } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 interface TeamMember {
@@ -12,6 +12,7 @@ interface TeamMember {
   responsibility: string
   image: string
   tag?: 'UAE' | 'EU'
+  linkedin?: string
 }
 
 interface TeamCarouselProps {
@@ -82,6 +83,17 @@ function MemberCard({ member }: { member: TeamMember }) {
             <p className="text-cloud-mist/60 text-xs leading-relaxed line-clamp-2">
               {member.responsibility}
             </p>
+            {member.linkedin && (
+              <a
+                href={member.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 inline-flex items-center gap-1.5 text-xs text-cloud-mist/50 hover:text-electric-azure transition-colors"
+              >
+                <Linkedin className="w-3.5 h-3.5" />
+                <span>LinkedIn</span>
+              </a>
+            )}
           </div>
         </div>
       </div>

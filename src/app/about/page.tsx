@@ -1,7 +1,6 @@
 'use client'
 
 import { motion } from 'motion/react'
-import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { TeamCarousel } from '@/components/ui/team-carousel'
 import {
@@ -11,9 +10,6 @@ import {
   Shield,
   Landmark,
   FileCheck,
-  Download,
-  ExternalLink,
-  AlertTriangle,
   ArrowRight,
   CheckCircle2
 } from 'lucide-react'
@@ -118,45 +114,52 @@ const team = [
     name: 'Stefano Curzio',
     role: 'CEO',
     responsibility: 'Owns overall execution, delivery, and operating performance.',
-    image: '/members/StefanoCurzio.webp'
+    image: '/members/StefanoCurzio.webp',
+    linkedin: 'https://www.linkedin.com/in/stefanocurzio/'
   },
   {
     name: 'Sukhchain Singh',
     role: 'CTO',
     responsibility: 'Owns platform architecture, infrastructure engineering, and security-by-design.',
-    image: '/members/Sukhchain_Singh1.webp'
+    image: '/members/Sukhchain_Singh1.webp',
+    linkedin: 'https://www.linkedin.com/in/sukhchainsingh/'
   },
   {
     name: 'Giorgia Cristina',
     role: 'Financial Analyst',
     responsibility: 'Owns financial modeling support, budget discipline, and operating reporting.',
-    image: '/members/GIORGIA-CRISTINA.webp'
+    image: '/members/GIORGIA-CRISTINA.webp',
+    linkedin: 'https://www.linkedin.com/in/giorgia-cristina-panico-7b4a1b171/'
   },
   {
     name: 'Charles David',
     role: 'Head of AI',
     responsibility: 'Owns AI workload strategy, customer requirements translation, and performance benchmarking.',
-    image: '/members/Charles-David-David.webp'
+    image: '/members/Charles-David-David.webp',
+    linkedin: 'https://www.linkedin.com/in/charlesaarondavid/'
   },
   {
     name: 'Jasna Ali',
     role: 'IT Project Manager',
     responsibility: 'Owns delivery planning, vendor coordination, timelines, and execution governance.',
-    image: '/members/JASNA.webp'
+    image: '/members/JASNA.webp',
+    linkedin: 'https://www.linkedin.com/in/jasna-ali-2067111a1/'
   },
   {
     name: 'Diana Guevarra',
     role: 'Business Manager',
     responsibility: 'Owns UAE business operations support, partnerships, and local execution coordination.',
     image: '/members/DIANA.webp',
-    tag: 'UAE' as const
+    tag: 'UAE' as const,
+    linkedin: 'https://www.linkedin.com/in/dianna-rose-guevarra-1007a3221/'
   },
   {
     name: 'Angela Cordella',
     role: 'Business Manager',
     responsibility: 'Owns EU business operations support, partnerships, and local compliance coordination.',
     image: '/members/ANGELA.webp',
-    tag: 'EU' as const
+    tag: 'EU' as const,
+    linkedin: 'https://www.linkedin.com/in/angela-cordella-69112739b/'
   }
 ]
 
@@ -282,25 +285,6 @@ export default function AboutPage() {
             HoldCo, issuer, governance layer, and registry owner.
           </motion.p>
 
-          {/* CTA Buttons */}
-          <motion.div
-            variants={fadeInUp}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
-          >
-            <Button variant="primary" size="lg" className="min-w-[220px]">
-              <Download className="w-4 h-4 mr-2" />
-              Download Program Overview
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="min-w-[220px]"
-              onClick={() => scrollToSection('governance')}
-            >
-              <ExternalLink className="w-4 h-4 mr-2" />
-              View Governance Framework
-            </Button>
-          </motion.div>
         </motion.div>
       </Section>
 
@@ -448,31 +432,6 @@ export default function AboutPage() {
                   </p>
                 </motion.div>
               ))}
-            </div>
-          </div>
-        </motion.div>
-      </Section>
-
-      {/* Important Note Section */}
-      <Section className="py-8 md:py-12">
-        <motion.div
-          className="max-w-4xl mx-auto"
-          variants={fadeInUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-        >
-          <div className="flex items-start gap-4 p-5 rounded-xl bg-amber-500/5 border border-amber-500/20">
-            <div className="w-9 h-9 rounded-lg bg-amber-500/10 flex items-center justify-center shrink-0">
-              <AlertTriangle className="w-5 h-5 text-amber-500" />
-            </div>
-            <div>
-              <h4 className="text-sm font-semibold text-cloud-mist mb-1">
-                Important Note on Projections
-              </h4>
-              <p className="text-sm text-cloud-mist/60 leading-relaxed">
-                Any financial metrics, return targets, and model outputs are illustrative and not guarantees.
-              </p>
             </div>
           </div>
         </motion.div>
