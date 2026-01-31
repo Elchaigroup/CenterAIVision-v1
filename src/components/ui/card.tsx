@@ -33,12 +33,16 @@ export function Card({
       className={cn(
         'rounded-xl p-6 h-full relative overflow-hidden',
         isGlass && 'liquid-glass glass-shimmer bg-white/[0.02] backdrop-blur-2xl border border-white/[0.1] shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.1)] transition-all duration-300 hover:bg-white/[0.04] hover:border-white/[0.15] hover:shadow-[0_16px_48px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.15)]',
-        !isGlass && 'bg-card-bg border border-card-border',
+        !isGlass && 'bg-gradient-to-br from-card-bg via-card-bg to-[#1a2535] border border-card-border',
         glow && 'glow-effect',
         hover && !tilt && !isGlass && 'card-hover',
         className
       )}
     >
+      {/* Subtle gradient overlay for non-glass cards */}
+      {!isGlass && (
+        <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-electric-azure/[0.03] via-transparent to-core-blue/[0.05] pointer-events-none" />
+      )}
       {/* Inner glow effect for glass cards */}
       {isGlass && (
         <>

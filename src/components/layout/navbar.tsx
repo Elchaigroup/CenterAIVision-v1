@@ -215,9 +215,10 @@ export function Navbar({ onSignInClick, onSignUpClick }: NavbarProps) {
             ) : (
               <Link
                 href="/waitlist"
-                className="relative inline-flex items-center px-6 py-2.5 text-sm font-semibold text-white rounded-full bg-gradient-to-r from-[#2C93FF] via-[#003296] to-[#2C93FF] bg-[length:200%_100%] hover:bg-[position:100%_0] transition-all duration-500 shadow-lg shadow-electric-azure/25 hover:shadow-electric-azure/40 hover:scale-105"
+                className="relative inline-flex items-center px-5 py-2 text-sm font-medium text-cloud-mist rounded-full bg-white/[0.05] backdrop-blur-xl border border-white/[0.15] shadow-[0_4px_20px_rgba(0,0,0,0.25),inset_0_1px_0_rgba(255,255,255,0.1)] transition-all duration-300 hover:bg-white/[0.1] hover:border-electric-azure/30 hover:shadow-[0_8px_30px_rgba(44,147,255,0.15),inset_0_1px_0_rgba(255,255,255,0.15)] overflow-hidden group"
               >
-                Join the Waitlist
+                <span className="relative z-10">Join the Waitlist</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-electric-azure/10 via-transparent to-electric-azure/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </Link>
             )}
 
