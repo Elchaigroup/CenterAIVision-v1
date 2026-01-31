@@ -1,10 +1,13 @@
 'use client'
 
-import { Reveal } from '@/components/ui/animations'
+import Link from 'next/link'
+import Image from 'next/image'
+import { FadeIn, Reveal } from '@/components/ui/animations'
 import { PageHeader } from '@/components/layout/page-header'
 import { GPUHardwareCard } from '@/components/sections/gpu-card'
 import { FeatureCard } from '@/components/sections/feature-card'
 import { Card } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
 import { gpuHardwareProducts } from '@/data/gpu-products'
 import { formatCurrency } from '@/lib/utils'
 import { cn } from '@/lib/utils'
@@ -16,6 +19,28 @@ export default function GPUHardwarePage() {
         title="Buy AI GPU Hardware"
         subtitle="Invest in enterprise NVIDIA GPU infrastructure with managed hosting, guaranteed uptime, and monthly profit distributions."
       />
+
+      {/* Hero Image Banner */}
+      <section className="relative h-72 md:h-96 overflow-hidden">
+        <Image
+          src="/images/0448.webp"
+          alt="AI GPU Infrastructure"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-midnight-slate/80 via-midnight-slate/50 to-midnight-slate" />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="text-center px-4">
+            <h2 className="text-2xl md:text-4xl font-bold text-cloud-mist mb-4">
+              Enterprise GPU Investments
+            </h2>
+            <p className="text-cloud-mist/80 text-lg max-w-2xl">
+              Own the hardware, earn the returns. Full management included.
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* GPU Investment Cards */}
       <section className="py-20">
@@ -36,8 +61,69 @@ export default function GPUHardwarePage() {
         </div>
       </section>
 
+      {/* GPU Infrastructure Gallery */}
+      <section className="py-20 bg-card-bg/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Reveal>
+            <h2 className="text-3xl font-bold text-cloud-mist text-center mb-4">
+              Our GPU Data Centers
+            </h2>
+            <p className="text-cloud-mist/60 text-center max-w-2xl mx-auto mb-12">
+              State-of-the-art facilities housing your GPU investments
+            </p>
+          </Reveal>
+          <div className="grid md:grid-cols-3 gap-4">
+            <FadeIn delay={100}>
+              <div className="relative h-64 rounded-2xl overflow-hidden group">
+                <Image
+                  src="/images/0162.webp"
+                  alt="GPU Server Room"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-midnight-slate/90 via-transparent to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4">
+                  <h3 className="text-lg font-semibold text-cloud-mist">GPU Server Room</h3>
+                  <p className="text-sm text-cloud-mist/70">High-density compute clusters</p>
+                </div>
+              </div>
+            </FadeIn>
+            <FadeIn delay={200}>
+              <div className="relative h-64 rounded-2xl overflow-hidden group">
+                <Image
+                  src="/images/0705.webp"
+                  alt="AI Operations Center"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-midnight-slate/90 via-transparent to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4">
+                  <h3 className="text-lg font-semibold text-cloud-mist">Operations Center</h3>
+                  <p className="text-sm text-cloud-mist/70">24/7 monitoring and support</p>
+                </div>
+              </div>
+            </FadeIn>
+            <FadeIn delay={300}>
+              <div className="relative h-64 rounded-2xl overflow-hidden group">
+                <Image
+                  src="/images/2584.webp"
+                  alt="Cooling Infrastructure"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-midnight-slate/90 via-transparent to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4">
+                  <h3 className="text-lg font-semibold text-cloud-mist">Cooling Systems</h3>
+                  <p className="text-sm text-cloud-mist/70">Advanced thermal management</p>
+                </div>
+              </div>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+
       {/* Comparison Table */}
-      <section className="py-20 bg-card-bg/50">
+      <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <h2 className="text-3xl font-bold text-cloud-mist text-center mb-4">
@@ -105,6 +191,36 @@ export default function GPUHardwarePage() {
         </div>
       </section>
 
+      {/* Recommendation Banner with Image */}
+      <section className="relative py-20 overflow-hidden">
+        <div className="absolute inset-0">
+          <Image
+            src="/images/4091.webp"
+            alt="Center AI Facility"
+            fill
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-core-blue/95 via-core-blue/80 to-midnight-slate/90" />
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div>
+              <h3 className="text-2xl font-bold text-cloud-mist mb-2">
+                Prefer Mining Hardware?
+              </h3>
+              <p className="text-cloud-mist/80 text-lg">
+                Check out our ASIC miners for Bitcoin mining with excellent ROI and full support.
+              </p>
+            </div>
+            <Link href="/hardware/miners">
+              <Button variant="primary" size="lg" className="bg-white text-core-blue hover:bg-white/90">
+                Browse ASIC Miners
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Investment Benefits */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -138,6 +254,60 @@ export default function GPUHardwarePage() {
                 index={index}
               />
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Bottom Showcase */}
+      <section className="py-20 bg-card-bg/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-2 gap-6">
+            <FadeIn delay={100}>
+              <div className="relative h-80 rounded-2xl overflow-hidden group">
+                <Image
+                  src="/images/0073.webp"
+                  alt="GPU Array"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-midnight-slate/90 via-midnight-slate/30 to-transparent" />
+                <div className="absolute bottom-6 left-6 right-6">
+                  <h3 className="text-xl font-semibold text-cloud-mist mb-2">High-Performance Arrays</h3>
+                  <p className="text-cloud-mist/70">Clustered GPU configurations for maximum compute power</p>
+                </div>
+              </div>
+            </FadeIn>
+            <FadeIn delay={200}>
+              <div className="relative h-80 rounded-2xl overflow-hidden group">
+                <Image
+                  src="/images/2979.webp"
+                  alt="Facility Exterior"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-midnight-slate/90 via-midnight-slate/30 to-transparent" />
+                <div className="absolute bottom-6 left-6 right-6">
+                  <h3 className="text-xl font-semibold text-cloud-mist mb-2">Enterprise Facilities</h3>
+                  <p className="text-cloud-mist/70">Secure, climate-controlled data centers worldwide</p>
+                </div>
+              </div>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+
+      {/* Bottom Image Section */}
+      <section className="relative h-64 overflow-hidden">
+        <Image
+          src="/images/0357.webp"
+          alt="Data Center Infrastructure"
+          fill
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-midnight-slate via-midnight-slate/60 to-midnight-slate/80" />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="text-center">
+            <p className="text-cloud-mist/80 text-lg">Enterprise-grade AI infrastructure for serious investors</p>
           </div>
         </div>
       </section>

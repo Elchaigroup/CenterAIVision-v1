@@ -160,6 +160,83 @@ export default function GPUComputePage() {
           </div>
         </div>
       </section>
+
+      {/* Additional Infrastructure Gallery */}
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Reveal>
+            <h2 className="text-3xl font-bold text-cloud-mist text-center mb-4">
+              World-Class Facilities
+            </h2>
+            <p className="text-cloud-mist/60 text-center max-w-2xl mx-auto mb-12">
+              Global infrastructure designed for AI at scale
+            </p>
+          </Reveal>
+          <div className="grid md:grid-cols-3 gap-4">
+            <FadeIn delay={100}>
+              <div className="relative h-64 rounded-2xl overflow-hidden group">
+                <Image
+                  src="/images/2584.webp"
+                  alt="Cooling Systems"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-midnight-slate/90 via-transparent to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4">
+                  <h3 className="text-lg font-semibold text-cloud-mist">Advanced Cooling</h3>
+                  <p className="text-sm text-cloud-mist/70">Liquid and air cooling solutions</p>
+                </div>
+              </div>
+            </FadeIn>
+            <FadeIn delay={200}>
+              <div className="relative h-64 rounded-2xl overflow-hidden group">
+                <Image
+                  src="/images/0073.webp"
+                  alt="GPU Arrays"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-midnight-slate/90 via-transparent to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4">
+                  <h3 className="text-lg font-semibold text-cloud-mist">GPU Clusters</h3>
+                  <p className="text-sm text-cloud-mist/70">High-density compute arrays</p>
+                </div>
+              </div>
+            </FadeIn>
+            <FadeIn delay={300}>
+              <div className="relative h-64 rounded-2xl overflow-hidden group">
+                <Image
+                  src="/images/4091.webp"
+                  alt="Facility"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-midnight-slate/90 via-transparent to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4">
+                  <h3 className="text-lg font-semibold text-cloud-mist">Secure Facilities</h3>
+                  <p className="text-sm text-cloud-mist/70">Enterprise security standards</p>
+                </div>
+              </div>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+
+      {/* Bottom Image Section */}
+      <section className="relative h-64 overflow-hidden">
+        <Image
+          src="/images/0357.webp"
+          alt="Data Center Infrastructure"
+          fill
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-midnight-slate via-midnight-slate/60 to-midnight-slate/80" />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="text-center">
+            <p className="text-cloud-mist/80 text-lg">Powering the next generation of AI applications</p>
+          </div>
+        </div>
+      </section>
     </>
   )
 }

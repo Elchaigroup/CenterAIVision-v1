@@ -145,6 +145,83 @@ export default function BitcoinMiningPage() {
           </div>
         </div>
       </section>
+
+      {/* Additional Infrastructure */}
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Reveal>
+            <h2 className="text-3xl font-bold text-cloud-mist text-center mb-4">
+              Global Mining Network
+            </h2>
+            <p className="text-cloud-mist/60 text-center max-w-2xl mx-auto mb-12">
+              Strategically located facilities for optimal mining performance
+            </p>
+          </Reveal>
+          <div className="grid md:grid-cols-3 gap-4">
+            <FadeIn delay={100}>
+              <div className="relative h-64 rounded-2xl overflow-hidden group">
+                <Image
+                  src="/images/2979.webp"
+                  alt="Facility Exterior"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-midnight-slate/90 via-transparent to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4">
+                  <h3 className="text-lg font-semibold text-cloud-mist">Industrial Facilities</h3>
+                  <p className="text-sm text-cloud-mist/70">Large-scale mining operations</p>
+                </div>
+              </div>
+            </FadeIn>
+            <FadeIn delay={200}>
+              <div className="relative h-64 rounded-2xl overflow-hidden group">
+                <Image
+                  src="/images/2584.webp"
+                  alt="Data Center"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-midnight-slate/90 via-transparent to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4">
+                  <h3 className="text-lg font-semibold text-cloud-mist">Cooling Infrastructure</h3>
+                  <p className="text-sm text-cloud-mist/70">Advanced thermal management</p>
+                </div>
+              </div>
+            </FadeIn>
+            <FadeIn delay={300}>
+              <div className="relative h-64 rounded-2xl overflow-hidden group">
+                <Image
+                  src="/images/4091.webp"
+                  alt="Command Center"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-midnight-slate/90 via-transparent to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4">
+                  <h3 className="text-lg font-semibold text-cloud-mist">Control Center</h3>
+                  <p className="text-sm text-cloud-mist/70">24/7 operations monitoring</p>
+                </div>
+              </div>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+
+      {/* Bottom Image Section */}
+      <section className="relative h-64 overflow-hidden">
+        <Image
+          src="/images/0357.webp"
+          alt="Mining Infrastructure"
+          fill
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-midnight-slate via-midnight-slate/60 to-midnight-slate/80" />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="text-center">
+            <p className="text-cloud-mist/80 text-lg">Join thousands of miners earning Bitcoin daily</p>
+          </div>
+        </div>
+      </section>
     </>
   )
 }
