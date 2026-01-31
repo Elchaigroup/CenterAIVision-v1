@@ -176,7 +176,7 @@ export default function HomePage() {
               </p>
               <div className="flex flex-wrap justify-center gap-4">
                 <Link href="/waitlist">
-                  <Button variant="primary" size="lg" className="bg-white text-core-blue hover:bg-white/90">
+                  <Button variant="secondary" size="lg" className="bg-white border-white text-core-blue font-semibold hover:bg-white/90">
                     Join the Waitlist
                   </Button>
                 </Link>

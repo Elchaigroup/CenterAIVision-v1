@@ -3,11 +3,12 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { motion } from 'motion/react'
 import { FadeIn, Reveal } from '@/components/ui/animations'
-import { PageHeader } from '@/components/layout/page-header'
 import { ASICCard } from '@/components/sections/asic-card'
 import { FeatureCard } from '@/components/sections/feature-card'
 import { Button } from '@/components/ui/button'
+import { GradientText } from '@/components/ui/gradient-text'
 import { asicMiners, asicInclusions } from '@/data/gpu-products'
 import { cn } from '@/lib/utils'
 
@@ -29,13 +30,9 @@ export default function ASICMinersPage() {
 
   return (
     <>
-      <PageHeader
-        title="Buy ASIC Miners"
-        subtitle="Enterprise-grade Bitcoin mining hardware with free shipping and full warranty coverage."
-      />
-
-      {/* Hero Image Banner */}
-      <section className="relative h-72 md:h-96 overflow-hidden">
+      {/* Full Hero Section with Background Image */}
+      <section className="relative min-h-[85vh] overflow-hidden">
+        {/* Background Image */}
         <Image
           src="/images/1837.webp"
           alt="Mining Container Farm"
@@ -43,15 +40,57 @@ export default function ASICMinersPage() {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-midnight-slate/80 via-midnight-slate/50 to-midnight-slate" />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center px-4">
-            <h2 className="text-2xl md:text-4xl font-bold text-cloud-mist mb-4">
-              Professional Mining Hardware
-            </h2>
-            <p className="text-cloud-mist/80 text-lg max-w-2xl">
-              Direct from manufacturer with warranty and support
-            </p>
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-midnight-slate/70 via-midnight-slate/40 to-midnight-slate" />
+
+        {/* Content Container */}
+        <div className="relative h-full flex flex-col">
+          {/* Top Section - Page Title */}
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 md:pt-40">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.25, 0.4, 0.25, 1] }}
+            >
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">
+                <GradientText
+                  colors={['#E8EDF3', '#2C93FF', '#E8EDF3']}
+                  animationSpeed={6}
+                >
+                  Buy ASIC Miners
+                </GradientText>
+              </h1>
+              <motion.p
+                className="text-lg md:text-xl text-cloud-mist/70 max-w-2xl"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2, ease: [0.25, 0.4, 0.25, 1] }}
+              >
+                Enterprise-grade Bitcoin mining hardware with free shipping and full warranty coverage.
+              </motion.p>
+            </motion.div>
+          </div>
+
+          {/* Center Section - Professional Mining Hardware */}
+          <div className="flex-1 flex items-center justify-center">
+            <div className="text-center px-4">
+              <motion.h2
+                className="text-2xl md:text-4xl font-bold text-cloud-mist mb-4"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4, ease: [0.25, 0.4, 0.25, 1] }}
+              >
+                Professional Mining Hardware
+              </motion.h2>
+              <motion.p
+                className="text-cloud-mist/80 text-lg max-w-2xl"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.5, ease: [0.25, 0.4, 0.25, 1] }}
+              >
+                Direct from manufacturer with warranty and support
+              </motion.p>
+            </div>
           </div>
         </div>
       </section>
