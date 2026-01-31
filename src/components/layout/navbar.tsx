@@ -141,9 +141,9 @@ export function Navbar({ onSignInClick, onSignUpClick }: NavbarProps) {
             <Image
               src="/centeraivisionLogo-light.png"
               alt="Center AI Vision"
-              width={180}
-              height={40}
-              className="h-10 w-auto"
+              width={240}
+              height={54}
+              className="h-12 w-auto"
               priority
             />
           </Link>
