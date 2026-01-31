@@ -8,8 +8,8 @@ export const navigationItems: NavItem[] = [
   {
     label: 'Compute',
     dropdown: [
-      { label: 'Bitcoin Mining', href: '/compute/mining' },
-      { label: 'AI GPU Compute', href: '/compute/gpu' },
+      { label: 'Bitcoin Mining', href: '/waitlist' },
+      { label: 'AI GPU Compute', href: '/waitlist' },
     ],
   },
   {
@@ -39,8 +39,8 @@ export const navigationItems: NavItem[] = [
 
 export const footerLinks = {
   services: [
-    { label: 'Bitcoin Mining', href: '/compute/mining' },
-    { label: 'AI GPU Compute', href: '/compute/gpu' },
+    { label: 'Bitcoin Mining', href: '/waitlist' },
+    { label: 'AI GPU Compute', href: '/waitlist' },
     { label: 'ASIC Miners', href: '/hardware/miners' },
     { label: 'Hashrate', href: '/hardware/hashrate' },
   ],

@@ -76,9 +76,11 @@ export function GPUComputeCard({ gpu, index = 0 }: GPUComputeCardProps) {
           </div>
         </CardContent>
         <CardFooter>
-          <Button variant="primary" className="w-full">
-            Deploy Now
-          </Button>
+          <Link href="/waitlist" className="w-full">
+            <Button variant="primary" className="w-full">
+              Deploy Now
+            </Button>
+          </Link>
         </CardFooter>
       </Card>
     </motion.div>

@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { FadeIn, Reveal } from '@/components/ui/animations'
 import { PageHeader } from '@/components/layout/page-header'
 import { GPUComputeCard } from '@/components/sections/gpu-card'
@@ -14,12 +15,22 @@ export default function GPUComputePage() {
         subtitle="On-demand access to next-generation NVIDIA GPUs for AI training, inference, and high-performance computing."
       />
 
-      {/* Callout Banner */}
-      <section className="bg-positive/10 border-b border-positive/20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <p className="text-center text-positive font-medium">
-            Highly Profitable GPU Compute Infrastructure with Industry-Leading Availability
-          </p>
+      {/* Hero Image Section */}
+      <section className="relative h-64 md:h-80 overflow-hidden">
+        <Image
+          src="/images/0448.webp"
+          alt="AI Command Center"
+          fill
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-midnight-slate via-midnight-slate/60 to-midnight-slate" />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="text-center">
+            <p className="text-cloud-mist text-lg md:text-xl font-medium">
+              Next-Generation NVIDIA GPU Infrastructure
+            </p>
+            <p className="text-positive mt-2 font-medium">Industry-Leading Availability & Performance</p>
+          </div>
         </div>
       </section>
 
@@ -103,6 +114,49 @@ export default function GPUComputePage() {
                 index={index}
               />
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Command Center Showcase */}
+      <section className="py-20 bg-card-bg/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Reveal>
+            <h2 className="text-3xl font-bold text-cloud-mist text-center mb-12">
+              Our AI Infrastructure
+            </h2>
+          </Reveal>
+          <div className="grid md:grid-cols-2 gap-6">
+            <FadeIn delay={100}>
+              <div className="relative h-72 rounded-2xl overflow-hidden group">
+                <Image
+                  src="/images/0705.webp"
+                  alt="AI Operations Center"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-midnight-slate/90 via-transparent to-transparent" />
+                <div className="absolute bottom-6 left-6 right-6">
+                  <h3 className="text-xl font-semibold text-cloud-mist">AI Operations Center</h3>
+                  <p className="text-cloud-mist/70 mt-1">24/7 monitoring and management</p>
+                </div>
+              </div>
+            </FadeIn>
+            <FadeIn delay={200}>
+              <div className="relative h-72 rounded-2xl overflow-hidden group">
+                <Image
+                  src="/images/0162.webp"
+                  alt="GPU Data Center"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-midnight-slate/90 via-transparent to-transparent" />
+                <div className="absolute bottom-6 left-6 right-6">
+                  <h3 className="text-xl font-semibold text-cloud-mist">GPU Data Center</h3>
+                  <p className="text-cloud-mist/70 mt-1">Enterprise-grade compute infrastructure</p>
+                </div>
+              </div>
+            </FadeIn>
           </div>
         </div>
       </section>
