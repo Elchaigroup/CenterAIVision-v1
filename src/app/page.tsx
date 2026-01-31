@@ -9,6 +9,9 @@ import { KPIStrip } from '@/components/sections/kpi-strip'
 import { TradingViewTicker } from '@/components/sections/tradingview-ticker'
 import { MiningCard } from '@/components/sections/mining-card'
 import { GPUComputeCard } from '@/components/sections/gpu-card'
+import { CardSwap } from '@/components/ui/card-swap'
+import { MiningSwapCard } from '@/components/sections/mining-swap-card'
+import { GPUSwapCard } from '@/components/sections/gpu-swap-card'
 import { miningPlans } from '@/data/mining-plans'
 import { gpuComputeProducts } from '@/data/gpu-products'
 
@@ -127,7 +130,27 @@ export default function HomePage() {
               </Link>
             </div>
           </Reveal>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+          {/* Card Swap for Desktop */}
+          <div className="hidden lg:flex justify-center mb-12">
+            <CardSwap
+              width={280}
+              height={380}
+              cardDistance={60}
+              verticalDistance={25}
+              delay={3500}
+              skewAmount={5}
+              easing="smooth"
+              className="mx-auto"
+            >
+              {miningPlans.map((plan) => (
+                <MiningSwapCard key={plan.id} plan={plan} />
+              ))}
+            </CardSwap>
+          </div>
+
+          {/* Grid for Mobile/Tablet */}
+          <div className="grid sm:grid-cols-2 gap-6 lg:hidden">
             {miningPlans.map((plan, index) => (
               <MiningCard key={plan.id} plan={plan} index={index} />
             ))}
@@ -153,7 +176,27 @@ export default function HomePage() {
               </Link>
             </div>
           </Reveal>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+          {/* Card Swap for Desktop */}
+          <div className="hidden lg:flex justify-center mb-12">
+            <CardSwap
+              width={280}
+              height={340}
+              cardDistance={60}
+              verticalDistance={25}
+              delay={4000}
+              skewAmount={5}
+              easing="smooth"
+              className="mx-auto"
+            >
+              {gpuComputeProducts.map((gpu) => (
+                <GPUSwapCard key={gpu.id} gpu={gpu} />
+              ))}
+            </CardSwap>
+          </div>
+
+          {/* Grid for Mobile/Tablet */}
+          <div className="grid sm:grid-cols-2 gap-6 lg:hidden">
             {gpuComputeProducts.map((gpu, index) => (
               <GPUComputeCard key={gpu.id} gpu={gpu} index={index} />
             ))}
