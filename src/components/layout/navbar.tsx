@@ -213,14 +213,11 @@ export function Navbar({ onSignInClick, onSignUpClick }: NavbarProps) {
                 </Button>
               </div>
             ) : (
-              <div className="flex items-center gap-3">
-                <Button variant="ghost" size="sm" onClick={onSignInClick} className="hidden sm:inline-flex">
-                  Sign In
+              <Link href="/waitlist">
+                <Button variant="primary" size="sm">
+                  Join the Waitlist
                 </Button>
-                <Button variant="primary" size="sm" onClick={onSignUpClick}>
-                  Sign Up
-                </Button>
-              </div>
+              </Link>
             )}
 
             {/* Mobile Menu Button */}
