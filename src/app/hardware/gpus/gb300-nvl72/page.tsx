@@ -7,57 +7,72 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 
 const specifications = [
+  { label: 'Configuration', value: '72 NVIDIA Blackwell Ultra GPUs, 36 NVIDIA Grace CPUs' },
   { label: 'NVLink Bandwidth', value: '130 TB/s' },
   { label: 'Fast Memory', value: '37 TB' },
-  { label: 'GPU Memory', value: '20 TB' },
-  { label: 'GPU Memory Bandwidth', value: '576 TB/s' },
-  { label: 'CPU Memory', value: '17 TB LPDDR5X' },
-  { label: 'CPU Memory Bandwidth', value: '14 TB/s' },
-  { label: 'CPU Cores', value: '2,592 Arm Neoverse V2' },
-  { label: 'FP4 Tensor Core', value: '1,440 PFLOPS' },
+  { label: 'GPU Memory | Bandwidth', value: '20 TB | up to 576 TB/s' },
+  { label: 'CPU Memory | Bandwidth', value: '17 TB LPDDR5X | 14 TB/s' },
+  { label: 'CPU Core Count', value: '2,592 Arm Neoverse V2 cores' },
+  { label: 'FP4 Tensor Core', value: '1440 | 1080* PFLOPS' },
   { label: 'FP8/FP6 Tensor Core', value: '720 PFLOPS' },
+  { label: 'INT8 Tensor Core', value: '24 POPS' },
+  { label: 'FP16/BF16 Tensor Core', value: '360 PFLOPS' },
+  { label: 'TF32 Tensor Core', value: '180 PFLOPS' },
+  { label: 'FP32', value: '6 PFLOPS' },
+  { label: 'FP64 / FP64 Tensor Core', value: '100 TFLOPS' },
 ]
 
-const performanceMetrics = [
-  { value: '50x', label: 'AI Factory Output', description: 'vs. Hopper-based platforms' },
-  { value: '10x', label: 'User Responsiveness', description: 'TPS per user improvement' },
-  { value: '5x', label: 'Power Efficiency', description: 'Throughput per megawatt' },
-  { value: '30x', label: 'Video Generation', description: 'Real-time acceleration' },
-]
-
-const keyFeatures = [
+const technologicalFeatures = [
   {
-    title: '72 Blackwell Ultra GPUs',
-    description: 'Combined with 36 Arm-based NVIDIA Grace CPUs in a single unified platform for unprecedented compute density.',
+    title: 'AI Reasoning Inference',
+    description: 'Test-time scaling and AI reasoning increase the compute necessary to achieve quality of service and maximum throughput. NVIDIA Blackwell Ultra Tensor Cores are supercharged with 2x the attention-layer acceleration and 1.5x more AI compute floating-point operations per second (FLOPS) compared to NVIDIA Blackwell GPUs.',
     icon: (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+      </svg>
+    ),
+  },
+  {
+    title: '288 GB of HBM3e',
+    description: 'Larger memory capacity allows for larger batch sizing and maximum throughput performance. NVIDIA Blackwell Ultra GPUs offer 1.5x larger HBM3e memory in combination with added AI compute, boosting AI reasoning throughput for the largest context lengths.',
+    icon: (
+      <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+      </svg>
+    ),
+  },
+  {
+    title: 'NVIDIA Blackwell Architecture',
+    description: 'The NVIDIA Blackwell architecture delivers groundbreaking advancements in accelerated computing, powering a new era of unparalleled performance, efficiency, and scale.',
+    icon: (
+      <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
       </svg>
     ),
   },
   {
-    title: 'Liquid-Cooled Architecture',
-    description: 'Fully liquid-cooled rack-scale design enables maximum performance density while maintaining optimal operating temperatures.',
+    title: 'NVIDIA ConnectX-8 SuperNIC',
+    description: 'The NVIDIA ConnectX-8 SuperNIC-8 multihued I/O module hosts two ConnectX-8 devices, providing 800 gigabits per second (Gb/s) of network connectivity for each GPU in the NVIDIA GB300 NVL72. This delivers best-in-class remote direct memory access (RDMA) capabilities with entire NVIDIA Quantum-X800 InfiniBand or Spectrum-X Ethernet networking platforms.',
     icon: (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-      </svg>
-    ),
-  },
-  {
-    title: '800 Gb/s Networking',
-    description: 'NVIDIA ConnectX-8 SuperNIC delivers 800 Gb/s connectivity per GPU for seamless multi-node scaling.',
-    icon: (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8.288 15.038a5.25 5.25 0 017.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 011.06 0z" />
       </svg>
     ),
   },
   {
-    title: '5th Gen NVLink',
-    description: 'Fifth-generation NVIDIA NVLink provides 130 TB/s of GPU-to-GPU bandwidth for massive model training.',
+    title: 'NVIDIA Grace CPU',
+    description: 'The NVIDIA Grace CPU is a breakthrough processor designed for modern data center workloads. It provides outstanding performance and memory bandwidth with 2x the energy efficiency of todays leading server processors.',
     icon: (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+      </svg>
+    ),
+  },
+  {
+    title: 'Fifth-Generation NVIDIA NVLink',
+    description: 'Unlocking the full potential of accelerated computing requires seamless communication between every GPU. The fifth generation of NVIDIA NVLink is a scale-up interconnect that unleashes accelerated performance for AI reasoning models.',
+    icon: (
+      <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
       </svg>
     ),
@@ -67,184 +82,282 @@ const keyFeatures = [
 export default function GB300NVL72Page() {
   return (
     <>
-      {/* Hero Section with Product Image */}
-      <section className="relative pt-28 pb-16 overflow-hidden">
-        {/* Background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-core-blue/30 via-midnight-slate to-midnight-slate" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-electric-azure/20 via-transparent to-transparent" />
+      {/* Hero Section */}
+      <section className="relative min-h-[90vh] overflow-hidden bg-midnight-slate">
+        {/* Background gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-core-blue/20 via-midnight-slate to-midnight-slate" />
 
-        {/* Animated grid pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `linear-gradient(rgba(44, 147, 255, 0.3) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(44, 147, 255, 0.3) 1px, transparent 1px)`,
-            backgroundSize: '50px 50px'
-          }} />
-        </div>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative pt-32 pb-20">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Product Info */}
+            {/* Left - Title and CTA */}
             <FadeIn>
               <div>
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="px-3 py-1 text-xs font-semibold bg-green-500/20 text-green-400 rounded-full border border-green-500/30">
-                    Available Now
-                  </span>
-                  <span className="px-3 py-1 text-xs font-semibold bg-electric-azure/20 text-electric-azure rounded-full border border-electric-azure/30">
-                    Blackwell Ultra Architecture
-                  </span>
-                </div>
-
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-cloud-mist leading-tight mb-4">
-                  NVIDIA
-                  <span className="block bg-gradient-to-r from-electric-azure via-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                    GB300 NVL72
-                  </span>
+                <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-cloud-mist leading-tight mb-4">
+                  NVIDIA GB300 NVL72
                 </h1>
-
-                <p className="text-xl text-cloud-mist/70 mb-8 leading-relaxed">
-                  Built for the age of AI reasoning. A rack-scale system combining 72 Blackwell Ultra GPUs
-                  with 36 Grace CPUs, delivering unprecedented performance for the most demanding AI workloads.
+                <p className="text-xl text-cloud-mist/70 mb-8">
+                  Built for the age of AI reasoning.
                 </p>
 
-                <div className="flex flex-wrap gap-4">
+                <div className="flex flex-col sm:flex-row gap-4 mb-8">
+                  <span className="inline-flex items-center px-4 py-2 text-sm font-semibold bg-electric-azure text-white rounded">
+                    Available Now
+                  </span>
                   <Link href="/waitlist?product=NVIDIA GB300 NVL72">
-                    <Button variant="primary" size="lg">
-                      Buy Now
-                    </Button>
-                  </Link>
-                  <Link href="/compute/gpu">
-                    <Button variant="outline" size="lg">
-                      Rent GPU Compute
+                    <Button variant="outline" size="lg" className="border-electric-azure text-electric-azure hover:bg-electric-azure hover:text-white">
+                      Get Started
                     </Button>
                   </Link>
                 </div>
               </div>
             </FadeIn>
 
-            {/* Product Image */}
+            {/* Right - Product Image */}
             <FadeIn delay={200}>
               <div className="relative">
-                <div className="absolute -inset-4 bg-gradient-to-r from-electric-azure/30 to-core-blue/30 rounded-3xl blur-2xl opacity-50" />
-                <div className="relative bg-gradient-to-br from-card-bg to-card-bg/50 rounded-2xl border border-electric-azure/20 overflow-hidden">
-                  {/* Glow effect */}
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-1/2 bg-electric-azure/20 blur-3xl" />
-
-                  <div className="relative aspect-[4/3] w-full">
-                    {/* Official Product Image */}
-                    <Image
-                      src="https://www.ingrasys.com/upload/fac_b/product_main__25G17nKwLs.png"
-                      alt="NVIDIA GB300 NVL72 Server Rack"
-                      fill
-                      className="object-contain p-4"
-                      unoptimized
-                    />
-                  </div>
-
-                  <div className="p-4 text-center border-t border-white/5">
-                    <p className="text-sm text-cloud-mist/60">72 GPUs | 36 CPUs | Liquid Cooled</p>
-                  </div>
-                </div>
+                <Image
+                  src="https://www.nvidia.com/content/dam/en-zz/Solutions/data-center/gb300-nvl72/gb300-nvl72-bm-af-bottom-p.jpg"
+                  alt="NVIDIA GB300 NVL72"
+                  width={800}
+                  height={600}
+                  className="w-full h-auto"
+                  unoptimized
+                />
               </div>
             </FadeIn>
           </div>
         </div>
       </section>
 
-      {/* Performance Metrics */}
-      <section className="py-12 border-y border-electric-azure/10 bg-card-bg/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {performanceMetrics.map((metric, index) => (
-              <FadeIn key={metric.label} delay={index * 100}>
-                <div className="text-center">
-                  <div className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-electric-azure to-cyan-400 bg-clip-text text-transparent">
-                    {metric.value}
-                  </div>
-                  <div className="mt-2 text-sm font-semibold text-cloud-mist">{metric.label}</div>
-                  <div className="text-xs text-cloud-mist/50">{metric.description}</div>
-                </div>
-              </FadeIn>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* AI Vision Section */}
-      <section className="py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Overview Section */}
+      <section className="py-24 bg-cloud-mist">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Reveal>
-            <div className="text-center mb-16">
-              <span className="inline-block px-4 py-1.5 mb-4 text-sm font-medium text-electric-azure bg-electric-azure/10 rounded-full border border-electric-azure/20">
-                Center AI Vision
-              </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-cloud-mist mb-4">
-                The Future of AI Infrastructure
-              </h2>
-              <p className="text-cloud-mist/60 max-w-3xl mx-auto text-lg">
-                The NVIDIA GB300 NVL72 represents the pinnacle of AI computing technology.
-                Built on the revolutionary Blackwell Ultra architecture, this system delivers
-                unprecedented performance for large language models, AI reasoning, and real-time
-                video generation workloads.
-              </p>
-            </div>
+            <span className="text-sm font-medium text-midnight-slate/60 uppercase tracking-wider">Overview</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-midnight-slate mt-4 mb-8">
+              Designed for AI Reasoning Performance
+            </h2>
+            <p className="text-lg text-midnight-slate/70 leading-relaxed">
+              The NVIDIA GB300 NVL72 features a fully liquid-cooled, rack-scale architecture that integrates 72 NVIDIA Blackwell Ultra GPUs and 36 Arm-based NVIDIA Grace CPUs into a single platform. The system delivers 1.5x more dense FP4 Tensor Core FLOPS and 2x higher attention performance compared to NVIDIA Blackwell GPUs. It is purpose-built for test-time scaling inference and AI reasoning tasks. AI factories accelerated by the GB300 NVL72—leveraging NVIDIA Quantum-X800 InfiniBand or Spectrum-X Ethernet, ConnectX-8 SuperNIC, and NVIDIA Mission Control management—deliver up to a 50x overall increase in AI factory output performance compared to NVIDIA Hopper-based platforms.
+            </p>
           </Reveal>
-
-          <div className="grid md:grid-cols-2 gap-6">
-            {keyFeatures.map((feature, index) => (
-              <FadeIn key={feature.title} delay={index * 100}>
-                <Card variant="glass" className="h-full" spotlight={false}>
-                  <CardContent className="flex gap-4">
-                    <div className="p-3 rounded-xl bg-gradient-to-br from-electric-azure/20 to-core-blue/20 text-electric-azure h-fit">
-                      {feature.icon}
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-cloud-mist mb-2">{feature.title}</h3>
-                      <p className="text-cloud-mist/60 text-sm">{feature.description}</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </FadeIn>
-            ))}
-          </div>
         </div>
       </section>
 
-      {/* Technical Specifications */}
-      <section className="py-24 bg-gradient-to-b from-transparent via-card-bg/30 to-transparent">
+      {/* Performance Section */}
+      <section className="py-24 bg-gradient-to-b from-cloud-mist to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-cloud-mist mb-4">
-                Technical Specifications
+              <span className="text-sm font-medium text-midnight-slate/60 uppercase tracking-wider">Performance</span>
+              <h2 className="text-3xl md:text-4xl font-bold text-midnight-slate mt-4">
+                Scaling AI Factories to Unprecedented Levels
               </h2>
-              <p className="text-cloud-mist/60 max-w-2xl mx-auto">
-                Industry-leading specifications designed for the most demanding AI workloads.
-              </p>
             </div>
           </Reveal>
 
           <FadeIn>
-            <Card variant="glass" className="overflow-hidden" spotlight={false}>
-              <CardContent className="p-0">
-                <div className="divide-y divide-white/5">
-                  {specifications.map((spec, index) => (
-                    <div
-                      key={spec.label}
-                      className={`flex justify-between items-center px-6 py-4 ${index % 2 === 0 ? 'bg-white/[0.02]' : ''}`}
-                    >
-                      <span className="text-cloud-mist/70">{spec.label}</span>
-                      <span className="text-cloud-mist font-semibold">{spec.value}</span>
-                    </div>
-                  ))}
+            <div className="relative bg-midnight-slate rounded-2xl overflow-hidden p-8">
+              {/* Performance Chart */}
+              <div className="mb-8">
+                <h3 className="text-lg font-semibold text-cloud-mist mb-6">NVIDIA Blackwell Ultra AI Factory Output</h3>
+                <div className="relative">
+                  <Image
+                    src="https://www.nvidia.com/en-au/data-center/gb300-nvl72/_jcr_content/root/responsivegrid/nv_container/nv_container_1005881640/nv_image.coreimg.100.410.jpeg/1742278444865/blackwell-ultra-ai-factory-output-2560-1440.jpeg"
+                    alt="AI Factory Output Performance Chart"
+                    width={1200}
+                    height={600}
+                    className="w-full h-auto rounded-lg"
+                    unoptimized
+                  />
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+
+              {/* Performance Stats */}
+              <div className="grid grid-cols-3 gap-8 pt-8 border-t border-white/10">
+                <div className="text-center">
+                  <div className="text-4xl md:text-5xl font-bold text-electric-azure">50x</div>
+                  <div className="text-sm text-cloud-mist/70 mt-2">AI Factory Output vs Hopper</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-4xl md:text-5xl font-bold text-electric-azure">10x</div>
+                  <div className="text-sm text-cloud-mist/70 mt-2">User Responsiveness (TPS)</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-4xl md:text-5xl font-bold text-electric-azure">5x</div>
+                  <div className="text-sm text-cloud-mist/70 mt-2">Throughput per Megawatt</div>
+                </div>
+              </div>
+
+              <p className="text-xs text-cloud-mist/50 mt-6">
+                DeepSeek R1 1K + 32K, OSS, 4 BS. GB300 NVL72 with FP4 Dynamic disaggregation. H200 with FP8 & flight batching. Projected performance subject to change.
+              </p>
+            </div>
+          </FadeIn>
+
+          <div className="mt-8 text-center">
+            <p className="text-midnight-slate/70 max-w-3xl mx-auto">
+              Experience next-level AI reasoning performance with the NVIDIA GB300 NVL72 platform. Compared to Hopper, the GB300 NVL72 delivers an impressive 10x boost in user responsiveness (TPS per user) and a 5x improvement in throughput (TPS per megawatt) (MW). Together, these advancements translate into a remarkable 50x leap in overall AI factory output.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Reveal>
+            <div className="text-center mb-16">
+              <span className="text-sm font-medium text-midnight-slate/60 uppercase tracking-wider">Features</span>
+              <h2 className="text-3xl md:text-4xl font-bold text-midnight-slate mt-4">
+                Technological Breakthroughs
+              </h2>
+            </div>
+          </Reveal>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {technologicalFeatures.map((feature, index) => (
+              <FadeIn key={feature.title} delay={index * 100}>
+                <div className="p-6">
+                  <div className="text-electric-azure mb-4">
+                    {feature.icon}
+                  </div>
+                  <h3 className="text-lg font-semibold text-midnight-slate mb-3">{feature.title}</h3>
+                  <p className="text-sm text-midnight-slate/60 leading-relaxed">{feature.description}</p>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Mission Control Section */}
+      <section className="relative py-24 overflow-hidden">
+        <div className="absolute inset-0">
+          <Image
+            src="https://www.nvidia.com/content/dam/en-zz/Solutions/gtcs22/dgx-superpod/nvidia-mission-control-bm-af-bottom-p.jpg"
+            alt="NVIDIA Mission Control"
+            fill
+            className="object-cover"
+            unoptimized
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-midnight-slate/95 via-midnight-slate/80 to-transparent" />
+        </div>
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-xl">
+            <FadeIn>
+              <h2 className="text-3xl md:text-4xl font-bold text-cloud-mist mb-6">
+                NVIDIA Mission Control
+              </h2>
+              <p className="text-cloud-mist/80 leading-relaxed mb-8">
+                NVIDIA Mission Control streamlines AI factory operations, from workloads to infrastructure, with world-class expertise delivered as software. It powers NVIDIA Grace Blackwell data centers, bringing instant agility for inference and training while providing full-stack intelligence for infrastructure resilience. Every enterprise can run AI with hyperscale efficiency, simplifying and accelerating AI experimentation.
+              </p>
+              <Link href="/contact" className="inline-flex items-center text-electric-azure font-semibold hover:underline">
+                Run Models, Automate the Essentials
+                <svg className="w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+
+      {/* DGX Station Section */}
+      <section className="py-24 bg-cloud-mist">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <FadeIn>
+              <div className="relative">
+                <Image
+                  src="https://www.nvidia.com/content/dam/en-zz/Solutions/data-center/gb300-nvl72/nvidia-dgx-station-bm-md460-offset-right-d@2x.jpg"
+                  alt="NVIDIA DGX Station"
+                  width={600}
+                  height={400}
+                  className="w-full h-auto rounded-lg"
+                  unoptimized
+                />
+              </div>
+            </FadeIn>
+
+            <FadeIn delay={200}>
+              <div>
+                <h2 className="text-3xl md:text-4xl font-bold text-midnight-slate mb-6">
+                  NVIDIA DGX Station
+                </h2>
+                <p className="text-midnight-slate/70 leading-relaxed mb-6">
+                  Develop and run cutting-edge AI locally with NVIDIA DGX Station, powered by the NVIDIA GB300 Grace Blackwell Ultra Desktop Superchip. Accelerate large-scale training and inferencing workloads and easily scale them from deskside to data center.
+                </p>
+                <Link href="/hardware/gpus" className="inline-flex items-center text-electric-azure font-semibold hover:underline">
+                  Learn More About NVIDIA DGX Station
+                  <svg className="w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              </div>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+
+      {/* Specifications Section */}
+      <section className="py-24 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Reveal>
+            <div className="text-center mb-16">
+              <span className="text-sm font-medium text-midnight-slate/60 uppercase tracking-wider">Specifications</span>
+              <h2 className="text-3xl md:text-4xl font-bold text-midnight-slate mt-4">
+                NVIDIA GB300 NVL72<sup>1</sup>
+              </h2>
+            </div>
+          </Reveal>
+
+          <FadeIn>
+            <div className="border border-midnight-slate/10 rounded-lg overflow-hidden">
+              {specifications.map((spec, index) => (
+                <div
+                  key={spec.label}
+                  className={`flex justify-between items-center px-6 py-4 ${index % 2 === 0 ? 'bg-midnight-slate/5' : 'bg-white'} ${index !== specifications.length - 1 ? 'border-b border-midnight-slate/10' : ''}`}
+                >
+                  <span className="text-midnight-slate/70 font-medium">{spec.label}</span>
+                  <span className="text-midnight-slate font-semibold text-right">{spec.value}</span>
+                </div>
+              ))}
+            </div>
+            <p className="text-xs text-midnight-slate/50 mt-4">
+              * All Tensor Core specifications are with sparsity unless otherwise noted.<br />
+              1. Without sparsity.
+            </p>
           </FadeIn>
         </div>
       </section>
 
+      {/* CTA Section */}
+      <section className="py-20 bg-gradient-to-r from-core-blue to-electric-azure">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <FadeIn>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+              Ready to Scale Your AI Infrastructure?
+            </h2>
+            <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
+              Contact us to learn more about the NVIDIA GB300 NVL72 and how it can transform your AI workloads.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <Link href="/waitlist?product=NVIDIA GB300 NVL72">
+                <Button variant="secondary" size="lg" className="bg-white text-core-blue hover:bg-white/90">
+                  Get Started
+                </Button>
+              </Link>
+              <Link href="/contact">
+                <Button variant="outline" size="lg" className="border-white text-white hover:bg-white/10">
+                  Contact Sales
+                </Button>
+              </Link>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
     </>
   )
 }
