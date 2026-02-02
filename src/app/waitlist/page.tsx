@@ -10,11 +10,32 @@ function WaitlistForm() {
 
   const [email, setEmail] = useState('')
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (email) {
+    if (!email) return
+
+    setLoading(true)
+    setError('')
+
+    try {
+      const response = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, product }),
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to join waitlist')
+      }
+
       setSubmitted(true)
+    } catch (err) {
+      setError('Something went wrong. Please try again.')
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -67,22 +88,28 @@ function WaitlistForm() {
             Be first in line for enterprise-grade AI compute and Bitcoin mining infrastructure
           </p>
 
-          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto mb-16">
+          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto mb-4">
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Email address..."
               required
-              className="flex-1 px-5 py-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:border-[#2C93FF]/50 transition-colors"
+              disabled={loading}
+              className="flex-1 px-5 py-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:border-[#2C93FF]/50 transition-colors disabled:opacity-50"
             />
             <button
               type="submit"
-              className="px-8 py-4 bg-white text-[#0a0f1c] font-semibold rounded-xl hover:bg-white/90 transition-colors whitespace-nowrap"
+              disabled={loading}
+              className="px-8 py-4 bg-white text-[#0a0f1c] font-semibold rounded-xl hover:bg-white/90 transition-colors whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Notify me
+              {loading ? 'Joining...' : 'Notify me'}
             </button>
           </form>
+          {error && (
+            <p className="text-red-400 text-sm mb-12">{error}</p>
+          )}
+          {!error && <div className="mb-12" />}
 
           <div className="flex items-center justify-center gap-6">
             <a href="#" className="text-white/60 hover:text-white transition-colors" aria-label="X">
