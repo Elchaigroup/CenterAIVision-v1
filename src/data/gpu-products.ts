@@ -428,6 +428,42 @@ export const asicMiners: ASICMiner[] = [
     efficiency: '13.5 J/TH',
     badge: 'POPULAR',
   },
+  {
+    id: 's21-pro',
+    name: 'Antminer S21 Pro',
+    price: 5800,
+    hashrate: '234 TH/s',
+    power: '3510W',
+    efficiency: '15 J/TH',
+    badge: 'TOP AIR-COOLED',
+  },
+  {
+    id: 'm60s',
+    name: 'Whatsminer M60S',
+    price: 5200,
+    hashrate: '200 TH/s',
+    power: '3080W',
+    efficiency: '15.4 J/TH',
+    badge: 'NEW GEN',
+  },
+  {
+    id: 'avalon-a1566',
+    name: 'Canaan Avalon A1566',
+    price: 4800,
+    hashrate: '200 TH/s',
+    power: '3200W',
+    efficiency: '16 J/TH',
+    badge: 'IMMERSION READY',
+  },
+  {
+    id: 'sealminer-a2',
+    name: 'Bitdeer Sealminer A2',
+    price: 4600,
+    hashrate: '226 TH/s',
+    power: '3420W',
+    efficiency: '15.1 J/TH',
+    badge: 'NEW',
+  },
 ]
 
 export const gpuFeatures = [
