@@ -5,7 +5,7 @@ import { motion, HTMLMotionProps } from 'motion/react'
 import { cn } from '@/lib/utils'
 
 interface ButtonProps {
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost'
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'glass'
   size?: 'sm' | 'md' | 'lg'
   children: ReactNode
   animated?: boolean
@@ -36,6 +36,8 @@ export function Button({
     outline:
       'bg-transparent text-cloud-mist border border-card-border hover:border-electric-azure hover:text-electric-azure',
     ghost: 'bg-transparent text-cloud-mist hover:bg-card-bg hover:text-electric-azure',
+    glass:
+      'relative bg-white/[0.08] backdrop-blur-xl text-cloud-mist border border-white/[0.15] shadow-[0_8px_32px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.1)] hover:bg-white/[0.12] hover:border-white/[0.25] hover:shadow-[0_8px_32px_rgba(44,147,255,0.2),inset_0_1px_0_rgba(255,255,255,0.15)]',
   }
 
   const sizes = {

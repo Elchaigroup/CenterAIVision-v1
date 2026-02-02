@@ -53,7 +53,7 @@ export default function HomePage() {
                 </Button>
               </Link>
               <Link href="/waitlist">
-                <Button variant="outline" size="lg">
+                <Button variant="glass" size="lg">
                   Explore GPU Compute
                 </Button>
               </Link>
