@@ -35,10 +35,6 @@ export const navigationItems: NavItem[] = [
     label: 'About',
     href: '/about',
   },
-  {
-    label: 'Contact',
-    href: '/contact',
-  },
 ]
 
 export const footerLinks = {
@@ -52,7 +48,7 @@ export const footerLinks = {
     { label: 'Resources & Media', href: '/resources' },
     { label: 'Investment Calculators', href: '/calculators' },
     { label: 'GPU Hardware', href: '/hardware/gpus' },
-    { label: 'Support', href: '/resources' },
+    { label: 'Contact Us', href: '/contact' },
   ],
   investors: [
     { label: 'Investor Dashboard', href: '/waitlist' },
