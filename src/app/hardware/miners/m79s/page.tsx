@@ -5,6 +5,18 @@ import Link from 'next/link'
 import { FadeIn, Reveal } from '@/components/ui/animations'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
+import { formatCurrency } from '@/lib/utils'
+
+const minerData = {
+  name: 'Whatsminer M79S',
+  brand: 'MicroBT',
+  price: 18500,
+  monthlyProfit: 2850,
+  roiMonths: 6.5,
+  annualROI: 185,
+  location: 'USA (Texas)',
+  revenueShare: '75% Owner / 25% Platform',
+}
 
 const specifications = [
   { label: 'Hashrate', value: '1.35 PH/s (1,350 TH/s)' },
@@ -21,9 +33,9 @@ const specifications = [
 
 const performanceMetrics = [
   { value: '1.35', label: 'PH/s Hashrate', description: 'Petahash mining power' },
-  { value: '20', label: 'kW Power', description: 'Maximum consumption' },
   { value: '13.5', label: 'J/TH Efficiency', description: 'Low power mode' },
-  { value: '360', label: 'Day Warranty', description: 'Factory coverage' },
+  { value: `${minerData.annualROI}%`, label: 'Annual ROI', description: 'Expected returns' },
+  { value: `${minerData.roiMonths}`, label: 'Months to ROI', description: 'Payback period' },
 ]
 
 const keyFeatures = [
@@ -46,21 +58,20 @@ const keyFeatures = [
     ),
   },
   {
-    title: '3U Rack Mount Design',
-    description: 'High-density deployment in standard data center racks for maximum space efficiency in large-scale operations.',
+    title: 'Professional Hosting',
+    description: 'Hosted in our enterprise data centers with optimal power rates and 24/7 monitoring.',
     icon: (
       <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
       </svg>
     ),
   },
   {
-    title: 'Dual Power Modes',
-    description: 'Flexible operation with high-power (20kW) and low-power (14kW) modes to optimize for performance or efficiency.',
+    title: 'Monthly Bitcoin Payouts',
+    description: 'Receive your share of mining revenue directly to your wallet every month.',
     icon: (
       <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     ),
   },
@@ -88,7 +99,7 @@ export default function M79SPage() {
               <div>
                 <div className="flex items-center gap-3 mb-4">
                   <span className="px-3 py-1 text-xs font-semibold bg-green-500/20 text-green-400 rounded-full border border-green-500/30">
-                    In Stock
+                    Available
                   </span>
                   <span className="px-3 py-1 text-xs font-semibold bg-blue-500/20 text-blue-400 rounded-full border border-blue-500/30">
                     PETAHASH CLASS
@@ -96,26 +107,26 @@ export default function M79SPage() {
                 </div>
 
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-cloud-mist leading-tight mb-4">
-                  MicroBT
+                  {minerData.brand}
                   <span className="block bg-gradient-to-r from-blue-400 via-blue-500 to-cyan-400 bg-clip-text text-transparent">
-                    Whatsminer M79S
+                    {minerData.name}
                   </span>
                 </h1>
 
                 <p className="text-xl text-cloud-mist/70 mb-8 leading-relaxed">
-                  The world&apos;s most powerful Bitcoin miner. True petahash performance with
-                  1.35 PH/s hashrate in a 3U rack-mount hydro-cooled design built for industrial operations.
+                  Invest in the world&apos;s most powerful Bitcoin miner. True petahash performance with
+                  1.35 PH/s hashrate in a 3U rack-mount hydro-cooled design - fully hosted and managed.
                 </p>
 
                 <div className="flex flex-wrap gap-4">
-                  <Link href="/waitlist?product=Whatsminer M79S">
+                  <Link href={`/waitlist?product=${minerData.name}`}>
                     <Button variant="primary" size="lg">
-                      Buy Now
+                      Invest Now
                     </Button>
                   </Link>
-                  <Link href="/compute/mining">
+                  <Link href="/hardware/miners">
                     <Button variant="outline" size="lg">
-                      Cloud Mining
+                      Compare Miners
                     </Button>
                   </Link>
                 </div>
@@ -131,7 +142,7 @@ export default function M79SPage() {
                   <div className="relative aspect-[4/3] w-full">
                     <Image
                       src="https://www.zeusbtc.com/Upload/image/202512/17660224074400098.jpg"
-                      alt="MicroBT Whatsminer M79S"
+                      alt={`${minerData.brand} ${minerData.name}`}
                       fill
                       className="object-contain p-4"
                       unoptimized
@@ -167,8 +178,59 @@ export default function M79SPage() {
         </div>
       </section>
 
-      {/* Features Section */}
+      {/* Investment Details */}
       <section className="py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12">
+            <FadeIn>
+              <Card variant="glass" className="h-full" spotlight={false}>
+                <CardContent>
+                  <h2 className="text-2xl font-bold text-cloud-mist mb-6">Investment Details</h2>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center py-3 border-b border-card-border">
+                      <span className="text-cloud-mist/70">Investment Amount</span>
+                      <span className="text-2xl font-bold text-electric-azure">{formatCurrency(minerData.price)}</span>
+                    </div>
+                    <div className="flex justify-between items-center py-3 border-b border-card-border">
+                      <span className="text-cloud-mist/70">Location</span>
+                      <span className="text-cloud-mist font-medium">{minerData.location}</span>
+                    </div>
+                    <div className="flex justify-between items-center py-3 border-b border-card-border">
+                      <span className="text-cloud-mist/70">Revenue Share</span>
+                      <span className="text-cloud-mist font-medium">{minerData.revenueShare}</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </FadeIn>
+
+            <FadeIn delay={100}>
+              <Card variant="glass" className="h-full" spotlight={false}>
+                <CardContent>
+                  <h2 className="text-2xl font-bold text-cloud-mist mb-6">Expected Returns</h2>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center py-3 border-b border-card-border">
+                      <span className="text-cloud-mist/70">Monthly Profit</span>
+                      <span className="text-2xl font-bold text-positive">{formatCurrency(minerData.monthlyProfit)}</span>
+                    </div>
+                    <div className="flex justify-between items-center py-3 border-b border-card-border">
+                      <span className="text-cloud-mist/70">ROI Timeline</span>
+                      <span className="text-cloud-mist font-medium">{minerData.roiMonths} months</span>
+                    </div>
+                    <div className="flex justify-between items-center py-3 border-b border-card-border">
+                      <span className="text-cloud-mist/70">Annual ROI</span>
+                      <span className="text-2xl font-bold text-positive">{minerData.annualROI}%</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-24 bg-card-bg/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-16">
@@ -176,12 +238,11 @@ export default function M79SPage() {
                 Center AI Vision
               </span>
               <h2 className="text-3xl md:text-4xl font-bold text-cloud-mist mb-4">
-                Industrial Mining Powerhouse
+                Why Invest in This Miner
               </h2>
               <p className="text-cloud-mist/60 max-w-3xl mx-auto text-lg">
-                The Whatsminer M79S is designed exclusively for large-scale mining operations.
-                With true petahash output, this machine requires facility-grade hydro-cooling
-                infrastructure and high-voltage power systems.
+                The Whatsminer M79S represents the pinnacle of Bitcoin mining technology,
+                fully hosted and managed - you just collect the profits.
               </p>
             </div>
           </Reveal>
@@ -207,7 +268,7 @@ export default function M79SPage() {
       </section>
 
       {/* Technical Specifications */}
-      <section className="py-24 bg-gradient-to-b from-transparent via-card-bg/30 to-transparent">
+      <section className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-16">
@@ -215,7 +276,7 @@ export default function M79SPage() {
                 Technical Specifications
               </h2>
               <p className="text-cloud-mist/60 max-w-2xl mx-auto">
-                Complete specifications for the Whatsminer M79S Bitcoin miner.
+                Complete specifications for the {minerData.name} Bitcoin miner.
               </p>
             </div>
           </Reveal>
@@ -236,6 +297,25 @@ export default function M79SPage() {
                 </div>
               </CardContent>
             </Card>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-16 bg-gradient-to-r from-blue-500/10 via-card-bg/50 to-blue-500/10">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <FadeIn>
+            <h3 className="text-2xl md:text-3xl font-bold text-cloud-mist mb-4">
+              Ready to Start Mining Bitcoin?
+            </h3>
+            <p className="text-cloud-mist/60 mb-8">
+              Invest in the {minerData.name} today and start earning {formatCurrency(minerData.monthlyProfit)}/month
+            </p>
+            <Link href={`/waitlist?product=${minerData.name}`}>
+              <Button variant="primary" size="lg">
+                Invest {formatCurrency(minerData.price)} Now
+              </Button>
+            </Link>
           </FadeIn>
         </div>
       </section>

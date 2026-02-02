@@ -5,6 +5,18 @@ import Link from 'next/link'
 import { FadeIn, Reveal } from '@/components/ui/animations'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
+import { formatCurrency } from '@/lib/utils'
+
+const minerData = {
+  name: 'Avalon A1566',
+  brand: 'Canaan',
+  price: 4800,
+  monthlyProfit: 720,
+  roiMonths: 6.7,
+  annualROI: 180,
+  location: 'Iceland',
+  revenueShare: '75% Owner / 25% Platform',
+}
 
 const specifications = [
   { label: 'Hashrate', value: '200 TH/s' },
@@ -24,8 +36,8 @@ const specifications = [
 const performanceMetrics = [
   { value: '200', label: 'TH/s Hashrate', description: 'SHA-256 mining power' },
   { value: '16', label: 'J/TH Efficiency', description: 'Efficient operation' },
-  { value: '3,200', label: 'Watts', description: 'Power consumption' },
-  { value: 'Dual', label: 'Cooling Mode', description: 'Air or immersion' },
+  { value: `${minerData.annualROI}%`, label: 'Annual ROI', description: 'Expected returns' },
+  { value: `${minerData.roiMonths}`, label: 'Months to ROI', description: 'Payback period' },
 ]
 
 const keyFeatures = [
@@ -48,20 +60,20 @@ const keyFeatures = [
     ),
   },
   {
-    title: 'Efficient Performance',
-    description: 'Delivers 200 TH/s with competitive 16 J/TH efficiency for profitable mining operations.',
+    title: 'Professional Hosting',
+    description: 'Hosted in our Iceland data center with renewable geothermal energy and optimal cooling.',
     icon: (
       <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
       </svg>
     ),
   },
   {
-    title: 'Flexible Deployment',
-    description: 'Works in standard air-cooled environments or can be deployed in immersion tanks for enhanced cooling.',
+    title: 'Monthly Bitcoin Payouts',
+    description: 'Receive your share of mining revenue directly to your wallet every month.',
     icon: (
       <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     ),
   },
@@ -89,7 +101,7 @@ export default function AvalonA1566Page() {
               <div>
                 <div className="flex items-center gap-3 mb-4">
                   <span className="px-3 py-1 text-xs font-semibold bg-green-500/20 text-green-400 rounded-full border border-green-500/30">
-                    In Stock
+                    Available
                   </span>
                   <span className="px-3 py-1 text-xs font-semibold bg-teal-500/20 text-teal-400 rounded-full border border-teal-500/30">
                     Immersion Ready
@@ -97,26 +109,26 @@ export default function AvalonA1566Page() {
                 </div>
 
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-cloud-mist leading-tight mb-4">
-                  Canaan
+                  {minerData.brand}
                   <span className="block bg-gradient-to-r from-teal-400 via-cyan-500 to-blue-400 bg-clip-text text-transparent">
-                    Avalon A1566
+                    {minerData.name}
                   </span>
                 </h1>
 
                 <p className="text-xl text-cloud-mist/70 mb-8 leading-relaxed">
                   Versatile Bitcoin miner designed for both air and immersion cooling.
-                  200+ TH/s hashrate with flexible deployment options.
+                  Invest in 200+ TH/s hashrate with flexible deployment options.
                 </p>
 
                 <div className="flex flex-wrap gap-4">
-                  <Link href="/waitlist?product=Canaan Avalon A1566">
+                  <Link href={`/waitlist?product=${minerData.brand} ${minerData.name}`}>
                     <Button variant="primary" size="lg">
-                      Buy Now
+                      Invest Now
                     </Button>
                   </Link>
-                  <Link href="/compute/mining">
+                  <Link href="/hardware/miners">
                     <Button variant="outline" size="lg">
-                      Cloud Mining
+                      Compare Miners
                     </Button>
                   </Link>
                 </div>
@@ -132,7 +144,7 @@ export default function AvalonA1566Page() {
                   <div className="relative aspect-[4/3] w-full">
                     <Image
                       src="/images/avalon-a1566.png"
-                      alt="Canaan Avalon A1566"
+                      alt={`${minerData.brand} ${minerData.name}`}
                       fill
                       className="object-contain p-4"
                     />
@@ -167,8 +179,59 @@ export default function AvalonA1566Page() {
         </div>
       </section>
 
-      {/* Features Section */}
+      {/* Investment Details */}
       <section className="py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12">
+            <FadeIn>
+              <Card variant="glass" className="h-full" spotlight={false}>
+                <CardContent>
+                  <h2 className="text-2xl font-bold text-cloud-mist mb-6">Investment Details</h2>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center py-3 border-b border-card-border">
+                      <span className="text-cloud-mist/70">Investment Amount</span>
+                      <span className="text-2xl font-bold text-electric-azure">{formatCurrency(minerData.price)}</span>
+                    </div>
+                    <div className="flex justify-between items-center py-3 border-b border-card-border">
+                      <span className="text-cloud-mist/70">Location</span>
+                      <span className="text-cloud-mist font-medium">{minerData.location}</span>
+                    </div>
+                    <div className="flex justify-between items-center py-3 border-b border-card-border">
+                      <span className="text-cloud-mist/70">Revenue Share</span>
+                      <span className="text-cloud-mist font-medium">{minerData.revenueShare}</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </FadeIn>
+
+            <FadeIn delay={100}>
+              <Card variant="glass" className="h-full" spotlight={false}>
+                <CardContent>
+                  <h2 className="text-2xl font-bold text-cloud-mist mb-6">Expected Returns</h2>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center py-3 border-b border-card-border">
+                      <span className="text-cloud-mist/70">Monthly Profit</span>
+                      <span className="text-2xl font-bold text-positive">{formatCurrency(minerData.monthlyProfit)}</span>
+                    </div>
+                    <div className="flex justify-between items-center py-3 border-b border-card-border">
+                      <span className="text-cloud-mist/70">ROI Timeline</span>
+                      <span className="text-cloud-mist font-medium">{minerData.roiMonths} months</span>
+                    </div>
+                    <div className="flex justify-between items-center py-3 border-b border-card-border">
+                      <span className="text-cloud-mist/70">Annual ROI</span>
+                      <span className="text-2xl font-bold text-positive">{minerData.annualROI}%</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-24 bg-card-bg/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-16">
@@ -176,7 +239,7 @@ export default function AvalonA1566Page() {
                 Center AI Vision
               </span>
               <h2 className="text-3xl md:text-4xl font-bold text-cloud-mist mb-4">
-                Dual Cooling Flexibility
+                Why Invest in This Miner
               </h2>
               <p className="text-cloud-mist/60 max-w-3xl mx-auto text-lg">
                 The Canaan Avalon A1566 offers unique flexibility with support for both traditional
@@ -206,7 +269,7 @@ export default function AvalonA1566Page() {
       </section>
 
       {/* Technical Specifications */}
-      <section className="py-24 bg-gradient-to-b from-transparent via-card-bg/30 to-transparent">
+      <section className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-16">
@@ -214,7 +277,7 @@ export default function AvalonA1566Page() {
                 Technical Specifications
               </h2>
               <p className="text-cloud-mist/60 max-w-2xl mx-auto">
-                Complete specifications for the Canaan Avalon A1566.
+                Complete specifications for the {minerData.brand} {minerData.name}.
               </p>
             </div>
           </Reveal>
@@ -235,6 +298,25 @@ export default function AvalonA1566Page() {
                 </div>
               </CardContent>
             </Card>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-16 bg-gradient-to-r from-teal-500/10 via-card-bg/50 to-teal-500/10">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <FadeIn>
+            <h3 className="text-2xl md:text-3xl font-bold text-cloud-mist mb-4">
+              Ready to Start Mining Bitcoin?
+            </h3>
+            <p className="text-cloud-mist/60 mb-8">
+              Invest in the {minerData.name} today and start earning {formatCurrency(minerData.monthlyProfit)}/month
+            </p>
+            <Link href={`/waitlist?product=${minerData.brand} ${minerData.name}`}>
+              <Button variant="primary" size="lg">
+                Invest {formatCurrency(minerData.price)} Now
+              </Button>
+            </Link>
           </FadeIn>
         </div>
       </section>

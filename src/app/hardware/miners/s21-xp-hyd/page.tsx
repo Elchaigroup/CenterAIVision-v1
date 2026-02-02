@@ -5,6 +5,18 @@ import Link from 'next/link'
 import { FadeIn, Reveal } from '@/components/ui/animations'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
+import { formatCurrency } from '@/lib/utils'
+
+const minerData = {
+  name: 'Antminer S21 XP Hyd',
+  brand: 'Bitmain',
+  price: 9800,
+  monthlyProfit: 1580,
+  roiMonths: 6.2,
+  annualROI: 193,
+  location: 'USA (Texas)',
+  revenueShare: '75% Owner / 25% Platform',
+}
 
 const specifications = [
   { label: 'Hashrate', value: '473 TH/s' },
@@ -24,8 +36,8 @@ const specifications = [
 const performanceMetrics = [
   { value: '473', label: 'TH/s Hashrate', description: 'SHA-256 mining power' },
   { value: '12', label: 'J/TH Efficiency', description: 'Industry leading' },
-  { value: '50', label: 'dB Noise', description: 'Whisper quiet operation' },
-  { value: '365', label: 'Day Warranty', description: 'Factory coverage' },
+  { value: `${minerData.annualROI}%`, label: 'Annual ROI', description: 'Expected returns' },
+  { value: `${minerData.roiMonths}`, label: 'Months to ROI', description: 'Payback period' },
 ]
 
 const keyFeatures = [
@@ -48,20 +60,20 @@ const keyFeatures = [
     ),
   },
   {
-    title: '12 J/TH Efficiency',
-    description: 'Best-in-class energy efficiency means lower operating costs and higher profitability per hash.',
+    title: 'Professional Hosting',
+    description: 'Hosted in our enterprise data centers with optimal power rates and 24/7 monitoring.',
     icon: (
       <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
       </svg>
     ),
   },
   {
-    title: 'Enterprise Ready',
-    description: 'Designed for large-scale operations with professional-grade build quality and 365-day warranty coverage.',
+    title: 'Monthly Bitcoin Payouts',
+    description: 'Receive your share of mining revenue directly to your wallet every month.',
     icon: (
       <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     ),
   },
@@ -89,7 +101,7 @@ export default function S21XPHydPage() {
               <div>
                 <div className="flex items-center gap-3 mb-4">
                   <span className="px-3 py-1 text-xs font-semibold bg-green-500/20 text-green-400 rounded-full border border-green-500/30">
-                    In Stock
+                    Available
                   </span>
                   <span className="px-3 py-1 text-xs font-semibold bg-orange-500/20 text-orange-400 rounded-full border border-orange-500/30">
                     Hydro Cooled
@@ -97,26 +109,26 @@ export default function S21XPHydPage() {
                 </div>
 
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-cloud-mist leading-tight mb-4">
-                  Bitmain
+                  {minerData.brand}
                   <span className="block bg-gradient-to-r from-orange-400 via-orange-500 to-yellow-500 bg-clip-text text-transparent">
-                    Antminer S21 XP Hyd
+                    {minerData.name}
                   </span>
                 </h1>
 
                 <p className="text-xl text-cloud-mist/70 mb-8 leading-relaxed">
-                  The most powerful hydro-cooled Bitcoin miner from Bitmain. 473 TH/s hashrate
-                  with exceptional 12 J/TH efficiency and whisper-quiet 50 dB operation.
+                  Invest in the most powerful hydro-cooled Bitcoin miner from Bitmain. 473 TH/s hashrate
+                  with exceptional 12 J/TH efficiency - fully hosted and managed for maximum returns.
                 </p>
 
                 <div className="flex flex-wrap gap-4">
-                  <Link href="/waitlist?product=Antminer S21 XP Hyd">
+                  <Link href={`/waitlist?product=${minerData.name}`}>
                     <Button variant="primary" size="lg">
-                      Buy Now
+                      Invest Now
                     </Button>
                   </Link>
-                  <Link href="/compute/mining">
+                  <Link href="/hardware/miners">
                     <Button variant="outline" size="lg">
-                      Cloud Mining
+                      Compare Miners
                     </Button>
                   </Link>
                 </div>
@@ -132,7 +144,7 @@ export default function S21XPHydPage() {
                   <div className="relative aspect-[4/3] w-full">
                     <Image
                       src="https://bitmars.io/wp-content/uploads/2025/04/BITMAIN-Antminer-S21-XP-Hyd-473T-BTC-Miner.png"
-                      alt="Bitmain Antminer S21 XP Hyd"
+                      alt={`${minerData.brand} ${minerData.name}`}
                       fill
                       className="object-contain p-4"
                       unoptimized
@@ -168,8 +180,59 @@ export default function S21XPHydPage() {
         </div>
       </section>
 
-      {/* Features Section */}
+      {/* Investment Details */}
       <section className="py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12">
+            <FadeIn>
+              <Card variant="glass" className="h-full" spotlight={false}>
+                <CardContent>
+                  <h2 className="text-2xl font-bold text-cloud-mist mb-6">Investment Details</h2>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center py-3 border-b border-card-border">
+                      <span className="text-cloud-mist/70">Investment Amount</span>
+                      <span className="text-2xl font-bold text-electric-azure">{formatCurrency(minerData.price)}</span>
+                    </div>
+                    <div className="flex justify-between items-center py-3 border-b border-card-border">
+                      <span className="text-cloud-mist/70">Location</span>
+                      <span className="text-cloud-mist font-medium">{minerData.location}</span>
+                    </div>
+                    <div className="flex justify-between items-center py-3 border-b border-card-border">
+                      <span className="text-cloud-mist/70">Revenue Share</span>
+                      <span className="text-cloud-mist font-medium">{minerData.revenueShare}</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </FadeIn>
+
+            <FadeIn delay={100}>
+              <Card variant="glass" className="h-full" spotlight={false}>
+                <CardContent>
+                  <h2 className="text-2xl font-bold text-cloud-mist mb-6">Expected Returns</h2>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center py-3 border-b border-card-border">
+                      <span className="text-cloud-mist/70">Monthly Profit</span>
+                      <span className="text-2xl font-bold text-positive">{formatCurrency(minerData.monthlyProfit)}</span>
+                    </div>
+                    <div className="flex justify-between items-center py-3 border-b border-card-border">
+                      <span className="text-cloud-mist/70">ROI Timeline</span>
+                      <span className="text-cloud-mist font-medium">{minerData.roiMonths} months</span>
+                    </div>
+                    <div className="flex justify-between items-center py-3 border-b border-card-border">
+                      <span className="text-cloud-mist/70">Annual ROI</span>
+                      <span className="text-2xl font-bold text-positive">{minerData.annualROI}%</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-24 bg-card-bg/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-16">
@@ -177,12 +240,11 @@ export default function S21XPHydPage() {
                 Center AI Vision
               </span>
               <h2 className="text-3xl md:text-4xl font-bold text-cloud-mist mb-4">
-                Premium Mining Hardware
+                Why Invest in This Miner
               </h2>
               <p className="text-cloud-mist/60 max-w-3xl mx-auto text-lg">
                 The Antminer S21 XP Hyd represents the pinnacle of Bitcoin mining technology,
-                combining maximum hashrate with industry-leading efficiency in a virtually
-                silent hydro-cooled package.
+                fully hosted and managed - you just collect the profits.
               </p>
             </div>
           </Reveal>
@@ -208,7 +270,7 @@ export default function S21XPHydPage() {
       </section>
 
       {/* Technical Specifications */}
-      <section className="py-24 bg-gradient-to-b from-transparent via-card-bg/30 to-transparent">
+      <section className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-16">
@@ -216,7 +278,7 @@ export default function S21XPHydPage() {
                 Technical Specifications
               </h2>
               <p className="text-cloud-mist/60 max-w-2xl mx-auto">
-                Complete specifications for the Antminer S21 XP Hyd Bitcoin miner.
+                Complete specifications for the {minerData.name} Bitcoin miner.
               </p>
             </div>
           </Reveal>
@@ -237,6 +299,25 @@ export default function S21XPHydPage() {
                 </div>
               </CardContent>
             </Card>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-16 bg-gradient-to-r from-orange-500/10 via-card-bg/50 to-orange-500/10">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <FadeIn>
+            <h3 className="text-2xl md:text-3xl font-bold text-cloud-mist mb-4">
+              Ready to Start Mining Bitcoin?
+            </h3>
+            <p className="text-cloud-mist/60 mb-8">
+              Invest in the {minerData.name} today and start earning {formatCurrency(minerData.monthlyProfit)}/month
+            </p>
+            <Link href={`/waitlist?product=${minerData.name}`}>
+              <Button variant="primary" size="lg">
+                Invest {formatCurrency(minerData.price)} Now
+              </Button>
+            </Link>
           </FadeIn>
         </div>
       </section>

@@ -34,6 +34,10 @@ export interface ASICMiner {
   power: string
   efficiency: string
   badge?: string
+  monthlyProfit: number
+  roiMonths: number
+  annualROI: number
+  location?: string
 }
 
 export const gpuComputeProducts: GPUCompute[] = [
@@ -400,6 +404,10 @@ export const asicMiners: ASICMiner[] = [
     power: '12555W',
     efficiency: '13.5 J/TH',
     badge: 'MOST POWERFUL',
+    monthlyProfit: 2850,
+    roiMonths: 6.5,
+    annualROI: 185,
+    location: 'USA (Texas)',
   },
   {
     id: 's21-xp-hyd',
@@ -409,6 +417,10 @@ export const asicMiners: ASICMiner[] = [
     power: '5676W',
     efficiency: '12 J/TH',
     badge: 'NEWEST',
+    monthlyProfit: 1580,
+    roiMonths: 6.2,
+    annualROI: 193,
+    location: 'USA (Texas)',
   },
   {
     id: 's23',
@@ -418,6 +430,10 @@ export const asicMiners: ASICMiner[] = [
     power: '3498W',
     efficiency: '11 J/TH',
     badge: 'BEST EFFICIENCY',
+    monthlyProfit: 1120,
+    roiMonths: 5.5,
+    annualROI: 217,
+    location: 'USA (Oregon)',
   },
   {
     id: 's21-xp',
@@ -427,6 +443,10 @@ export const asicMiners: ASICMiner[] = [
     power: '3645W',
     efficiency: '13.5 J/TH',
     badge: 'POPULAR',
+    monthlyProfit: 820,
+    roiMonths: 5.5,
+    annualROI: 218,
+    location: 'USA (Texas)',
   },
   {
     id: 's21-pro',
@@ -436,6 +456,10 @@ export const asicMiners: ASICMiner[] = [
     power: '3510W',
     efficiency: '15 J/TH',
     badge: 'TOP AIR-COOLED',
+    monthlyProfit: 890,
+    roiMonths: 6.5,
+    annualROI: 184,
+    location: 'USA (Texas)',
   },
   {
     id: 'm60s',
@@ -445,6 +469,10 @@ export const asicMiners: ASICMiner[] = [
     power: '3080W',
     efficiency: '15.4 J/TH',
     badge: 'NEW GEN',
+    monthlyProfit: 780,
+    roiMonths: 6.7,
+    annualROI: 180,
+    location: 'USA (Oregon)',
   },
   {
     id: 'avalon-a1566',
@@ -454,6 +482,10 @@ export const asicMiners: ASICMiner[] = [
     power: '3200W',
     efficiency: '16 J/TH',
     badge: 'IMMERSION READY',
+    monthlyProfit: 720,
+    roiMonths: 6.7,
+    annualROI: 180,
+    location: 'Iceland',
   },
   {
     id: 'sealminer-a2',
@@ -463,6 +495,10 @@ export const asicMiners: ASICMiner[] = [
     power: '3420W',
     efficiency: '15.1 J/TH',
     badge: 'NEW',
+    monthlyProfit: 850,
+    roiMonths: 5.4,
+    annualROI: 222,
+    location: 'USA (Texas)',
   },
 ]
 
@@ -483,19 +519,19 @@ export const gpuFeatures = [
 
 export const asicInclusions = [
   {
-    title: 'Free Shipping',
-    description: 'Worldwide shipping included in the price. Delivery within 7-14 business days.',
+    title: 'Professional Hosting',
+    description: 'Enterprise-grade data centers with optimal power rates and 99.9% uptime guarantee.',
   },
   {
-    title: '12 Month Warranty',
-    description: 'Full manufacturer warranty covering defects and malfunctions.',
+    title: 'Full Management',
+    description: 'We handle all maintenance, repairs, and monitoring. You simply collect profits.',
   },
   {
-    title: 'Setup Guide',
-    description: 'Detailed documentation and video tutorials for easy installation.',
+    title: 'Monthly Payouts',
+    description: 'Receive your mining revenue directly to your wallet every month.',
   },
   {
-    title: 'Technical Support',
-    description: 'Access to our technical team for any questions or issues.',
+    title: 'Real-time Dashboard',
+    description: 'Monitor your miners performance, hashrate, and earnings 24/7.',
   },
 ]

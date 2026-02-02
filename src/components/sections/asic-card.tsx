@@ -23,6 +23,7 @@ export function ASICCard({ miner, index = 0 }: ASICCardProps) {
       case 'POPULAR':
         return 'warning'
       case 'BEST VALUE':
+      case 'BEST EFFICIENCY':
         return 'info'
       default:
         return 'default'
@@ -51,30 +52,52 @@ export function ASICCard({ miner, index = 0 }: ASICCardProps) {
           </div>
         </CardHeader>
         <CardContent className="flex-1 flex flex-col">
-          <div className="text-3xl font-bold mb-6">
+          <div className="text-3xl font-bold mb-4">
             <GradientText colors={['#2C93FF', '#60B5FF', '#2C93FF']} animationSpeed={4}>
               {formatCurrency(miner.price)}
             </GradientText>
           </div>
+
+          {/* Specs row */}
+          <div className="grid grid-cols-2 gap-2 text-xs text-cloud-mist/60 mb-4 pb-4 border-b border-card-border">
+            <div>
+              <span className="block text-cloud-mist font-medium">{miner.hashrate}</span>
+              Hashrate
+            </div>
+            <div>
+              <span className="block text-cloud-mist font-medium">{miner.efficiency}</span>
+              Efficiency
+            </div>
+          </div>
+
+          {/* Investment metrics */}
           <div className="space-y-3 text-sm mt-auto">
             <div className="flex justify-between items-center">
-              <span className="text-cloud-mist/60">Hashrate</span>
-              <span className="text-electric-azure font-medium">{miner.hashrate}</span>
+              <span className="text-cloud-mist/60">Monthly Profit</span>
+              <span className="text-positive font-medium">
+                {formatCurrency(miner.monthlyProfit)}
+              </span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-cloud-mist/60">Power</span>
-              <span className="text-cloud-mist">{miner.power}</span>
+              <span className="text-cloud-mist/60">ROI Timeline</span>
+              <span className="text-cloud-mist font-medium">{miner.roiMonths} months</span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-cloud-mist/60">Efficiency</span>
-              <span className="text-cloud-mist">{miner.efficiency}</span>
+              <span className="text-cloud-mist/60">Location</span>
+              <span className="text-cloud-mist/80 text-xs">{miner.location}</span>
+            </div>
+            <div className="flex justify-between items-center pt-3 border-t border-card-border mt-3">
+              <span className="text-cloud-mist/60">Annual ROI</span>
+              <span className="text-positive font-semibold">
+                {miner.annualROI}%
+              </span>
             </div>
           </div>
         </CardContent>
         <CardFooter className="pt-4">
           <Link href={`/hardware/miners/${miner.id}`} className="w-full">
             <Button variant="primary" className="w-full">
-              Buy Now
+              Invest Now
             </Button>
           </Link>
         </CardFooter>

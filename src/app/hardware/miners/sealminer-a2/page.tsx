@@ -5,6 +5,18 @@ import Link from 'next/link'
 import { FadeIn, Reveal } from '@/components/ui/animations'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
+import { formatCurrency } from '@/lib/utils'
+
+const minerData = {
+  name: 'Sealminer A2',
+  brand: 'Bitdeer',
+  price: 4600,
+  monthlyProfit: 850,
+  roiMonths: 5.4,
+  annualROI: 222,
+  location: 'USA (Texas)',
+  revenueShare: '75% Owner / 25% Platform',
+}
 
 const specifications = [
   { label: 'Hashrate', value: '226 TH/s' },
@@ -24,8 +36,8 @@ const specifications = [
 const performanceMetrics = [
   { value: '226', label: 'TH/s Hashrate', description: 'SHA-256 mining power' },
   { value: '15.1', label: 'J/TH Efficiency', description: 'Competitive efficiency' },
-  { value: '3,420', label: 'Watts', description: 'Power consumption' },
-  { value: 'NEW', label: 'From Bitdeer', description: 'Latest ASIC' },
+  { value: `${minerData.annualROI}%`, label: 'Annual ROI', description: 'Expected returns' },
+  { value: `${minerData.roiMonths}`, label: 'Months to ROI', description: 'Payback period' },
 ]
 
 const keyFeatures = [
@@ -48,20 +60,20 @@ const keyFeatures = [
     ),
   },
   {
-    title: 'Strong Hashrate',
-    description: 'Delivers 226 TH/s of SHA-256 hashrate, placing it among the higher-performing air-cooled miners.',
+    title: 'Professional Hosting',
+    description: 'Hosted in our enterprise data centers with optimal power rates and 24/7 monitoring.',
     icon: (
       <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
       </svg>
     ),
   },
   {
-    title: 'Bitdeer Ecosystem',
-    description: 'Backed by Bitdeer extensive mining operations and cloud mining platform for integrated solutions.',
+    title: 'Monthly Bitcoin Payouts',
+    description: 'Receive your share of mining revenue directly to your wallet every month.',
     icon: (
       <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     ),
   },
@@ -89,7 +101,7 @@ export default function SealminerA2Page() {
               <div>
                 <div className="flex items-center gap-3 mb-4">
                   <span className="px-3 py-1 text-xs font-semibold bg-green-500/20 text-green-400 rounded-full border border-green-500/30">
-                    In Stock
+                    Available
                   </span>
                   <span className="px-3 py-1 text-xs font-semibold bg-rose-500/20 text-rose-400 rounded-full border border-rose-500/30">
                     New
@@ -97,26 +109,26 @@ export default function SealminerA2Page() {
                 </div>
 
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-cloud-mist leading-tight mb-4">
-                  Bitdeer
+                  {minerData.brand}
                   <span className="block bg-gradient-to-r from-rose-400 via-pink-500 to-fuchsia-400 bg-clip-text text-transparent">
-                    Sealminer A2
+                    {minerData.name}
                   </span>
                 </h1>
 
                 <p className="text-xl text-cloud-mist/70 mb-8 leading-relaxed">
-                  New SHA-256 ASIC from Bitdeer. 226 TH/s hashrate with
+                  New SHA-256 ASIC from Bitdeer. Invest in 226 TH/s hashrate with
                   competitive 15.1 J/TH efficiency - a fresh option in Bitcoin mining.
                 </p>
 
                 <div className="flex flex-wrap gap-4">
-                  <Link href="/waitlist?product=Bitdeer Sealminer A2">
+                  <Link href={`/waitlist?product=${minerData.brand} ${minerData.name}`}>
                     <Button variant="primary" size="lg">
-                      Buy Now
+                      Invest Now
                     </Button>
                   </Link>
-                  <Link href="/compute/mining">
+                  <Link href="/hardware/miners">
                     <Button variant="outline" size="lg">
-                      Cloud Mining
+                      Compare Miners
                     </Button>
                   </Link>
                 </div>
@@ -132,7 +144,7 @@ export default function SealminerA2Page() {
                   <div className="relative aspect-[4/3] w-full">
                     <Image
                       src="/images/sealminer-a2.png"
-                      alt="Bitdeer Sealminer A2"
+                      alt={`${minerData.brand} ${minerData.name}`}
                       fill
                       className="object-contain p-4"
                     />
@@ -167,8 +179,59 @@ export default function SealminerA2Page() {
         </div>
       </section>
 
-      {/* Features Section */}
+      {/* Investment Details */}
       <section className="py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12">
+            <FadeIn>
+              <Card variant="glass" className="h-full" spotlight={false}>
+                <CardContent>
+                  <h2 className="text-2xl font-bold text-cloud-mist mb-6">Investment Details</h2>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center py-3 border-b border-card-border">
+                      <span className="text-cloud-mist/70">Investment Amount</span>
+                      <span className="text-2xl font-bold text-electric-azure">{formatCurrency(minerData.price)}</span>
+                    </div>
+                    <div className="flex justify-between items-center py-3 border-b border-card-border">
+                      <span className="text-cloud-mist/70">Location</span>
+                      <span className="text-cloud-mist font-medium">{minerData.location}</span>
+                    </div>
+                    <div className="flex justify-between items-center py-3 border-b border-card-border">
+                      <span className="text-cloud-mist/70">Revenue Share</span>
+                      <span className="text-cloud-mist font-medium">{minerData.revenueShare}</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </FadeIn>
+
+            <FadeIn delay={100}>
+              <Card variant="glass" className="h-full" spotlight={false}>
+                <CardContent>
+                  <h2 className="text-2xl font-bold text-cloud-mist mb-6">Expected Returns</h2>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center py-3 border-b border-card-border">
+                      <span className="text-cloud-mist/70">Monthly Profit</span>
+                      <span className="text-2xl font-bold text-positive">{formatCurrency(minerData.monthlyProfit)}</span>
+                    </div>
+                    <div className="flex justify-between items-center py-3 border-b border-card-border">
+                      <span className="text-cloud-mist/70">ROI Timeline</span>
+                      <span className="text-cloud-mist font-medium">{minerData.roiMonths} months</span>
+                    </div>
+                    <div className="flex justify-between items-center py-3 border-b border-card-border">
+                      <span className="text-cloud-mist/70">Annual ROI</span>
+                      <span className="text-2xl font-bold text-positive">{minerData.annualROI}%</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-24 bg-card-bg/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-16">
@@ -176,11 +239,11 @@ export default function SealminerA2Page() {
                 Center AI Vision
               </span>
               <h2 className="text-3xl md:text-4xl font-bold text-cloud-mist mb-4">
-                New Player in Mining
+                Why Invest in This Miner
               </h2>
               <p className="text-cloud-mist/60 max-w-3xl mx-auto text-lg">
                 The Bitdeer Sealminer A2 represents Bitdeer entry into ASIC manufacturing,
-                offering competitive performance backed by extensive mining expertise.
+                fully hosted and managed - you just collect the profits.
               </p>
             </div>
           </Reveal>
@@ -206,7 +269,7 @@ export default function SealminerA2Page() {
       </section>
 
       {/* Technical Specifications */}
-      <section className="py-24 bg-gradient-to-b from-transparent via-card-bg/30 to-transparent">
+      <section className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-16">
@@ -214,7 +277,7 @@ export default function SealminerA2Page() {
                 Technical Specifications
               </h2>
               <p className="text-cloud-mist/60 max-w-2xl mx-auto">
-                Complete specifications for the Bitdeer Sealminer A2.
+                Complete specifications for the {minerData.brand} {minerData.name}.
               </p>
             </div>
           </Reveal>
@@ -235,6 +298,25 @@ export default function SealminerA2Page() {
                 </div>
               </CardContent>
             </Card>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-16 bg-gradient-to-r from-rose-500/10 via-card-bg/50 to-rose-500/10">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <FadeIn>
+            <h3 className="text-2xl md:text-3xl font-bold text-cloud-mist mb-4">
+              Ready to Start Mining Bitcoin?
+            </h3>
+            <p className="text-cloud-mist/60 mb-8">
+              Invest in the {minerData.name} today and start earning {formatCurrency(minerData.monthlyProfit)}/month
+            </p>
+            <Link href={`/waitlist?product=${minerData.brand} ${minerData.name}`}>
+              <Button variant="primary" size="lg">
+                Invest {formatCurrency(minerData.price)} Now
+              </Button>
+            </Link>
           </FadeIn>
         </div>
       </section>

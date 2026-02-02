@@ -5,6 +5,18 @@ import Link from 'next/link'
 import { FadeIn, Reveal } from '@/components/ui/animations'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
+import { formatCurrency } from '@/lib/utils'
+
+const minerData = {
+  name: 'Antminer S23',
+  brand: 'Bitmain',
+  price: 6200,
+  monthlyProfit: 1120,
+  roiMonths: 5.5,
+  annualROI: 217,
+  location: 'USA (Oregon)',
+  revenueShare: '75% Owner / 25% Platform',
+}
 
 const specifications = [
   { label: 'Hashrate', value: '318 TH/s' },
@@ -24,8 +36,8 @@ const specifications = [
 const performanceMetrics = [
   { value: '318', label: 'TH/s Hashrate', description: 'SHA-256 mining power' },
   { value: '11', label: 'J/TH Efficiency', description: 'Best in class' },
-  { value: '69%', label: 'More Hashrate', description: 'vs S21 generation' },
-  { value: '41%', label: 'More Efficient', description: 'vs S21 generation' },
+  { value: `${minerData.annualROI}%`, label: 'Annual ROI', description: 'Expected returns' },
+  { value: `${minerData.roiMonths}`, label: 'Months to ROI', description: 'Payback period' },
 ]
 
 const keyFeatures = [
@@ -48,21 +60,20 @@ const keyFeatures = [
     ),
   },
   {
-    title: 'Air Cooled Simplicity',
-    description: 'No complex cooling infrastructure required. Standard air cooling for easy deployment in any facility.',
+    title: 'Professional Hosting',
+    description: 'Hosted in our enterprise data centers with optimal power rates and 24/7 monitoring.',
     icon: (
       <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
       </svg>
     ),
   },
   {
-    title: 'Latest Generation',
-    description: 'Released May 2025, the S23 represents Bitmain\'s newest ASIC technology with improved chips and design.',
+    title: 'Monthly Bitcoin Payouts',
+    description: 'Receive your share of mining revenue directly to your wallet every month.',
     icon: (
       <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     ),
   },
@@ -90,7 +101,7 @@ export default function S23Page() {
               <div>
                 <div className="flex items-center gap-3 mb-4">
                   <span className="px-3 py-1 text-xs font-semibold bg-green-500/20 text-green-400 rounded-full border border-green-500/30">
-                    NEW 2025
+                    Available
                   </span>
                   <span className="px-3 py-1 text-xs font-semibold bg-emerald-500/20 text-emerald-400 rounded-full border border-emerald-500/30">
                     Best Efficiency
@@ -98,26 +109,26 @@ export default function S23Page() {
                 </div>
 
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-cloud-mist leading-tight mb-4">
-                  Bitmain
+                  {minerData.brand}
                   <span className="block bg-gradient-to-r from-green-400 via-emerald-500 to-teal-400 bg-clip-text text-transparent">
-                    Antminer S23
+                    {minerData.name}
                   </span>
                 </h1>
 
                 <p className="text-xl text-cloud-mist/70 mb-8 leading-relaxed">
-                  The most efficient air-cooled Bitcoin miner ever made. 318 TH/s hashrate with
-                  groundbreaking 11 J/TH efficiency - 41% more efficient than the previous generation.
+                  Invest in the most efficient air-cooled Bitcoin miner ever made. 318 TH/s hashrate with
+                  groundbreaking 11 J/TH efficiency - fully hosted and managed for maximum returns.
                 </p>
 
                 <div className="flex flex-wrap gap-4">
-                  <Link href="/waitlist?product=Antminer S23">
+                  <Link href={`/waitlist?product=${minerData.name}`}>
                     <Button variant="primary" size="lg">
-                      Buy Now
+                      Invest Now
                     </Button>
                   </Link>
-                  <Link href="/compute/mining">
+                  <Link href="/hardware/miners">
                     <Button variant="outline" size="lg">
-                      Cloud Mining
+                      Compare Miners
                     </Button>
                   </Link>
                 </div>
@@ -133,7 +144,7 @@ export default function S23Page() {
                   <div className="relative aspect-[4/3] w-full">
                     <Image
                       src="https://bitmars.io/wp-content/uploads/2025/05/BITMAIN-Antminer-S23-318T-BTC-Miner.png"
-                      alt="Bitmain Antminer S23"
+                      alt={`${minerData.brand} ${minerData.name}`}
                       fill
                       className="object-contain p-4"
                       unoptimized
@@ -169,8 +180,59 @@ export default function S23Page() {
         </div>
       </section>
 
-      {/* Features Section */}
+      {/* Investment Details */}
       <section className="py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12">
+            <FadeIn>
+              <Card variant="glass" className="h-full" spotlight={false}>
+                <CardContent>
+                  <h2 className="text-2xl font-bold text-cloud-mist mb-6">Investment Details</h2>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center py-3 border-b border-card-border">
+                      <span className="text-cloud-mist/70">Investment Amount</span>
+                      <span className="text-2xl font-bold text-electric-azure">{formatCurrency(minerData.price)}</span>
+                    </div>
+                    <div className="flex justify-between items-center py-3 border-b border-card-border">
+                      <span className="text-cloud-mist/70">Location</span>
+                      <span className="text-cloud-mist font-medium">{minerData.location}</span>
+                    </div>
+                    <div className="flex justify-between items-center py-3 border-b border-card-border">
+                      <span className="text-cloud-mist/70">Revenue Share</span>
+                      <span className="text-cloud-mist font-medium">{minerData.revenueShare}</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </FadeIn>
+
+            <FadeIn delay={100}>
+              <Card variant="glass" className="h-full" spotlight={false}>
+                <CardContent>
+                  <h2 className="text-2xl font-bold text-cloud-mist mb-6">Expected Returns</h2>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center py-3 border-b border-card-border">
+                      <span className="text-cloud-mist/70">Monthly Profit</span>
+                      <span className="text-2xl font-bold text-positive">{formatCurrency(minerData.monthlyProfit)}</span>
+                    </div>
+                    <div className="flex justify-between items-center py-3 border-b border-card-border">
+                      <span className="text-cloud-mist/70">ROI Timeline</span>
+                      <span className="text-cloud-mist font-medium">{minerData.roiMonths} months</span>
+                    </div>
+                    <div className="flex justify-between items-center py-3 border-b border-card-border">
+                      <span className="text-cloud-mist/70">Annual ROI</span>
+                      <span className="text-2xl font-bold text-positive">{minerData.annualROI}%</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-24 bg-card-bg/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-16">
@@ -178,12 +240,11 @@ export default function S23Page() {
                 Center AI Vision
               </span>
               <h2 className="text-3xl md:text-4xl font-bold text-cloud-mist mb-4">
-                Next Generation Mining
+                Why Invest in This Miner
               </h2>
               <p className="text-cloud-mist/60 max-w-3xl mx-auto text-lg">
-                The Antminer S23 sets a new standard for Bitcoin mining efficiency.
-                With 41% improved efficiency over the S21, this miner delivers maximum
-                profitability with minimal operating costs.
+                The Antminer S23 sets a new standard for Bitcoin mining efficiency,
+                fully hosted and managed - you just collect the profits.
               </p>
             </div>
           </Reveal>
@@ -209,7 +270,7 @@ export default function S23Page() {
       </section>
 
       {/* Technical Specifications */}
-      <section className="py-24 bg-gradient-to-b from-transparent via-card-bg/30 to-transparent">
+      <section className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-16">
@@ -217,7 +278,7 @@ export default function S23Page() {
                 Technical Specifications
               </h2>
               <p className="text-cloud-mist/60 max-w-2xl mx-auto">
-                Complete specifications for the Antminer S23 Bitcoin miner.
+                Complete specifications for the {minerData.name} Bitcoin miner.
               </p>
             </div>
           </Reveal>
@@ -238,6 +299,25 @@ export default function S23Page() {
                 </div>
               </CardContent>
             </Card>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-16 bg-gradient-to-r from-green-500/10 via-card-bg/50 to-green-500/10">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <FadeIn>
+            <h3 className="text-2xl md:text-3xl font-bold text-cloud-mist mb-4">
+              Ready to Start Mining Bitcoin?
+            </h3>
+            <p className="text-cloud-mist/60 mb-8">
+              Invest in the {minerData.name} today and start earning {formatCurrency(minerData.monthlyProfit)}/month
+            </p>
+            <Link href={`/waitlist?product=${minerData.name}`}>
+              <Button variant="primary" size="lg">
+                Invest {formatCurrency(minerData.price)} Now
+              </Button>
+            </Link>
           </FadeIn>
         </div>
       </section>
