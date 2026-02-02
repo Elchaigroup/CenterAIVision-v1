@@ -21,10 +21,14 @@ function WaitlistForm() {
     setError('')
 
     try {
-      const response = await fetch('/api/waitlist', {
+      const response = await fetch(`https://formspree.io/f/${process.env.NEXT_PUBLIC_FORMSPREE_ID}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, product }),
+        body: JSON.stringify({
+          email,
+          product: product || 'General',
+          _subject: 'New Waitlist Signup'
+        }),
       })
 
       if (!response.ok) {
