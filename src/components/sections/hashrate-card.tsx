@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { motion } from 'motion/react'
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -65,9 +66,11 @@ export function HashrateCard({ plan, index = 0 }: HashrateCardProps) {
           </div>
         </CardContent>
         <CardFooter className="pt-4">
-          <Button variant="primary" className="w-full">
-            Buy Hashrate
-          </Button>
+          <Link href="/waitlist" className="w-full">
+            <Button variant="primary" className="w-full">
+              Buy Hashrate
+            </Button>
+          </Link>
         </CardFooter>
       </Card>
     </motion.div>

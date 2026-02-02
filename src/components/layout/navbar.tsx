@@ -269,43 +269,51 @@ export function Navbar({ onSignInClick, onSignUpClick }: NavbarProps) {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3, ease: [0.25, 0.4, 0.25, 1] }}
-              className="lg:hidden overflow-hidden border-t border-electric-azure/10"
+              className="lg:hidden overflow-hidden"
             >
-              <div className="py-4 space-y-1">
-                {navigationItems.map((item, index) => (
-                  <motion.div
-                    key={item.label}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.05, duration: 0.2 }}
-                  >
-                    {item.dropdown ? (
-                      <div className="py-2">
-                        <div className="px-4 py-2 text-sm font-semibold text-electric-azure/80">
-                          {item.label}
+              <div className="relative mt-2 mx-2 rounded-2xl bg-midnight-slate/80 backdrop-blur-xl border border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.05)] overflow-hidden">
+                {/* Glass gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-b from-electric-azure/[0.03] via-transparent to-core-blue/[0.02] pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent pointer-events-none" />
+
+                <div className="relative py-4 space-y-1">
+                  {navigationItems.map((item, index) => (
+                    <motion.div
+                      key={item.label}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.05, duration: 0.2 }}
+                    >
+                      {item.dropdown ? (
+                        <div className="py-2">
+                          <div className="px-5 py-2 text-sm font-semibold text-electric-azure tracking-wide">
+                            {item.label}
+                          </div>
+                          <div className="space-y-0.5">
+                            {item.dropdown.map((subItem) => (
+                              <Link
+                                key={subItem.label}
+                                href={subItem.href || '#'}
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                className="block px-8 py-3 text-sm text-cloud-mist/80 hover:text-electric-azure hover:bg-white/[0.05] rounded-xl mx-3 transition-all duration-200"
+                              >
+                                {subItem.label}
+                              </Link>
+                            ))}
+                          </div>
                         </div>
-                        {item.dropdown.map((subItem) => (
-                          <Link
-                            key={subItem.label}
-                            href={subItem.href || '#'}
-                            onClick={() => setIsMobileMenuOpen(false)}
-                            className="block px-8 py-2.5 text-sm text-cloud-mist/70 hover:text-electric-azure hover:bg-electric-azure/5 rounded-lg mx-2 transition-colors"
-                          >
-                            {subItem.label}
-                          </Link>
-                        ))}
-                      </div>
-                    ) : (
-                      <Link
-                        href={item.href || '#'}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className="block px-4 py-2.5 text-sm font-medium text-cloud-mist/80 hover:text-electric-azure hover:bg-electric-azure/5 rounded-lg mx-2 transition-colors"
-                      >
-                        {item.label}
-                      </Link>
-                    )}
-                  </motion.div>
-                ))}
+                      ) : (
+                        <Link
+                          href={item.href || '#'}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className="block px-5 py-3 text-sm font-medium text-cloud-mist hover:text-electric-azure hover:bg-white/[0.05] rounded-xl mx-3 transition-all duration-200"
+                        >
+                          {item.label}
+                        </Link>
+                      )}
+                    </motion.div>
+                  ))}
+                </div>
               </div>
             </motion.div>
           )}
