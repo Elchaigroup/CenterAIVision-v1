@@ -26,7 +26,9 @@ export function Footer() {
               and artificial intelligence applications.
             </p>
             <div className="mt-6 text-sm text-cloud-mist/40">
-              Contact: info@centeraivision.com
+              <Link href="/contact" className="hover:text-electric-azure transition-colors">
+                Contact Us
+              </Link>
             </div>
           </div>
 

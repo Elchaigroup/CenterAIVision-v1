@@ -35,6 +35,10 @@ export const navigationItems: NavItem[] = [
     label: 'About',
     href: '/about',
   },
+  {
+    label: 'Contact',
+    href: '/contact',
+  },
 ]
 
 export const footerLinks = {
