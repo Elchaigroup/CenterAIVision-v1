@@ -156,6 +156,42 @@ export const gpuComputeProducts: GPUCompute[] = [
     hourlyPrice: 0.80,
     monthlyPrice: 500,
   },
+  {
+    id: 'hgx',
+    name: 'NVIDIA HGX',
+    badge: 'OEM PLATFORM',
+    specs: {
+      memory: 'Up to 1.5TB HBM3e',
+      performance: 'Configurable',
+      gpuCount: '4-8 GPUs',
+    },
+    hourlyPrice: 40,
+    monthlyPrice: 25000,
+  },
+  {
+    id: 'l4',
+    name: 'NVIDIA L4',
+    badge: 'INFERENCE',
+    specs: {
+      memory: '24GB GDDR6',
+      performance: '242 TFLOPS FP8',
+      gpuCount: '1 GPU',
+    },
+    hourlyPrice: 0.60,
+    monthlyPrice: 380,
+  },
+  {
+    id: 'rtx-pro-6000',
+    name: 'NVIDIA RTX PRO 6000',
+    badge: 'SERVER',
+    specs: {
+      memory: '48GB GDDR6 ECC',
+      performance: '91.1 TFLOPS',
+      gpuCount: '1 GPU',
+    },
+    hourlyPrice: 1.50,
+    monthlyPrice: 950,
+  },
 ]
 
 export const gpuHardwareProducts: GPUHardware[] = [
@@ -308,6 +344,48 @@ export const gpuHardwareProducts: GPUHardware[] = [
     specs: {
       memory: '16GB GDDR6X',
       performance: '48.7 TFLOPS',
+      gpuCount: '1 GPU',
+    },
+  },
+  {
+    id: 'hgx-hw',
+    name: 'NVIDIA HGX',
+    badge: 'OEM PLATFORM',
+    price: 380000,
+    monthlyProfit: 25500,
+    roiMonths: 14.9,
+    annualROI: 80.5,
+    specs: {
+      memory: 'Up to 1.5TB HBM3e',
+      performance: 'Configurable',
+      gpuCount: '4-8 GPUs',
+    },
+  },
+  {
+    id: 'l4-hw',
+    name: 'NVIDIA L4',
+    badge: 'INFERENCE',
+    price: 3200,
+    monthlyProfit: 400,
+    roiMonths: 8,
+    annualROI: 150,
+    specs: {
+      memory: '24GB GDDR6',
+      performance: '242 TFLOPS FP8',
+      gpuCount: '1 GPU',
+    },
+  },
+  {
+    id: 'rtx-pro-6000-hw',
+    name: 'NVIDIA RTX PRO 6000',
+    badge: 'SERVER',
+    price: 8500,
+    monthlyProfit: 980,
+    roiMonths: 8.7,
+    annualROI: 138.4,
+    specs: {
+      memory: '48GB GDDR6 ECC',
+      performance: '91.1 TFLOPS',
       gpuCount: '1 GPU',
     },
   },
