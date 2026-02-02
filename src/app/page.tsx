@@ -148,14 +148,14 @@ export default function HomePage() {
                   Next-generation NVIDIA GPUs for AI workloads
                 </p>
               </div>
-              <Link href="/waitlist">
+              <Link href="/compute/gpu">
                 <Button variant="ghost">View All GPUs</Button>
               </Link>
             </div>
           </Reveal>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {gpuComputeProducts.map((gpu, index) => (
+            {gpuComputeProducts.slice(0, 4).map((gpu, index) => (
               <GPUComputeCard key={gpu.id} gpu={gpu} index={index} />
             ))}
           </div>
