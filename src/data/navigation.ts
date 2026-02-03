@@ -24,7 +24,6 @@ export const navigationItems: NavItem[] = [
     label: 'Investors',
     dropdown: [
       { label: 'Investor Dashboard', href: '/waitlist' },
-      { label: 'Stock Information', href: '/investors/stock' },
     ],
   },
   {
@@ -52,7 +51,6 @@ export const footerLinks = {
   ],
   investors: [
     { label: 'Investor Dashboard', href: '/waitlist' },
-    { label: 'Stock Information', href: '/investors/stock' },
     { label: 'Financial Reports', href: '#' },
     { label: 'Press Releases', href: '#' },
   ],

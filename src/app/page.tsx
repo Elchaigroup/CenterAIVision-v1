@@ -180,9 +180,9 @@ export default function HomePage() {
                     Join the Waitlist
                   </Button>
                 </Link>
-                <Link href="/investors/stock">
+                <Link href="/contact">
                   <Button variant="outline" size="lg" className="border-cloud-mist/30 hover:border-cloud-mist">
-                    View Stock Information
+                    Contact Us
                   </Button>
                 </Link>
               </div>
