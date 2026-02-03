@@ -374,12 +374,12 @@ export default function AboutPage() {
 
                 {/* Content Card */}
                 <motion.div
-                  className="mt-4 w-full group"
+                  className="mt-4 w-full flex-1 group"
                   whileHover={{ y: -2 }}
                   transition={{ type: "spring", stiffness: 400, damping: 20 }}
                 >
                   <Card
-                    className={`relative h-full transition-all duration-300 border ${
+                    className={`relative h-full min-h-[140px] md:min-h-[160px] transition-all duration-300 border ${
                       item.status === 'completed'
                         ? 'border-electric-azure/20 hover:border-electric-azure/40'
                         : item.status === 'current'
@@ -388,7 +388,7 @@ export default function AboutPage() {
                     }`}
                     hover={false}
                   >
-                    <CardContent className="p-3">
+                    <CardContent className="p-3 h-full flex flex-col">
                       {/* Status Badge */}
                       <div className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[9px] md:text-[10px] font-medium mb-1.5 ${
                         item.status === 'completed'
@@ -413,7 +413,7 @@ export default function AboutPage() {
                       </h3>
 
                       {/* Description - Hidden on mobile */}
-                      <p className={`hidden md:block text-[10px] leading-relaxed line-clamp-2 ${
+                      <p className={`hidden md:block text-[10px] leading-relaxed line-clamp-4 flex-1 ${
                         item.status === 'upcoming' ? 'text-cloud-mist/40' : 'text-cloud-mist/50'
                       }`}>
                         {item.description}
