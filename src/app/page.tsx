@@ -201,7 +201,7 @@ export default function HomePage() {
                 Ready to Get Started?
               </h2>
               <p className="text-cloud-mist/80 text-lg max-w-2xl mx-auto mb-8">
-                Join thousands of investors leveraging our infrastructure for Bitcoin mining
+                Leverage our enterprise infrastructure for Bitcoin mining
                 and AI compute. Start your journey today.
               </p>
               <div className="flex flex-wrap justify-center gap-4">

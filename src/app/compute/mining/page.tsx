@@ -44,7 +44,7 @@ export default function BitcoinMiningPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.15, ease: [0.25, 0.4, 0.25, 1] }}
             >
-              Join 85,000+ Active Miners Earning Daily
+              Start Earning Bitcoin with Enterprise Infrastructure
             </motion.p>
 
             {/* Description */}
@@ -243,7 +243,7 @@ export default function BitcoinMiningPage() {
         <div className="absolute inset-0 bg-gradient-to-t from-midnight-slate via-midnight-slate/60 to-midnight-slate/80" />
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center">
-            <p className="text-cloud-mist/80 text-lg">Join thousands of miners earning Bitcoin daily</p>
+            <p className="text-cloud-mist/80 text-lg">Start your Bitcoin mining journey today</p>
           </div>
         </div>
       </section>

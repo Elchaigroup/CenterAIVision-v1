@@ -166,7 +166,7 @@ export default function ResourcesPage() {
                       </h3>
                       <p className="text-cloud-mist/60 text-sm">
                         Explore our state-of-the-art data center featuring advanced cooling systems,
-                        redundant power infrastructure, and thousands of mining rigs operating 24/7.
+                        redundant power infrastructure, and enterprise mining rigs operating 24/7.
                       </p>
                     </div>
                   </CardContent>
@@ -277,7 +277,7 @@ export default function ResourcesPage() {
                   Ready to Get Started?
                 </h2>
                 <p className="text-cloud-mist/80 text-lg max-w-2xl mx-auto mb-8">
-                  Join thousands of investors who trust Center AI Vision for their Bitcoin mining
+                  Trust Center AI Vision for your Bitcoin mining
                   and AI compute needs.
                 </p>
                 <div className="flex flex-wrap justify-center gap-4">
