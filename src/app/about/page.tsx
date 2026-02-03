@@ -11,7 +11,10 @@ import {
   Landmark,
   FileCheck,
   ArrowRight,
-  CheckCircle2
+  CheckCircle2,
+  Rocket,
+  Target,
+  Zap
 } from 'lucide-react'
 
 // Animation variants for scroll reveal
@@ -107,6 +110,45 @@ const fundFlowSteps = [
   { step: 2, label: 'Milestone verification' },
   { step: 3, label: 'Release to operating SPV' },
   { step: 4, label: 'Audit trail in registry' }
+]
+
+const journeyTimeline = [
+  {
+    year: '2022',
+    title: 'Foundation & Market Entry',
+    description: 'Official company establishment, license registration, and market analysis to identify strategic opportunities in AI infrastructure.',
+    status: 'completed' as const,
+  },
+  {
+    year: '2023',
+    title: 'Research & Strategic Planning',
+    description: 'Conducted technical research, infrastructure planning, and initiated partnerships with key technology and investment stakeholders.',
+    status: 'completed' as const,
+  },
+  {
+    year: '2024',
+    title: 'Validation & Investor Preparation',
+    description: 'Completed proof-of-concept testing, finalized the business model, and prepared comprehensive investor documentation and financial projections.',
+    status: 'completed' as const,
+  },
+  {
+    year: '2025',
+    title: 'SPV Fundraising & Operational Launch',
+    description: 'Initiated Special Purpose Vehicle (SPV) fundraising round and began full-scale construction, procurement, and operational activities for AI data centers.',
+    status: 'current' as const,
+  },
+  {
+    year: '2026',
+    title: 'Launch of 200 MW AI Facility',
+    description: 'Successfully launching our flagship 200 MW AI data center facility, marking a significant milestone in global operational capacity.',
+    status: 'upcoming' as const,
+  },
+  {
+    year: '2027',
+    title: 'Continued Global Expansion',
+    description: 'Strategically expanding infrastructure, forging new partnerships, and advancing toward our ambitious growth targets.',
+    status: 'upcoming' as const,
+  },
 ]
 
 const team = [
@@ -286,6 +328,131 @@ export default function AboutPage() {
           </motion.p>
 
         </motion.div>
+      </Section>
+
+      {/* Company Journey Timeline Section */}
+      <Section className="relative overflow-hidden">
+        <SectionHeader
+          eyebrow="Our Journey"
+          title="Company Timeline"
+          subtitle="From foundation to global expansion — our path to becoming a leader in AI infrastructure"
+        />
+
+        {/* Timeline */}
+        <div className="relative max-w-4xl mx-auto">
+          {/* Vertical Line */}
+          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-electric-azure/50 via-electric-azure/30 to-electric-azure/10 transform md:-translate-x-px" />
+
+          {/* Timeline Items */}
+          <div className="space-y-12 md:space-y-16">
+            {journeyTimeline.map((item, index) => (
+              <motion.div
+                key={item.year}
+                className={`relative flex items-start gap-8 md:gap-0 ${
+                  index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
+                }`}
+                initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6, delay: index * 0.1, ease: [0.25, 0.1, 0.25, 1] }}
+              >
+                {/* Year Badge - Center */}
+                <div className="absolute left-8 md:left-1/2 transform -translate-x-1/2 z-10">
+                  <motion.div
+                    className={`w-16 h-16 rounded-full flex items-center justify-center text-sm font-bold border-2 transition-all duration-300 ${
+                      item.status === 'completed'
+                        ? 'bg-electric-azure/20 border-electric-azure text-electric-azure'
+                        : item.status === 'current'
+                        ? 'bg-positive/20 border-positive text-positive animate-pulse'
+                        : 'bg-card-bg border-cloud-mist/30 text-cloud-mist/60'
+                    }`}
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  >
+                    {item.year}
+                  </motion.div>
+                </div>
+
+                {/* Content Card */}
+                <div className={`w-full md:w-[calc(50%-4rem)] pl-24 md:pl-0 ${
+                  index % 2 === 0 ? 'md:pr-16 md:text-right' : 'md:pl-16 md:text-left'
+                }`}>
+                  <motion.div
+                    className={`relative group`}
+                    whileHover={{ y: -4 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                  >
+                    {/* Glow effect */}
+                    <div className={`absolute -inset-1 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl ${
+                      item.status === 'completed'
+                        ? 'bg-electric-azure/20'
+                        : item.status === 'current'
+                        ? 'bg-positive/20'
+                        : 'bg-cloud-mist/10'
+                    }`} />
+
+                    <Card
+                      className={`relative h-full transition-all duration-300 border ${
+                        item.status === 'completed'
+                          ? 'border-electric-azure/30 hover:border-electric-azure/50'
+                          : item.status === 'current'
+                          ? 'border-positive/30 hover:border-positive/50'
+                          : 'border-cloud-mist/20 hover:border-cloud-mist/30'
+                      }`}
+                      hover={false}
+                    >
+                      <CardContent className="p-6">
+                        {/* Status Badge */}
+                        <div className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium mb-3 ${
+                          item.status === 'completed'
+                            ? 'bg-electric-azure/10 text-electric-azure'
+                            : item.status === 'current'
+                            ? 'bg-positive/10 text-positive'
+                            : 'bg-cloud-mist/10 text-cloud-mist/60'
+                        }`}>
+                          {item.status === 'completed' && <CheckCircle2 className="w-3 h-3" />}
+                          {item.status === 'current' && <Zap className="w-3 h-3" />}
+                          {item.status === 'upcoming' && <Target className="w-3 h-3" />}
+                          {item.status === 'completed' ? 'Completed' : item.status === 'current' ? 'In Progress' : 'Upcoming'}
+                        </div>
+
+                        {/* Title */}
+                        <h3 className={`text-lg font-semibold mb-2 ${
+                          item.status === 'upcoming' ? 'text-cloud-mist/70' : 'text-cloud-mist'
+                        }`}>
+                          {item.title}
+                        </h3>
+
+                        {/* Description */}
+                        <p className={`text-sm leading-relaxed ${
+                          item.status === 'upcoming' ? 'text-cloud-mist/50' : 'text-cloud-mist/60'
+                        }`}>
+                          {item.description}
+                          {item.year === '2027' && (
+                            <span className="text-electric-azure/60 italic"> (To be continued…)</span>
+                          )}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Bottom Rocket Icon */}
+          <motion.div
+            className="flex justify-center mt-12"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.5 }}
+          >
+            <div className="w-14 h-14 rounded-full bg-gradient-to-br from-electric-azure/20 to-core-blue/20 flex items-center justify-center border border-electric-azure/30">
+              <Rocket className="w-6 h-6 text-electric-azure" />
+            </div>
+          </motion.div>
+        </div>
       </Section>
 
       {/* Core Operations Section */}
