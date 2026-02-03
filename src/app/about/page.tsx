@@ -338,120 +338,117 @@ export default function AboutPage() {
           subtitle="From foundation to global expansion — our path to becoming a leader in AI infrastructure"
         />
 
-        {/* Timeline */}
-        <div className="relative max-w-4xl mx-auto">
-          {/* Vertical Line */}
-          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-electric-azure/50 via-electric-azure/30 to-electric-azure/10 transform md:-translate-x-px" />
+        {/* Horizontal Timeline */}
+        <div className="relative">
+          {/* Scrollable Container */}
+          <div className="overflow-x-auto pb-4 -mx-4 px-4 scrollbar-hide">
+            <div className="relative min-w-max">
+              {/* Horizontal Line */}
+              <div className="absolute top-8 left-0 right-0 h-0.5 bg-gradient-to-r from-electric-azure/10 via-electric-azure/40 to-electric-azure/10" />
 
-          {/* Timeline Items */}
-          <div className="space-y-12 md:space-y-16">
-            {journeyTimeline.map((item, index) => (
-              <motion.div
-                key={item.year}
-                className={`relative flex items-start gap-8 md:gap-0 ${
-                  index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-                }`}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.6, delay: index * 0.1, ease: [0.25, 0.1, 0.25, 1] }}
-              >
-                {/* Year Badge - Center */}
-                <div className="absolute left-8 md:left-1/2 transform -translate-x-1/2 z-10">
+              {/* Timeline Items */}
+              <div className="flex gap-4 md:gap-6">
+                {journeyTimeline.map((item, index) => (
                   <motion.div
-                    className={`w-16 h-16 rounded-full flex items-center justify-center text-sm font-bold border-2 transition-all duration-300 ${
-                      item.status === 'completed'
-                        ? 'bg-electric-azure/20 border-electric-azure text-electric-azure'
-                        : item.status === 'current'
-                        ? 'bg-positive/20 border-positive text-positive animate-pulse'
-                        : 'bg-card-bg border-cloud-mist/30 text-cloud-mist/60'
-                    }`}
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                    key={item.year}
+                    className="relative flex flex-col items-center w-[200px] md:w-[220px] flex-shrink-0"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
                   >
-                    {item.year}
-                  </motion.div>
-                </div>
-
-                {/* Content Card */}
-                <div className={`w-full md:w-[calc(50%-4rem)] pl-24 md:pl-0 ${
-                  index % 2 === 0 ? 'md:pr-16 md:text-right' : 'md:pl-16 md:text-left'
-                }`}>
-                  <motion.div
-                    className={`relative group`}
-                    whileHover={{ y: -4 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                  >
-                    {/* Glow effect */}
-                    <div className={`absolute -inset-1 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl ${
-                      item.status === 'completed'
-                        ? 'bg-electric-azure/20'
-                        : item.status === 'current'
-                        ? 'bg-positive/20'
-                        : 'bg-cloud-mist/10'
-                    }`} />
-
-                    <Card
-                      className={`relative h-full transition-all duration-300 border ${
+                    {/* Year Badge */}
+                    <motion.div
+                      className={`relative z-10 w-16 h-16 rounded-full flex items-center justify-center text-sm font-bold border-2 transition-all duration-300 cursor-pointer ${
                         item.status === 'completed'
-                          ? 'border-electric-azure/30 hover:border-electric-azure/50'
+                          ? 'bg-electric-azure/20 border-electric-azure text-electric-azure'
                           : item.status === 'current'
-                          ? 'border-positive/30 hover:border-positive/50'
-                          : 'border-cloud-mist/20 hover:border-cloud-mist/30'
+                          ? 'bg-positive/20 border-positive text-positive'
+                          : 'bg-card-bg border-cloud-mist/30 text-cloud-mist/60'
                       }`}
-                      hover={false}
+                      whileHover={{ scale: 1.15, y: -4 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 15 }}
                     >
-                      <CardContent className="p-6">
-                        {/* Status Badge */}
-                        <div className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium mb-3 ${
+                      {item.status === 'current' && (
+                        <span className="absolute inset-0 rounded-full bg-positive/30 animate-ping" />
+                      )}
+                      <span className="relative">{item.year}</span>
+                    </motion.div>
+
+                    {/* Content Card */}
+                    <motion.div
+                      className="mt-6 w-full group"
+                      whileHover={{ y: -4 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                    >
+                      <Card
+                        className={`relative h-full transition-all duration-300 border ${
                           item.status === 'completed'
-                            ? 'bg-electric-azure/10 text-electric-azure'
+                            ? 'border-electric-azure/20 hover:border-electric-azure/40 hover:shadow-lg hover:shadow-electric-azure/10'
                             : item.status === 'current'
-                            ? 'bg-positive/10 text-positive'
-                            : 'bg-cloud-mist/10 text-cloud-mist/60'
-                        }`}>
-                          {item.status === 'completed' && <CheckCircle2 className="w-3 h-3" />}
-                          {item.status === 'current' && <Zap className="w-3 h-3" />}
-                          {item.status === 'upcoming' && <Target className="w-3 h-3" />}
-                          {item.status === 'completed' ? 'Completed' : item.status === 'current' ? 'In Progress' : 'Upcoming'}
-                        </div>
+                            ? 'border-positive/20 hover:border-positive/40 hover:shadow-lg hover:shadow-positive/10'
+                            : 'border-cloud-mist/10 hover:border-cloud-mist/20'
+                        }`}
+                        hover={false}
+                      >
+                        <CardContent className="p-4">
+                          {/* Status Badge */}
+                          <div className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium mb-2 ${
+                            item.status === 'completed'
+                              ? 'bg-electric-azure/10 text-electric-azure'
+                              : item.status === 'current'
+                              ? 'bg-positive/10 text-positive'
+                              : 'bg-cloud-mist/10 text-cloud-mist/50'
+                          }`}>
+                            {item.status === 'completed' && <CheckCircle2 className="w-2.5 h-2.5" />}
+                            {item.status === 'current' && <Zap className="w-2.5 h-2.5" />}
+                            {item.status === 'upcoming' && <Target className="w-2.5 h-2.5" />}
+                            {item.status === 'completed' ? 'Completed' : item.status === 'current' ? 'In Progress' : 'Upcoming'}
+                          </div>
 
-                        {/* Title */}
-                        <h3 className={`text-lg font-semibold mb-2 ${
-                          item.status === 'upcoming' ? 'text-cloud-mist/70' : 'text-cloud-mist'
-                        }`}>
-                          {item.title}
-                        </h3>
+                          {/* Title */}
+                          <h3 className={`text-sm font-semibold mb-1.5 leading-tight ${
+                            item.status === 'upcoming' ? 'text-cloud-mist/60' : 'text-cloud-mist'
+                          }`}>
+                            {item.title}
+                          </h3>
 
-                        {/* Description */}
-                        <p className={`text-sm leading-relaxed ${
-                          item.status === 'upcoming' ? 'text-cloud-mist/50' : 'text-cloud-mist/60'
-                        }`}>
-                          {item.description}
-                          {item.year === '2027' && (
-                            <span className="text-electric-azure/60 italic"> (To be continued…)</span>
-                          )}
-                        </p>
-                      </CardContent>
-                    </Card>
+                          {/* Description */}
+                          <p className={`text-xs leading-relaxed line-clamp-3 ${
+                            item.status === 'upcoming' ? 'text-cloud-mist/40' : 'text-cloud-mist/50'
+                          }`}>
+                            {item.description}
+                          </p>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
                   </motion.div>
-                </div>
-              </motion.div>
-            ))}
+                ))}
+
+                {/* Future Indicator */}
+                <motion.div
+                  className="relative flex flex-col items-center w-[100px] flex-shrink-0"
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.6 }}
+                >
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-electric-azure/10 to-core-blue/10 flex items-center justify-center border border-electric-azure/20">
+                    <Rocket className="w-5 h-5 text-electric-azure/60" />
+                  </div>
+                  <p className="mt-4 text-xs text-cloud-mist/40 text-center">And beyond...</p>
+                </motion.div>
+              </div>
+            </div>
           </div>
 
-          {/* Bottom Rocket Icon */}
-          <motion.div
-            className="flex justify-center mt-12"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5 }}
-          >
-            <div className="w-14 h-14 rounded-full bg-gradient-to-br from-electric-azure/20 to-core-blue/20 flex items-center justify-center border border-electric-azure/30">
-              <Rocket className="w-6 h-6 text-electric-azure" />
-            </div>
-          </motion.div>
+          {/* Scroll Hint */}
+          <div className="flex justify-center mt-4 md:hidden">
+            <p className="text-xs text-cloud-mist/40 flex items-center gap-1">
+              <ArrowRight className="w-3 h-3" />
+              Scroll to explore
+            </p>
+          </div>
         </div>
       </Section>
 
