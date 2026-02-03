@@ -130,10 +130,11 @@ export default function RTX6000AdaPage() {
 
                   <div className="relative aspect-[4/3] w-full">
                     <Image
-                      src="/images/nvidia-rtx-6000.png"
+                      src="https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/rtx-6000/nvidia-rtx-6000-702-p@2x.png"
                       alt="NVIDIA RTX 6000 Ada"
                       fill
                       className="object-contain p-4"
+                      unoptimized
                     />
                   </div>
 

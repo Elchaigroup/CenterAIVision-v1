@@ -131,10 +131,11 @@ export default function RTX4080Page() {
 
                   <div className="relative aspect-[4/3] w-full">
                     <Image
-                      src="/images/nvidia-rtx-4080.png"
+                      src="https://www.nvidia.com/content/dam/en-zz/Solutions/geforce/ada/rtx-4080-super/geforce-ada-4080-702-p@2x.png"
                       alt="NVIDIA GeForce RTX 4080"
                       fill
                       className="object-contain p-4"
+                      unoptimized
                     />
                   </div>
 

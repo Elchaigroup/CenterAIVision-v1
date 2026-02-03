@@ -129,10 +129,11 @@ export default function HGXPage() {
 
                   <div className="relative aspect-[4/3] w-full">
                     <Image
-                      src="/images/nvidia-hgx.png"
+                      src="https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/hgx/nvidia-hgx-702-p@2x.png"
                       alt="NVIDIA HGX Platform"
                       fill
                       className="object-contain p-4"
+                      unoptimized
                     />
                   </div>
 

@@ -131,10 +131,11 @@ export default function RTXPro6000Page() {
 
                   <div className="relative aspect-[4/3] w-full">
                     <Image
-                      src="/images/nvidia-rtx-pro-6000.png"
+                      src="https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/rtx-6000/nvidia-rtx-6000-702-p@2x.png"
                       alt="NVIDIA RTX PRO 6000 Server"
                       fill
                       className="object-contain p-4"
+                      unoptimized
                     />
                   </div>
 

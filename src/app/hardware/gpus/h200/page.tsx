@@ -130,10 +130,11 @@ export default function H200Page() {
 
                   <div className="relative aspect-[4/3] w-full">
                     <Image
-                      src="/images/nvidia-h200.png"
+                      src="https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/h200/h200-sxm-702-p@2x.png"
                       alt="NVIDIA H200 Tensor Core GPU"
                       fill
                       className="object-contain p-4"
+                      unoptimized
                     />
                   </div>
 

@@ -130,10 +130,11 @@ export default function DGXH100Page() {
 
                   <div className="relative aspect-[4/3] w-full">
                     <Image
-                      src="/images/nvidia-dgx-h100.png"
+                      src="https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/dgx-h100/nvidia-dgx-702-p@2x.png"
                       alt="NVIDIA DGX H100"
                       fill
                       className="object-contain p-4"
+                      unoptimized
                     />
                   </div>
 

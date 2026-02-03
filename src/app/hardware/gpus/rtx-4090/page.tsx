@@ -131,10 +131,11 @@ export default function RTX4090Page() {
 
                   <div className="relative aspect-[4/3] w-full">
                     <Image
-                      src="/images/nvidia-rtx-4090.png"
+                      src="https://www.nvidia.com/content/dam/en-zz/Solutions/geforce/ada/rtx-4090/geforce-ada-4090-702-p@2x.png"
                       alt="NVIDIA GeForce RTX 4090"
                       fill
                       className="object-contain p-4"
+                      unoptimized
                     />
                   </div>
 
