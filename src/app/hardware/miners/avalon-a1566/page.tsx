@@ -143,7 +143,7 @@ export default function AvalonA1566Page() {
 
                   <div className="relative aspect-[4/3] w-full">
                     <Image
-                      src="https://asicmarketplace.com/wp-content/uploads/2024/08/Canaan-Avalon-A1566.webp"
+                      src="https://res.cloudinary.com/dluwgr5op/image/upload/e_background_removal/e_trim/c_limit,w_3840/f_auto/q_85/sbvjysji3pf3yw905t0i"
                       alt={`${minerData.brand} ${minerData.name}`}
                       fill
                       className="object-contain p-4"

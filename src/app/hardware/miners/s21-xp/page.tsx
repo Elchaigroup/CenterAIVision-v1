@@ -143,7 +143,7 @@ export default function S21XPPage() {
 
                   <div className="relative aspect-[4/3] w-full">
                     <Image
-                      src="https://asicmarketplace.com/wp-content/uploads/2024/06/Bitmain-Antminer-S21-XP.webp"
+                      src="https://bitmars.io/wp-content/uploads/2025/03/BITMAIN-Antminer-S21-XP-270T-BTC-Miner.jpg"
                       alt={`${minerData.brand} ${minerData.name}`}
                       fill
                       className="object-contain p-4"

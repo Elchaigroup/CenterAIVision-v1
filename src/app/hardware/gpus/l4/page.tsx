@@ -130,7 +130,7 @@ export default function L4Page() {
 
                   <div className="relative aspect-[4/3] w-full">
                     <Image
-                      src="https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/l4/nvidia-ada-702-p@2x.png"
+                      src="https://d2vfia6k6wrouk.cloudfront.net/productimages/f8ba18e3-c163-4bd4-b679-afd300cbce8d/images/l4_front.png"
                       alt="NVIDIA L4 Tensor Core GPU"
                       fill
                       className="object-contain p-4"

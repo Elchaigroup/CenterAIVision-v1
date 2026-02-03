@@ -130,7 +130,7 @@ export default function H100Page() {
 
                   <div className="relative aspect-[4/3] w-full">
                     <Image
-                      src="https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/h100/nvidia-h100-sxm-702-p@2x.png"
+                      src="https://d2vfia6k6wrouk.cloudfront.net/productimages/80b0c505-efb7-4af7-bb04-af2300fccbaa/images/h100-pci-e-3qtr-right-reverse.png"
                       alt="NVIDIA H100 GPU"
                       fill
                       className="object-contain p-4"

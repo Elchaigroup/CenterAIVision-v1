@@ -130,7 +130,7 @@ export default function B200Page() {
 
                   <div className="relative aspect-[4/3] w-full">
                     <Image
-                      src="https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/b200/nvidia-b200-702-p@2x.png"
+                      src="https://d2vfia6k6wrouk.cloudfront.net/3b4a3d6d-a9f1-454d-8b09-64d56a428f40/image+library/professional/lp-dgx-b200/img-b200-pny-nvidia.jpg"
                       alt="NVIDIA B200 GPU"
                       fill
                       className="object-contain p-4"
