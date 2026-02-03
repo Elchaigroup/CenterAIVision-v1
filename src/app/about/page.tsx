@@ -331,123 +331,98 @@ export default function AboutPage() {
       </Section>
 
       {/* Company Journey Timeline Section */}
-      <Section className="relative overflow-hidden">
+      <Section className="relative">
         <SectionHeader
           eyebrow="Our Journey"
           title="Company Timeline"
           subtitle="From foundation to global expansion — our path to becoming a leader in AI infrastructure"
         />
 
-        {/* Horizontal Timeline */}
+        {/* Horizontal Timeline - Fits in viewport */}
         <div className="relative">
-          {/* Scrollable Container */}
-          <div className="overflow-x-auto pb-4 -mx-4 px-4 scrollbar-hide">
-            <div className="relative min-w-max">
-              {/* Horizontal Line */}
-              <div className="absolute top-8 left-0 right-0 h-0.5 bg-gradient-to-r from-electric-azure/10 via-electric-azure/40 to-electric-azure/10" />
+          {/* Horizontal Line */}
+          <div className="absolute top-6 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-electric-azure/40 to-transparent" />
 
-              {/* Timeline Items */}
-              <div className="flex gap-4 md:gap-6">
-                {journeyTimeline.map((item, index) => (
-                  <motion.div
-                    key={item.year}
-                    className="relative flex flex-col items-center w-[200px] md:w-[220px] flex-shrink-0"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                  >
-                    {/* Year Badge */}
-                    <motion.div
-                      className={`relative z-10 w-16 h-16 rounded-full flex items-center justify-center text-sm font-bold border-2 transition-all duration-300 cursor-pointer ${
-                        item.status === 'completed'
-                          ? 'bg-electric-azure/20 border-electric-azure text-electric-azure'
-                          : item.status === 'current'
-                          ? 'bg-positive/20 border-positive text-positive'
-                          : 'bg-card-bg border-cloud-mist/30 text-cloud-mist/60'
-                      }`}
-                      whileHover={{ scale: 1.15, y: -4 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                    >
-                      {item.status === 'current' && (
-                        <span className="absolute inset-0 rounded-full bg-positive/30 animate-ping" />
-                      )}
-                      <span className="relative">{item.year}</span>
-                    </motion.div>
-
-                    {/* Content Card */}
-                    <motion.div
-                      className="mt-6 w-full group"
-                      whileHover={{ y: -4 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                    >
-                      <Card
-                        className={`relative h-full transition-all duration-300 border ${
-                          item.status === 'completed'
-                            ? 'border-electric-azure/20 hover:border-electric-azure/40 hover:shadow-lg hover:shadow-electric-azure/10'
-                            : item.status === 'current'
-                            ? 'border-positive/20 hover:border-positive/40 hover:shadow-lg hover:shadow-positive/10'
-                            : 'border-cloud-mist/10 hover:border-cloud-mist/20'
-                        }`}
-                        hover={false}
-                      >
-                        <CardContent className="p-4">
-                          {/* Status Badge */}
-                          <div className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium mb-2 ${
-                            item.status === 'completed'
-                              ? 'bg-electric-azure/10 text-electric-azure'
-                              : item.status === 'current'
-                              ? 'bg-positive/10 text-positive'
-                              : 'bg-cloud-mist/10 text-cloud-mist/50'
-                          }`}>
-                            {item.status === 'completed' && <CheckCircle2 className="w-2.5 h-2.5" />}
-                            {item.status === 'current' && <Zap className="w-2.5 h-2.5" />}
-                            {item.status === 'upcoming' && <Target className="w-2.5 h-2.5" />}
-                            {item.status === 'completed' ? 'Completed' : item.status === 'current' ? 'In Progress' : 'Upcoming'}
-                          </div>
-
-                          {/* Title */}
-                          <h3 className={`text-sm font-semibold mb-1.5 leading-tight ${
-                            item.status === 'upcoming' ? 'text-cloud-mist/60' : 'text-cloud-mist'
-                          }`}>
-                            {item.title}
-                          </h3>
-
-                          {/* Description */}
-                          <p className={`text-xs leading-relaxed line-clamp-3 ${
-                            item.status === 'upcoming' ? 'text-cloud-mist/40' : 'text-cloud-mist/50'
-                          }`}>
-                            {item.description}
-                          </p>
-                        </CardContent>
-                      </Card>
-                    </motion.div>
-                  </motion.div>
-                ))}
-
-                {/* Future Indicator */}
+          {/* Timeline Items - Grid that fits all */}
+          <div className="grid grid-cols-3 md:grid-cols-6 gap-3 md:gap-4">
+            {journeyTimeline.map((item, index) => (
+              <motion.div
+                key={item.year}
+                className="relative flex flex-col items-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.08 }}
+              >
+                {/* Year Badge */}
                 <motion.div
-                  className="relative flex flex-col items-center w-[100px] flex-shrink-0"
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.6 }}
+                  className={`relative z-10 w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center text-xs md:text-sm font-bold border-2 transition-all duration-300 cursor-pointer ${
+                    item.status === 'completed'
+                      ? 'bg-electric-azure/20 border-electric-azure text-electric-azure'
+                      : item.status === 'current'
+                      ? 'bg-positive/20 border-positive text-positive'
+                      : 'bg-card-bg border-cloud-mist/30 text-cloud-mist/60'
+                  }`}
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 15 }}
                 >
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-electric-azure/10 to-core-blue/10 flex items-center justify-center border border-electric-azure/20">
-                    <Rocket className="w-5 h-5 text-electric-azure/60" />
-                  </div>
-                  <p className="mt-4 text-xs text-cloud-mist/40 text-center">And beyond...</p>
+                  {item.status === 'current' && (
+                    <span className="absolute inset-0 rounded-full bg-positive/30 animate-ping" />
+                  )}
+                  <span className="relative">{item.year}</span>
                 </motion.div>
-              </div>
-            </div>
-          </div>
 
-          {/* Scroll Hint */}
-          <div className="flex justify-center mt-4 md:hidden">
-            <p className="text-xs text-cloud-mist/40 flex items-center gap-1">
-              <ArrowRight className="w-3 h-3" />
-              Scroll to explore
-            </p>
+                {/* Content Card */}
+                <motion.div
+                  className="mt-4 w-full group"
+                  whileHover={{ y: -2 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                >
+                  <Card
+                    className={`relative h-full transition-all duration-300 border ${
+                      item.status === 'completed'
+                        ? 'border-electric-azure/20 hover:border-electric-azure/40'
+                        : item.status === 'current'
+                        ? 'border-positive/20 hover:border-positive/40'
+                        : 'border-cloud-mist/10 hover:border-cloud-mist/20'
+                    }`}
+                    hover={false}
+                  >
+                    <CardContent className="p-3">
+                      {/* Status Badge */}
+                      <div className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[9px] md:text-[10px] font-medium mb-1.5 ${
+                        item.status === 'completed'
+                          ? 'bg-electric-azure/10 text-electric-azure'
+                          : item.status === 'current'
+                          ? 'bg-positive/10 text-positive'
+                          : 'bg-cloud-mist/10 text-cloud-mist/50'
+                      }`}>
+                        {item.status === 'completed' && <CheckCircle2 className="w-2 h-2 md:w-2.5 md:h-2.5" />}
+                        {item.status === 'current' && <Zap className="w-2 h-2 md:w-2.5 md:h-2.5" />}
+                        {item.status === 'upcoming' && <Target className="w-2 h-2 md:w-2.5 md:h-2.5" />}
+                        <span className="hidden sm:inline">
+                          {item.status === 'completed' ? 'Completed' : item.status === 'current' ? 'In Progress' : 'Upcoming'}
+                        </span>
+                      </div>
+
+                      {/* Title */}
+                      <h3 className={`text-[11px] md:text-xs font-semibold mb-1 leading-tight ${
+                        item.status === 'upcoming' ? 'text-cloud-mist/60' : 'text-cloud-mist'
+                      }`}>
+                        {item.title}
+                      </h3>
+
+                      {/* Description - Hidden on mobile */}
+                      <p className={`hidden md:block text-[10px] leading-relaxed line-clamp-2 ${
+                        item.status === 'upcoming' ? 'text-cloud-mist/40' : 'text-cloud-mist/50'
+                      }`}>
+                        {item.description}
+                      </p>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </Section>
