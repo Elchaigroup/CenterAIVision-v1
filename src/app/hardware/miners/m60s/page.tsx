@@ -143,10 +143,11 @@ export default function M60SPage() {
 
                   <div className="relative aspect-[4/3] w-full">
                     <Image
-                      src="/images/whatsminer-m60s.png"
+                      src="https://asicmarketplace.com/wp-content/uploads/2024/03/MicroBT-Whatsminer-M60S.webp"
                       alt={`${minerData.brand} ${minerData.name}`}
                       fill
                       className="object-contain p-4"
+                      unoptimized
                     />
                   </div>
 

@@ -143,10 +143,11 @@ export default function SealminerA2Page() {
 
                   <div className="relative aspect-[4/3] w-full">
                     <Image
-                      src="/images/sealminer-a2.png"
+                      src="https://www.yourbtcminer.com/wp-content/uploads/2024/12/Bitdeer-Sealminer-A2.png"
                       alt={`${minerData.brand} ${minerData.name}`}
                       fill
                       className="object-contain p-4"
+                      unoptimized
                     />
                   </div>
 

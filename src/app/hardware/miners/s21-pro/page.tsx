@@ -143,10 +143,11 @@ export default function S21ProPage() {
 
                   <div className="relative aspect-[4/3] w-full">
                     <Image
-                      src="/images/antminer-s21-pro.png"
+                      src="https://asicmarketplace.com/wp-content/uploads/2024/07/Bitmain-Antminer-S21-Pro.webp"
                       alt={`${minerData.brand} ${minerData.name}`}
                       fill
                       className="object-contain p-4"
+                      unoptimized
                     />
                   </div>
 
