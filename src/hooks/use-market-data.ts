@@ -9,6 +9,7 @@ export function useMarketData() {
   const [data, setData] = useState<MarketData>({
     btc: null,
     eth: null,
+    nvda: null,
     stock: null,
     sp500: null,
     nasdaq: null,

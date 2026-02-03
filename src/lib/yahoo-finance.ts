@@ -12,6 +12,7 @@ export interface QuoteData {
 export interface MarketData {
   btc: QuoteData | null
   eth: QuoteData | null
+  nvda: QuoteData | null
   stock: QuoteData | null
   sp500: QuoteData | null
   nasdaq: QuoteData | null
@@ -36,6 +37,7 @@ export async function fetchMarketData(): Promise<Omit<MarketData, 'isLoading'>> 
     return {
       btc: data.btc,
       eth: data.eth,
+      nvda: data.nvda,
       stock: data.stock,
       sp500: data.sp500,
       nasdaq: data.nasdaq,
@@ -47,6 +49,7 @@ export async function fetchMarketData(): Promise<Omit<MarketData, 'isLoading'>> 
     return {
       btc: null,
       eth: null,
+      nvda: null,
       stock: null,
       sp500: null,
       nasdaq: null,

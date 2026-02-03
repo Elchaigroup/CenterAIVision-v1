@@ -54,6 +54,13 @@ export async function GET() {
         regularMarketChangePercent: cryptoData.ethereum.usd_24h_change,
       } : null,
       // Static stock/index data (would need paid API for real data)
+      nvda: {
+        symbol: 'NVDA',
+        shortName: 'NVIDIA',
+        regularMarketPrice: 118.42,
+        regularMarketChange: 2.15,
+        regularMarketChangePercent: 1.85,
+      },
       stock: {
         symbol: 'MARA',
         shortName: 'Marathon Digital',
@@ -97,6 +104,13 @@ export async function GET() {
         regularMarketPrice: 3420,
         regularMarketChange: 45,
         regularMarketChangePercent: 1.33,
+      },
+      nvda: {
+        symbol: 'NVDA',
+        shortName: 'NVIDIA',
+        regularMarketPrice: 118.42,
+        regularMarketChange: 2.15,
+        regularMarketChangePercent: 1.85,
       },
       stock: null,
       sp500: null,

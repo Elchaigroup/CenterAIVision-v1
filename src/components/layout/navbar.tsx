@@ -111,7 +111,7 @@ interface NavbarProps {
 
 export function Navbar({ onSignInClick, onSignUpClick }: NavbarProps) {
   const { isAuthenticated, user, signOut } = useAuth()
-  const { btc, eth, isLoading } = useMarket()
+  const { btc, nvda, isLoading } = useMarket()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
@@ -180,21 +180,21 @@ export function Navbar({ onSignInClick, onSignUpClick }: NavbarProps) {
                   <span className="text-cloud-mist font-semibold">$--</span>
                 )}
               </div>
-              {/* ETH Price - Hidden on smaller screens */}
+              {/* NVIDIA Price - Hidden on smaller screens */}
               <div className="hidden lg:flex items-center px-3 py-1.5 bg-card-bg/80 rounded-full text-sm backdrop-blur-sm">
-                <span className="text-electric-azure/80 mr-2 font-medium">ETH</span>
+                <span className="text-electric-azure/80 mr-2 font-medium">NVDA</span>
                 {isLoading ? (
                   <span className="text-cloud-mist/50 animate-pulse">...</span>
-                ) : eth ? (
+                ) : nvda ? (
                   <>
                     <span className="text-cloud-mist font-semibold">
-                      ${eth.regularMarketPrice.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+                      ${nvda.regularMarketPrice.toLocaleString(undefined, { maximumFractionDigits: 2 })}
                     </span>
                     <span className={cn(
                       'ml-1.5 text-xs',
-                      eth.regularMarketChange >= 0 ? 'text-positive' : 'text-negative'
+                      nvda.regularMarketChange >= 0 ? 'text-positive' : 'text-negative'
                     )}>
-                      {eth.regularMarketChange >= 0 ? '+' : ''}{eth.regularMarketChangePercent.toFixed(1)}%
+                      {nvda.regularMarketChange >= 0 ? '+' : ''}{nvda.regularMarketChangePercent.toFixed(1)}%
                     </span>
                   </>
                 ) : (
