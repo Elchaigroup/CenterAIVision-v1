@@ -10,10 +10,10 @@ import { formatCurrency } from '@/lib/utils'
 const minerData = {
   name: 'Antminer S21 XP Hyd',
   brand: 'Bitmain',
-  price: 9800,
-  monthlyProfit: 1580,
-  roiMonths: 6.2,
-  annualROI: 193,
+  price: 7200,
+  monthlyProfit: 1280,
+  roiMonths: 5.6,
+  annualROI: 213,
   location: 'USA (Texas)',
   revenueShare: '75% Owner / 25% Platform',
 }

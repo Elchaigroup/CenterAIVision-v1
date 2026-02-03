@@ -10,10 +10,10 @@ import { formatCurrency } from '@/lib/utils'
 const minerData = {
   name: 'Avalon A1566',
   brand: 'Canaan',
-  price: 4800,
-  monthlyProfit: 720,
-  roiMonths: 6.7,
-  annualROI: 180,
+  price: 4385,
+  monthlyProfit: 610,
+  roiMonths: 7.2,
+  annualROI: 167,
   location: 'Iceland',
   revenueShare: '75% Owner / 25% Platform',
 }

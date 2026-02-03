@@ -10,10 +10,10 @@ import { formatCurrency } from '@/lib/utils'
 const minerData = {
   name: 'Sealminer A2',
   brand: 'Bitdeer',
-  price: 4600,
-  monthlyProfit: 850,
-  roiMonths: 5.4,
-  annualROI: 222,
+  price: 3890,
+  monthlyProfit: 710,
+  roiMonths: 5.5,
+  annualROI: 219,
   location: 'USA (Texas)',
   revenueShare: '75% Owner / 25% Platform',
 }

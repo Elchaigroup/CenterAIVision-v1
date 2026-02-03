@@ -10,10 +10,10 @@ import { formatCurrency } from '@/lib/utils'
 const minerData = {
   name: 'Whatsminer M60S',
   brand: 'MicroBT',
-  price: 5200,
-  monthlyProfit: 780,
-  roiMonths: 6.7,
-  annualROI: 180,
+  price: 3580,
+  monthlyProfit: 590,
+  roiMonths: 6.1,
+  annualROI: 198,
   location: 'USA (Oregon)',
   revenueShare: '75% Owner / 25% Platform',
 }

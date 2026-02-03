@@ -10,10 +10,10 @@ import { formatCurrency } from '@/lib/utils'
 const minerData = {
   name: 'Antminer S23',
   brand: 'Bitmain',
-  price: 6200,
-  monthlyProfit: 1120,
-  roiMonths: 5.5,
-  annualROI: 217,
+  price: 4990,
+  monthlyProfit: 920,
+  roiMonths: 5.4,
+  annualROI: 221,
   location: 'USA (Oregon)',
   revenueShare: '75% Owner / 25% Platform',
 }
