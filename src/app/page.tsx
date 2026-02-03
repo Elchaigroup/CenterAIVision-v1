@@ -5,7 +5,6 @@ import { FadeIn, Reveal } from '@/components/ui/animations'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { GradientBlinds } from '@/components/ui/gradient-blinds'
-import { KPIStrip } from '@/components/sections/kpi-strip'
 import { TradingViewTicker } from '@/components/sections/tradingview-ticker'
 import { MiningCard } from '@/components/sections/mining-card'
 import { GPUComputeCard } from '@/components/sections/gpu-card'
@@ -105,8 +104,39 @@ export default function HomePage() {
       {/* Live Market Ticker */}
       <TradingViewTicker />
 
-      {/* KPI Strip */}
-      <KPIStrip />
+      {/* Why Choose Us Strip */}
+      <Reveal>
+        <section className="bg-card-bg/80 backdrop-blur-sm border-y border-electric-azure/10">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              <FadeIn delay={0}>
+                <div className="text-center p-4">
+                  <div className="text-3xl md:text-4xl font-bold text-electric-azure mb-1">24/7</div>
+                  <div className="text-sm text-cloud-mist/60">Support & Monitoring</div>
+                </div>
+              </FadeIn>
+              <FadeIn delay={100}>
+                <div className="text-center p-4">
+                  <div className="text-3xl md:text-4xl font-bold text-electric-azure mb-1">99.9%</div>
+                  <div className="text-sm text-cloud-mist/60">Uptime Guarantee</div>
+                </div>
+              </FadeIn>
+              <FadeIn delay={200}>
+                <div className="text-center p-4">
+                  <div className="text-3xl md:text-4xl font-bold text-electric-azure mb-1">Instant</div>
+                  <div className="text-sm text-cloud-mist/60">Activation</div>
+                </div>
+              </FadeIn>
+              <FadeIn delay={300}>
+                <div className="text-center p-4">
+                  <div className="text-3xl md:text-4xl font-bold text-electric-azure mb-1">Secure</div>
+                  <div className="text-sm text-cloud-mist/60">Enterprise Infrastructure</div>
+                </div>
+              </FadeIn>
+            </div>
+          </div>
+        </section>
+      </Reveal>
 
       {/* Cloud Mining Preview */}
       <section className="py-20">
