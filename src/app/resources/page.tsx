@@ -70,9 +70,9 @@ const resources = [
 
 const stats = [
   { value: '99.9%', label: 'Uptime Guarantee' },
-  { value: '36 EH/s', label: 'Mining Hashrate' },
   { value: '24/7', label: 'Support Available' },
-  { value: '85K+', label: 'Active Miners' },
+  { value: 'Instant', label: 'Activation' },
+  { value: 'Secure', label: 'Enterprise Infrastructure' },
 ]
 
 export default function ResourcesPage() {
